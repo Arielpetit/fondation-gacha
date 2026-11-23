@@ -22,6 +22,13 @@ export const Media: CollectionConfig = {
     },
     { name: 'caption', label: 'Légende', type: 'text', localized: true },
     { name: 'credit', label: 'Crédit photo', type: 'text' },
+    {
+      // Original WordPress file URL, used to de-duplicate imports.
+      name: 'legacyUrl',
+      type: 'text',
+      index: true,
+      admin: { hidden: true },
+    },
   ],
   upload: {
     mimeTypes: ['image/*', 'application/pdf', 'video/mp4'],

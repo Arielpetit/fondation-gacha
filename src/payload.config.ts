@@ -1,12 +1,23 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { redirectsPlugin } from '@payloadcms/plugin-redirects'
+import { seoPlugin } from '@payloadcms/plugin-seo'
+import { en } from '@payloadcms/translations/languages/en'
+import { fr } from '@payloadcms/translations/languages/fr'
 import path from 'path'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
+import { isStaff } from './access/roles'
+import { Activities } from './collections/Activities'
+import { Partners, PressItems, Reports, Residents, Rooms, TeamMembers } from './collections/Directory'
 import { Media } from './collections/Media'
+import { Pages } from './collections/Pages'
+import { Posts } from './collections/Posts'
+import { Tags, Themes } from './collections/Taxonomies'
 import { Users } from './collections/Users'
+import { contentEditor } from './fields/richText'
+import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -22,7 +33,22 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [
+    Posts,
+    Pages,
+    Activities,
+    Media,
+    Themes,
+    Tags,
+    TeamMembers,
+    Residents,
+    Partners,
+    Rooms,
+    PressItems,
+    Reports,
+    Users,
+  ],
+  globals: [SiteSettings],
   localization: {
     locales: [
       { code: 'fr', label: 'Français' },
@@ -31,10 +57,12 @@ export default buildConfig({
     defaultLocale: 'fr',
     fallback: true,
   },
+  // Admin interface in French by default; each user can switch to English in their account.
   i18n: {
     fallbackLanguage: 'fr',
+    supportedLanguages: { fr, en },
   },
-  editor: lexicalEditor(),
+  editor: contentEditor,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
@@ -45,5 +73,21 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    seoPlugin({
+      collections: ['posts', 'pages', 'activities'],
+      uploadsCollection: 'media',
+      tabbedUI: true,
+      generateTitle: ({ doc }) => `${doc?.title ?? ''} — Fondation Gacha`,
+      generateDescription: ({ doc }) => doc?.summary ?? doc?.hero?.intro ?? '',
+    }),
+    redirectsPlugin({
+      collections: ['posts', 'pages', 'activities'],
+      overrides: {
+        labels: { singular: 'Redirection', plural: 'Redirections' },
+        admin: { group: 'Administration' },
+        access: { read: () => true, create: isStaff, update: isStaff, delete: isStaff },
+      },
+    }),
+  ],
 })
