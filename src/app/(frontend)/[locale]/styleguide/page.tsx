@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { setRequestLocale } from 'next-intl/server'
+import { pageLocale } from '@/i18n/params'
 
 import { Counter, ImageReveal, Magnetic, Marquee, Parallax, Reveal, SplitText, Stagger, StaggerItem } from '@/components/motion'
 import { NdopDraw } from '@/components/ndop/NdopDraw'
@@ -35,8 +35,7 @@ const activities = [
 ]
 
 export default async function StyleguidePage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params
-  setRequestLocale(locale)
+  const locale = await pageLocale(params)
 
   return (
     <div className="pt-[var(--header-h)]">

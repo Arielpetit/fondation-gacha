@@ -17,8 +17,8 @@ import { contact, navigation, t, type NavItem } from '@/lib/site'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
-/** Routes whose first section is a dark full-bleed hero: header starts transparent with light text. */
-const OVERLAY_ROUTES = ['/']
+/** Every public page opens on a dark hero, so the header starts transparent with light text — except these. */
+const SOLID_ROUTES = ['/styleguide']
 
 export function SiteHeader() {
   const pathname = usePathname()
@@ -70,7 +70,7 @@ export function SiteHeader() {
     closeTimer.current = setTimeout(() => setOpen(null), 160)
   }, [])
 
-  const overlay = OVERLAY_ROUTES.includes(pathname) && !scrolled && !open
+  const overlay = !SOLID_ROUTES.includes(pathname) && !scrolled && !open
   const solid = !overlay
 
   return (

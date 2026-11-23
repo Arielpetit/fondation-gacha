@@ -82,7 +82,7 @@ export function NewsCard({
   featured?: boolean
   className?: string
 }) {
-  const formatted = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric' }).format(
+  const formatted = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
     new Date(date),
   )
 
@@ -121,6 +121,7 @@ export function EventCard({
   end,
   place,
   category,
+  label,
   locale = 'fr',
   className,
 }: {
@@ -128,15 +129,19 @@ export function EventCard({
   title: string
   start: string
   end?: string
+  /** Pre-formatted date text; computed from start/end when omitted. */
+  label?: string
   place?: string
   category?: string
   locale?: string
   className?: string
 }) {
   const s = new Date(start)
-  const day = new Intl.DateTimeFormat(locale, { day: '2-digit' }).format(s)
-  const month = new Intl.DateTimeFormat(locale, { month: 'short' }).format(s).replace('.', '')
-  const range = end
+  const day = new Intl.DateTimeFormat(locale, { day: '2-digit', timeZone: 'UTC' }).format(s)
+  const month = new Intl.DateTimeFormat(locale, { month: 'short', timeZone: 'UTC' }).format(s).replace('.', '')
+  const range = label
+    ? label
+    : end
     ? new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long' }).formatRange(s, new Date(end))
     : new Intl.DateTimeFormat(locale, { weekday: 'long', day: 'numeric', month: 'long' }).format(s)
 
