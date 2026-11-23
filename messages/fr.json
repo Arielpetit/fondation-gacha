@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "title": "Fondation Jean-Félicien Gacha — Bangoulap, Cameroun",
+    "description": "ONG à caractère social, culturel et humanitaire à Bangoulap (Ouest-Cameroun) : éducation, formation professionnelle, artisanat, culture, santé, environnement et tourisme solidaire."
+  },
+  "nav": {
+    "foundation": "La Fondation",
+    "actions": "Nos actions",
+    "news": "Actualités",
+    "stay": "Séjourner",
+    "support": "Soutenir",
+    "resources": "Ressources",
+    "maison": "Maison Gacha",
+    "contact": "Contact",
+    "donate": "Faire un don",
+    "overview": "Vue d’ensemble",
+    "close": "Fermer le menu",
+    "switchLocale": "English"
+  },
+  "footer": {
+    "tagline": "Il faut aider les autres, écouter les autres, respecter les autres… et surtout aimer les autres.",
+    "about": "ONG à caractère social, culturel et humanitaire fondée par Ly Dumas à Bangoulap, en mémoire de son père Jean-Félicien Gacha.",
+    "newsletterTitle": "Recevez notre lettre d’information",
+    "newsletterLabel": "Votre adresse e-mail",
+    "newsletterPlaceholder": "Votre adresse e-mail",
+    "newsletterSubmit": "S’inscrire",
+    "newsletterSuccess": "Merci ! Votre inscription est bien prise en compte.",
+    "rights": "Tous droits réservés",
+    "legal": "Mentions légales"
+  },
+  "home": {
+    "tagline": "La reconnaissance de l'autre et de ses valeurs",
+    "intro": "Depuis Bangoulap, sur les hauts plateaux de l'Ouest-Cameroun, la Fondation Jean-Félicien Gacha éveille les vocations, développe les talents et diffuse la connaissance.",
+    "discover": "Découvrir la Fondation",
+    "support": "Nous soutenir",
+    "comingSoon": "Nouveau site en construction"
+  }
+}

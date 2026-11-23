@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "title": "Jean-Félicien Gacha Foundation — Bangoulap, Cameroon",
+    "description": "A social, cultural and humanitarian NGO in Bangoulap, West Cameroon: education, vocational training, crafts, culture, health, environment and community tourism."
+  },
+  "nav": {
+    "foundation": "The Foundation",
+    "actions": "Our work",
+    "news": "News",
+    "stay": "Stay",
+    "support": "Support us",
+    "resources": "Resources",
+    "maison": "Maison Gacha",
+    "contact": "Contact",
+    "donate": "Donate",
+    "overview": "Overview",
+    "close": "Close menu",
+    "switchLocale": "Français"
+  },
+  "footer": {
+    "tagline": "We must help others, listen to others, respect others… and above all, love others.",
+    "about": "A social, cultural and humanitarian NGO founded by Ly Dumas in Bangoulap, in memory of her father Jean-Félicien Gacha.",
+    "newsletterTitle": "Get our newsletter",
+    "newsletterLabel": "Your email address",
+    "newsletterPlaceholder": "Your email address",
+    "newsletterSubmit": "Subscribe",
+    "newsletterSuccess": "Thank you! You are now subscribed.",
+    "rights": "All rights reserved",
+    "legal": "Legal notice"
+  },
+  "home": {
+    "tagline": "Recognising others and their values",
+    "intro": "From Bangoulap, in the highlands of West Cameroon, the Jean-Félicien Gacha Foundation nurtures vocations, develops talent and shares knowledge.",
+    "discover": "Discover the Foundation",
+    "support": "Support us",
+    "comingSoon": "New website under construction"
+  }
+}
