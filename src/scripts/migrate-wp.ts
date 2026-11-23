@@ -187,7 +187,11 @@ async function run() {
     if (!plain(html) && target.to === 'maison-gacha' && maisonPost) html = maisonPost.content.rendered
     const content = await convert(html, meta.title)
     const firstImage = html.match(/<img[^>]+src="([^"]+)"/)?.[1]
-    const image = firstImage ? await media.fromUrl(firstImage, meta.title) : null
+    const image = firstImage
+      ? await media.fromUrl(firstImage, meta.title)
+      : meta.coverUrl
+        ? await media.fromUrl(meta.coverUrl, meta.title)
+        : null
     const intro = summarize(html.split(/<\/p>/)[0] ?? '', 240)
 
     if (target.kind === 'activity') {

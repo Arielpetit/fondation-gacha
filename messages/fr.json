@@ -154,6 +154,15 @@
     "hubSupport": "Soutenir la Fondation",
     "hubSupportText": "Don, adhésion, partenariat ou bénévolat : rejoignez celles et ceux qui font vivre la Fondation.",
     "hubResources": "Ressources",
-    "hubResourcesText": "Presse, films, podcasts, bilans d’activités et publications de la Fondation."
+    "hubResourcesText": "Presse, films, podcasts, bilans d’activités et publications de la Fondation.",
+    "join": "Adhérer",
+    "legalPublisher": "Éditeur",
+    "legalPublisherText": "Ce site est édité par l’ONG Fondation Jean-Félicien Gacha, Bangoulap (Ouest-Cameroun).",
+    "legalHosting": "Hébergement",
+    "legalHostingText": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.",
+    "legalData": "Données personnelles",
+    "legalDataText": "Les informations envoyées par e-mail ou par les formulaires servent uniquement à répondre à votre demande. Vous pouvez demander leur suppression à tout moment en écrivant à contact@fondationgacha.org. Le site n’utilise pas de cookies publicitaires.",
+    "legalCredits": "Crédits",
+    "legalCreditsText": "Photographies : Fondation Jean-Félicien Gacha et leurs auteurs. Motifs inspirés du Ndop, étoffe des Grassfields."
   }
 }

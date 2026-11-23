@@ -18,6 +18,22 @@ import { Tags, Themes } from './collections/Taxonomies'
 import { Users } from './collections/Users'
 import { contentEditor } from './fields/richText'
 import { SiteSettings } from './globals/SiteSettings'
+import { revalidateGlobal, revalidateOnChange, revalidateOnDelete } from './hooks/revalidate'
+import type { CollectionConfig, GlobalConfig } from 'payload'
+
+/** Public content: refresh the site cache after every change. */
+const withRevalidate = (c: CollectionConfig): CollectionConfig => ({
+  ...c,
+  hooks: {
+    ...c.hooks,
+    afterChange: [...(c.hooks?.afterChange ?? []), revalidateOnChange],
+    afterDelete: [...(c.hooks?.afterDelete ?? []), revalidateOnDelete],
+  },
+})
+const withRevalidateGlobal = (g: GlobalConfig): GlobalConfig => ({
+  ...g,
+  hooks: { ...g.hooks, afterChange: [...(g.hooks?.afterChange ?? []), revalidateGlobal] },
+})
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -34,21 +50,12 @@ export default buildConfig({
     },
   },
   collections: [
-    Posts,
-    Pages,
-    Activities,
-    Media,
-    Themes,
-    Tags,
-    TeamMembers,
-    Residents,
-    Partners,
-    Rooms,
-    PressItems,
-    Reports,
+    ...[Posts, Pages, Activities, Media, Themes, Tags, TeamMembers, Residents, Partners, Rooms, PressItems, Reports].map(
+      withRevalidate,
+    ),
     Users,
   ],
-  globals: [SiteSettings],
+  globals: [withRevalidateGlobal(SiteSettings)],
   localization: {
     locales: [
       { code: 'fr', label: 'Français' },

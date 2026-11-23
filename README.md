@@ -97,7 +97,7 @@ scripts/wp/                  export download scripts (fetch.mjs, fetch-extras.mj
 | 0 | Setup: Next.js, Payload, Postgres, Tailwind, i18n, security headers | done |
 | 1 | Design system: tokens, type, Ndop patterns, components, motion primitives (see `/styleguide`) | done |
 | 2 | Data model + WordPress migration (228 posts, 12 pages, 8 actions, 838 media, 253 redirects) | done |
-| 3 | Public pages | |
+| 3 | Public pages: homepage, news + agenda, actions, CMS pages with structured sections, hubs, old-URL redirects, 404, sitemap, ISR | done |
 | 4 | Forms, admin polish, live preview, roles | |
 | 5 | English content, SEO, performance and accessibility | |
 | 6 | QA, Vercel deploy, OVH DNS switch | |

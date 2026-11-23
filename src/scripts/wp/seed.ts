@@ -124,7 +124,7 @@ export const rooms: {
 ]
 
 /** Nicer titles for migrated pages (the old site used ALL CAPS titles). */
-export const PAGE_TITLES: Record<string, { title: string; eyebrow?: string; motif?: string; order?: number }> = {
+export const PAGE_TITLES: Record<string, { title: string; eyebrow?: string; motif?: string; order?: number; coverUrl?: string }> = {
   fondation: { title: 'Présentation', eyebrow: 'La Fondation' },
   'fondation/infrastructures': { title: 'Infrastructures', eyebrow: 'La Fondation' },
   'fondation/equipe': { title: 'Équipe & bénévoles', eyebrow: 'La Fondation' },
@@ -142,7 +142,13 @@ export const PAGE_TITLES: Record<string, { title: string; eyebrow?: string; moti
   'formation-professionnelle': { title: 'Formation professionnelle', motif: 'checker', order: 2 },
   artisanat: { title: 'Ateliers d’artisanat', motif: 'diamonds', order: 3 },
   culture: { title: 'Culture & équipements culturels', motif: 'moon', order: 4 },
-  residences: { title: 'Résidences d’artistes', motif: 'spider', order: 5 },
+  residences: {
+    title: 'Résidences d’artistes',
+    motif: 'spider',
+    order: 5,
+    // The old page had no image: use a resident's photo (Barbara Asei Dantoni, 2023).
+    coverUrl: 'https://www.fondationgacha.org/wp-content/uploads/2024/02/BANDJOUN-STATION-©Barbara-Asei-Dantoni.jpg',
+  },
   environnement: { title: 'Environnement & agriculture', motif: 'zigzag', order: 6 },
   'sante-social': { title: 'Santé & action sociale', motif: 'dots', order: 7 },
   'tourisme-solidaire': { title: 'Tourisme solidaire', motif: 'zigzag', order: 8 },

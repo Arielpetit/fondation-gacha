@@ -67,8 +67,8 @@ and West Cameroon earth tones.
 | 0 | Project setup | ✅ Done |
 | 1 | Design system | ✅ Done |
 | 2 | Content model + WordPress migration | ✅ Done |
-| 3 | Public pages | 🟡 In progress |
-| 4 | Forms, admin polish, live preview | ⏳ To do |
+| 3 | Public pages | ✅ Done |
+| 4 | Forms, admin polish, live preview | ⏳ Next |
 | 5 | English content, SEO, performance, accessibility | ⏳ To do |
 | 6 | QA, deployment, DNS switch | ⏳ To do |
 
@@ -148,37 +148,47 @@ Known gap: ~55 files from 2013–2014 return 404 on the old server and cannot be
 Checks: typecheck, lint, 7 Playwright e2e tests, 10 unit tests (date parsing, URL normalisation, slugs);
 admin screens reviewed by screenshot; `/api/users` returns 403 to the public.
 
-### Phase 3 — Public pages 🟡 In progress
+### Phase 3 — Public pages ✅
 **Goal:** the complete public website, driven by the CMS, in the new design.
 
-Done so far:
+Building blocks:
 - Data layer `src/lib/payload.ts` (cached queries with locale + FR fallback, media URL helpers, redirects lookup).
 - `RichText` renderer with site typography (`.prose-gacha`), responsive images, safe embeds (YouTube via
   youtube-nocookie, Vimeo, Facebook, Libsyn, Spotify; anything else becomes a link).
-- `PageHero` (dark hero with breadcrumbs, image or Ndop motif), `CmsImage` (focal point aware), post cards
-  (featured, standard, compact) and event rows.
-- **Homepage**: full-screen hero with parallax and split-text title, next/latest event chip, mission + aerial
-  photo + president's quote, animated key figures, "Nos actions" pinned horizontal scroll, news (featured + list),
-  agenda (when events are upcoming), Villa Boutanga feature with starting price, Ndop heritage section,
-  partner marquee, donation call to action.
-- Full FR/EN interface strings for all Phase 3 pages (`messages/*.json`), favicon, locale guard on pages.
+- `PageHero` (dark hero with breadcrumbs, image or Ndop motif), `CmsImage` (focal-point aware), post cards
+  (featured, standard, compact), event rows, share links, copy-to-clipboard fields.
+- Metadata helper (SEO tab → title/description/Open Graph, FR/EN alternates); JSON-LD on articles (NewsArticle / Event).
 
-Remaining:
-- **News**: `/actualites` (theme + year filters, pagination, upcoming events on top) and `/actualites/[slug]`
-  (hero, event dates/place, summary, rich text, share, related posts).
-- **Nos actions**: `/actions` index and `/actions/[slug]` (content, highlights, related news, other actions).
-- **CMS pages** via a catch-all route, with page-specific sections:
-  - `fondation/equipe` → team & volunteers grid; `fondation` → president's word;
-  - `sejourner/villa-boutanga` → rooms & prices, restaurant hours; `sejourner/visites` → visit prices, contacts;
-  - `soutenir/don` → bank transfer (copy), PayPal, receipt; `soutenir/adhesion` → membership cards & perks;
-  - `soutenir/partenaires` → partner grid; `ressources/bilans` → report downloads; `ressources/presse` → press;
-  - `actions/residences` → residents list.
-- **Hub pages**: `/sejourner`, `/soutenir`, `/ressources`; static pages `/contact`, `/soutenir/benevolat`,
-  `/ressources/publications`, `/mentions-legales`; `/sejourner/restaurant` → Villa page anchor.
-- **Old URLs**: catch-all checks the Redirections collection and issues 308 redirects.
-- 404 page, `sitemap.xml`, `robots.txt`, metadata from the SEO fields, Open Graph images.
-- Revalidation hooks so edits in the admin appear on the site immediately.
-- Verification: production build, e2e tests for each template, desktop + mobile screenshots.
+Pages:
+| Route | Content |
+|---|---|
+| `/` | Hero with parallax + split-text title and next/latest event chip; mission + aerial photo; president's quote; animated key figures; "Nos actions" pinned horizontal scroll; news (featured + compact list); agenda when events are upcoming; Villa Boutanga feature with starting price; Ndop heritage; partner marquee; donation call to action |
+| `/actualites` | Upcoming events, theme and year filters (links, no JS needed), result count, pagination |
+| `/actualites/[slug]` | Hero with cover, dates/place card, themes, share (Facebook, WhatsApp, email, copy), summary lead, rich text, related posts |
+| `/actions`, `/actions/[slug]` | Alternating editorial list with Ndop accents; detail with content, highlights, residents list (Résidences), related news, other actions |
+| CMS pages (catch-all) | `fondation`, `fondation/infrastructures`, `fondation/equipe` (team grid), `sejourner/villa-boutanga` (rooms + Villa contact), `sejourner/visites` (visit prices + contacts), `sejourner/boutique`, `soutenir/don` (IBAN/BIC copy, PayPal, receipt), `soutenir/adhesion` (membership cards), `soutenir/partenaires` (partner grid), `ressources/presse`, `ressources/bilans` (PDF downloads), `maison-gacha` |
+| Code-only pages | Hubs `/sejourner`, `/soutenir`, `/ressources`; `/contact` (contacts + OpenStreetMap), `/soutenir/benevolat`, `/ressources/publications`, `/mentions-legales`; `/sejourner/restaurant` → Villa page |
+| System | Styled 404, `sitemap.xml` (258 URLs with FR/EN alternates), `robots.txt`, favicon |
+
+Behaviour:
+- **Old URLs**: any unknown path is looked up in Redirections and answered with a permanent redirect
+  (e.g. `/activites/sante-et-social/` → `/actions/sante-social`, `/<post>/` → `/actualites/<post>`).
+- **Caching**: homepage and indexes revalidate every 10 min; detail pages are rendered on first visit and cached
+  (ISR, ~10 ms per cached hit in production); any change saved in the admin refreshes the site immediately
+  (`src/hooks/revalidate.ts`).
+- Header is transparent over every page's dark hero and turns solid on scroll.
+
+Checks: production build passes; typecheck and lint clean; **14 Playwright e2e tests** (homepage FR/EN, mobile menu,
+styleguide, news filters + pagination, article, actions, structured sections, old-URL redirects, 404, sitemap,
+admin) and **10 unit tests** pass; desktop (1440 px) and mobile (390 px) screenshots reviewed, no horizontal
+overflow, no console errors.
+
+Known limitations (planned for later phases):
+- English pages show French content until translations are entered (Phase 5); interface text is translated.
+- The newsletter field and the membership/donation buttons use email links until forms exist (Phase 4).
+- Some migrated pages still contain the old text alongside the new structured sections (e.g. the Villa room
+  list); editors can trim the old text in the admin.
+- Photos in `public/images/sg/` (hero, hubs) are taken from the old site; replace with new photography when available.
 
 ### Phase 4 — Forms, admin polish, live preview ⏳
 - Payload form builder: contact, Villa booking request, membership, volunteering; submissions inbox + email
@@ -187,7 +197,7 @@ Remaining:
 - Live preview and draft preview for posts, pages and actions.
 - Navigation and footer as editable globals (today in `src/lib/site.ts`).
 - Admin dashboard tweaks (quick links, recent posts), role review (editors cannot change bank details or users).
-- Donation page: copy-to-clipboard for IBAN, PayPal link; optional online card / Mobile Money payments.
+- Donation page: PayPal link (needs the URL in settings); optional online card / Mobile Money payments.
 
 ### Phase 5 — English, SEO, performance, accessibility ⏳
 - English translations of all content (machine draft + review), `hreflang` alternates, localized slugs if wanted.

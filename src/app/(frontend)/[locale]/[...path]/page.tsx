@@ -1,0 +1,337 @@
+import type { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
+import { notFound, permanentRedirect } from 'next/navigation'
+import type { ReactNode } from 'react'
+
+import { PostCard } from '@/components/content/PostCards'
+import {
+  ContactsSection,
+  DonationSection,
+  MembershipSection,
+  PartnersGrid,
+  PressList,
+  ReportsList,
+  RoomsSection,
+  TeamGrid,
+  VisitPrices,
+} from '@/components/content/sections'
+import { PageHero, type Crumb } from '@/components/layout/PageHero'
+import { CmsImage } from '@/components/media/CmsImage'
+import { Reveal, Stagger, StaggerItem } from '@/components/motion'
+import { RichText } from '@/components/RichText'
+import { Button } from '@/components/ui/Button'
+import { ArrowUpRight } from '@/components/ui/icons'
+import { Container, Section } from '@/components/ui/Section'
+import { pageLocale } from '@/i18n/params'
+import type { Locale } from '@/i18n/routing'
+import { Link } from '@/i18n/navigation'
+import { buildMetadata } from '@/lib/metadata'
+import {
+  findRedirect,
+  getPage,
+  getPartners,
+  getPosts,
+  getPress,
+  getReports,
+  getRooms,
+  getSettings,
+  getTeam,
+} from '@/lib/payload'
+import { navigation, t as l10n } from '@/lib/site'
+import type { Page } from '@/payload-types'
+
+export const revalidate = 600
+
+/** Rendered on first request, then cached (ISR) and refreshed by the CMS revalidation hooks. */
+export function generateStaticParams() {
+  return []
+}
+
+type Params = Promise<{ locale: string; path: string[] }>
+
+const SECTION_KEY: Record<string, 'foundation' | 'stay' | 'support' | 'resources'> = {
+  fondation: 'foundation',
+  sejourner: 'stay',
+  soutenir: 'support',
+  ressources: 'resources',
+}
+
+/** Images for hub cards (pages without their own hero image). */
+const HUB_IMAGES: Record<string, string> = {
+  '/sejourner/villa-boutanga': '/images/sg/villa-terrace.webp',
+  '/sejourner/restaurant': '/images/sg/jacaranda-restaurant.webp',
+  '/sejourner/boutique': '/images/sg/atelier-perlage.webp',
+  '/sejourner/visites': '/images/sg/site-aerial.webp',
+  '/soutenir/don': '/images/sg/school-donation.webp',
+  '/soutenir/adhesion': '/images/sg/case-sunset.webp',
+  '/soutenir/partenaires': '/images/sg/residence-alice.webp',
+  '/soutenir/benevolat': '/images/sg/atelier-perlage.webp',
+  '/ressources/presse': '/images/sg/ndop-textile.webp',
+  '/ressources/bilans': '/images/sg/school-donation.webp',
+  '/ressources/publications': '/images/sg/residence-barbara.webp',
+}
+
+const joinPath = (segments: string[]) => segments.map((s) => decodeURIComponent(s)).join('/')
+
+/** Breadcrumb trail for a nested path ("soutenir/don" → Soutenir). */
+async function crumbsFor(path: string): Promise<Crumb[]> {
+  const tn = await getTranslations('nav')
+  const [first, ...rest] = path.split('/')
+  const key = SECTION_KEY[first]
+  if (!key || rest.length === 0) return []
+  return [{ href: first === 'fondation' ? '/fondation' : `/${first}`, label: tn(key) }]
+}
+
+// ── Pages that exist only in code (hubs, contact, legal…) ───────────────────
+type Virtual = { title: string; eyebrow?: string; intro?: string; image?: string; body: () => Promise<ReactNode> }
+
+async function virtualPage(path: string, locale: Locale): Promise<Virtual | null> {
+  const t = await getTranslations('pages')
+  const tn = await getTranslations('nav')
+
+  const hub = (key: 'stay' | 'support' | 'resources', title: string, intro: string, image: string): Virtual => ({
+    title,
+    eyebrow: tn(key),
+    intro,
+    image,
+    body: async () => {
+      const item = navigation.find((n) => n.key === key)!
+      return (
+        <Section tone="ivory" spacing="md">
+          <Container>
+            <Stagger className="grid gap-4 sm:grid-cols-2">
+              {item.children!.map((c, i) => (
+                <StaggerItem key={c.href}>
+                  <Link href={c.href} className="group relative isolate flex aspect-[16/10] flex-col justify-end overflow-hidden rounded-sm bg-indigo-deep p-6 text-ivory sm:p-8">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={HUB_IMAGES[c.href] ?? '/images/sg/site-aerial.webp'}
+                      alt=""
+                      loading="lazy"
+                      className="absolute inset-0 -z-10 h-full w-full object-cover opacity-70 transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105"
+                    />
+                    <span className="absolute inset-0 -z-10 bg-gradient-to-t from-indigo-deep via-indigo-deep/40 to-transparent" />
+                    <span className="absolute top-6 left-6 font-display text-sm text-raffia sm:top-8 sm:left-8">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="font-display text-display-sm font-light">{l10n(c.label, locale)}</span>
+                    {c.description && <span className="mt-2 text-sm text-ivory/75">{l10n(c.description, locale)}</span>}
+                  </Link>
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </Container>
+        </Section>
+      )
+    },
+  })
+
+  switch (path) {
+    case 'sejourner':
+      return hub('stay', t('hubStay'), t('hubStayText'), '/images/sg/villa-terrace.webp')
+    case 'soutenir':
+      return hub('support', t('hubSupport'), t('hubSupportText'), '/images/sg/school-donation.webp')
+    case 'ressources':
+      return hub('resources', t('hubResources'), t('hubResourcesText'), '/images/sg/ndop-textile.webp')
+    case 'contact':
+      return {
+        title: t('contactTitle'),
+        eyebrow: tn('contact'),
+        intro: t('contactText'),
+        image: '/images/sg/site-aerial.webp',
+        body: async () => {
+          const settings = await getSettings(locale)
+          return (
+            <>
+              <ContactsSection settings={settings} />
+              <Section tone="ivory" spacing="none">
+                <div className="relative aspect-[16/9] w-full sm:aspect-[21/8]">
+                  <iframe
+                    title="Carte — Fondation Jean-Félicien Gacha, Bangoulap"
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=10.47%2C5.08%2C10.59%2C5.16&layer=mapnik&marker=5.12%2C10.53"
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full border-0 grayscale-[0.3]"
+                  />
+                </div>
+              </Section>
+            </>
+          )
+        },
+      }
+    case 'soutenir/benevolat':
+      return {
+        title: t('volunteerTitle'),
+        eyebrow: tn('support'),
+        intro: t('volunteerText'),
+        image: '/images/sg/atelier-perlage.webp',
+        body: async () => <ContactsSection settings={await getSettings(locale)} />,
+      }
+    case 'ressources/publications':
+      return {
+        title: t('publicationsTitle'),
+        eyebrow: tn('resources'),
+        intro: t('publicationsText'),
+        body: async () => {
+          const posts = await getPosts(locale, { theme: 'litterature', limit: 9 })
+          return (
+            <Section tone="ivory" spacing="md">
+              <Container>
+                <Stagger className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+                  {posts.docs.map((p) => (
+                    <StaggerItem key={p.id}>
+                      <PostCard post={p} locale={locale} />
+                    </StaggerItem>
+                  ))}
+                </Stagger>
+              </Container>
+            </Section>
+          )
+        },
+      }
+    case 'mentions-legales':
+      return {
+        title: t('legalTitle'),
+        body: async () => (
+          <Section tone="ivory" spacing="md">
+            <Container className="prose-gacha max-w-3xl">
+              <h2>{t('legalPublisher')}</h2>
+              <p>{t('legalPublisherText')}</p>
+              <h2>{t('legalHosting')}</h2>
+              <p>{t('legalHostingText')}</p>
+              <h2>{t('legalData')}</h2>
+              <p>{t('legalDataText')}</p>
+              <h2>{t('legalCredits')}</h2>
+              <p>{t('legalCreditsText')}</p>
+            </Container>
+          </Section>
+        ),
+      }
+    default:
+      return null
+  }
+}
+
+// ── Sections appended to CMS pages, by path ─────────────────────────────────
+async function extraSections(path: string, locale: Locale): Promise<ReactNode> {
+  switch (path) {
+    case 'fondation/equipe':
+      return <TeamGrid team={(await getTeam(locale)).docs} />
+    case 'sejourner/villa-boutanga':
+      return <RoomsSection rooms={(await getRooms(locale)).docs} settings={await getSettings(locale)} />
+    case 'sejourner/visites': {
+      const settings = await getSettings(locale)
+      return (
+        <>
+          <VisitPrices settings={settings} />
+          <ContactsSection settings={settings} />
+        </>
+      )
+    }
+    case 'soutenir/don':
+      return <DonationSection settings={await getSettings(locale)} />
+    case 'soutenir/adhesion':
+      return <MembershipSection settings={await getSettings(locale)} />
+    case 'soutenir/partenaires':
+      return <PartnersGrid partners={(await getPartners(locale)).docs} />
+    case 'ressources/bilans':
+      return <ReportsList reports={(await getReports(locale)).docs} />
+    case 'ressources/presse':
+      return <PressList items={(await getPress(locale)).docs} />
+    default:
+      return null
+  }
+}
+
+/** Pages whose CMS body is fully replaced by structured sections (avoid showing the old text twice). */
+const HIDE_BODY = new Set(['fondation/equipe', 'ressources/bilans', 'soutenir/adhesion', 'sejourner/visites'])
+
+/** Pages where the structured section is the main content and goes before the CMS text. */
+const EXTRA_FIRST = new Set(['soutenir/don'])
+
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const locale = await pageLocale(params)
+  const path = joinPath((await params).path)
+  const page = await getPage(locale, path)
+  if (page) {
+    return buildMetadata({ seo: page.meta, title: page.title, description: page.hero?.intro, image: page.hero?.image, path, locale })
+  }
+  const v = await virtualPage(path, locale)
+  return v ? buildMetadata({ title: v.title, description: v.intro, path, locale }) : {}
+}
+
+export default async function CatchAllPage({ params }: { params: Params }) {
+  const locale = await pageLocale(params)
+  const path = joinPath((await params).path)
+
+  if (path === 'sejourner/restaurant') permanentRedirect('/sejourner/villa-boutanga#restaurant')
+
+  const page: Page | null = await getPage(locale, path)
+  const crumbs = await crumbsFor(path)
+
+  if (!page) {
+    const v = await virtualPage(path, locale)
+    if (v) {
+      return (
+        <>
+          <PageHero eyebrow={v.eyebrow} title={v.title} intro={v.intro} imageSrc={v.image} crumbs={crumbs} />
+          {await v.body()}
+        </>
+      )
+    }
+    // Old WordPress URL? Send it to its new home.
+    const to = await findRedirect(path)
+    if (to) permanentRedirect(locale === 'en' && to.startsWith('/') ? `/en${to}` : to)
+    notFound()
+  }
+
+  const extra = await extraSections(path, locale)
+  const showBody = !HIDE_BODY.has(path)
+  const portrait = path === 'fondation' ? page.hero?.image : null
+
+  return (
+    <>
+      <PageHero
+        eyebrow={page.hero?.eyebrow ?? undefined}
+        title={page.title}
+        intro={page.hero?.intro ?? undefined}
+        image={portrait ? undefined : page.hero?.image}
+        imageSrc={portrait ? '/images/sg/site-aerial.webp' : undefined}
+        crumbs={crumbs}
+      />
+      {EXTRA_FIRST.has(path) && extra}
+      {showBody && (
+        <Section tone="ivory" spacing="md">
+          <Container className="grid gap-12 lg:grid-cols-12">
+            {portrait && typeof portrait === 'object' && (
+              <Reveal className="lg:col-span-4">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-sm lg:sticky lg:top-28">
+                  <CmsImage media={portrait} sizes="(min-width: 1024px) 30vw, 100vw" />
+                </div>
+              </Reveal>
+            )}
+            <div className={portrait ? 'min-w-0 lg:col-span-7 lg:col-start-6' : 'min-w-0 lg:col-span-8 lg:col-start-3'}>
+              <RichText data={page.content as never} />
+              {path === 'maison-gacha' && (
+                <div className="mt-12">
+                  <Button href="https://maisongacha.fr/" external arrow>
+                    maisongacha.fr
+                  </Button>
+                </div>
+              )}
+            </div>
+          </Container>
+        </Section>
+      )}
+      {!EXTRA_FIRST.has(path) && extra}
+      {path === 'sejourner/villa-boutanga' && <span id="restaurant" className="sr-only" />}
+      {path === 'maison-gacha' && (
+        <Section tone="sand" spacing="sm">
+          <Container className="flex items-center gap-2 text-sm text-muted">
+            <ArrowUpRight className="size-4" />
+            <a href="https://espaceculturelgacha.org/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
+              espaceculturelgacha.org
+            </a>
+          </Container>
+        </Section>
+      )}
+    </>
+  )
+}

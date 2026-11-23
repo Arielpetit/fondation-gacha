@@ -20,6 +20,11 @@ import type { Theme } from '@/payload-types'
 
 export const revalidate = 600
 
+/** Rendered on first request, then cached (ISR) and refreshed by the CMS revalidation hooks. */
+export function generateStaticParams() {
+  return []
+}
+
 type Params = Promise<{ locale: string; slug: string }>
 
 type LexNode = { text?: string; children?: LexNode[] }

@@ -154,6 +154,15 @@
     "hubSupport": "Support the Foundation",
     "hubSupportText": "Donation, membership, partnership or volunteering: join the people who keep the Foundation alive.",
     "hubResources": "Resources",
-    "hubResourcesText": "Press, films, podcasts, activity reports and the Foundation’s publications."
+    "hubResourcesText": "Press, films, podcasts, activity reports and the Foundation’s publications.",
+    "join": "Join",
+    "legalPublisher": "Publisher",
+    "legalPublisherText": "This website is published by the NGO Fondation Jean-Félicien Gacha, Bangoulap (West Cameroon).",
+    "legalHosting": "Hosting",
+    "legalHostingText": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA.",
+    "legalData": "Personal data",
+    "legalDataText": "Information sent by email or through the forms is only used to answer your request. You can ask for it to be deleted at any time by writing to contact@fondationgacha.org. The site uses no advertising cookies.",
+    "legalCredits": "Credits",
+    "legalCreditsText": "Photographs: Fondation Jean-Félicien Gacha and their authors. Patterns inspired by Ndop, the cloth of the Grassfields."
   }
 }
