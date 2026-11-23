@@ -189,6 +189,22 @@ export const getRooms = list('rooms', 'order')
 export const getReports = list('reports', '-year')
 export const getPress = list('press', '-date')
 
+/** True when a localized rich-text field has its own English version (not the French fallback). */
+export const hasOwnTranslation = cache(
+  async (collection: 'posts' | 'pages' | 'activities', id: number, locale: Locale): Promise<boolean> => {
+    if (locale === 'fr') return true
+    const doc = (await (await payload()).findByID({
+      collection,
+      id,
+      locale,
+      fallbackLocale: false,
+      depth: 0,
+      select: { content: true },
+    })) as { content?: { root?: { children?: unknown[] } } | null }
+    return Boolean(doc.content?.root?.children?.length)
+  },
+)
+
 // ── Forms ───────────────────────────────────────────────────────────────────
 export const getForm = cache(async (locale: Locale, slug: string) => {
   const res = await (await payload()).find({

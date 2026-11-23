@@ -1,0 +1,13 @@
+[
+  { "collection": "pages", "id": 1, "fields": { "hero.intro": "Le mot de la présidente, les valeurs et les missions de la Fondation Jean-Félicien Gacha." } },
+  { "collection": "pages", "id": 2, "fields": { "hero.intro": "Centre des Cultures JLD, auditorium, bibliothèque, collection, jardin botanique et cases patrimoniales : les lieux de la Fondation à Bangoulap." } },
+  { "collection": "pages", "id": 3, "fields": { "hero.intro": "Les femmes et les hommes qui font vivre la Fondation au quotidien, et les bénévoles qui les accompagnent." } },
+  { "collection": "pages", "id": 4, "fields": { "hero.intro": "Créations des ateliers de perlage, de couture et de ferronnerie de la Fondation, à découvrir et à acquérir sur place." } },
+  { "collection": "pages", "id": 5, "fields": { "hero.intro": "Vingt-six chambres et suites au cœur des collines de Bangoulap, et la table du restaurant Le Jacaranda." } },
+  { "collection": "pages", "id": 6, "fields": { "hero.intro": "Accès libre au site tous les jours de 9h à 17h, visites guidées de la collection et parcours dans toute la région." } },
+  { "collection": "pages", "id": 7, "fields": { "hero.intro": "Votre don est orienté vers l’action de votre choix : éducation, formation, culture, santé ou environnement." } },
+  { "collection": "pages", "id": 8, "fields": { "hero.intro": "Institutions, associations, universités et musées : ils accompagnent la Fondation au Cameroun et en France." } },
+  { "collection": "pages", "id": 9, "fields": { "hero.intro": "Dossier de presse, films et podcasts pour découvrir la Fondation Jean-Félicien Gacha." } },
+  { "collection": "pages", "id": 10, "fields": { "hero.intro": "Consultez les bilans d’activités et découvrez les nombreuses actions menées les années précédentes au sein de la Fondation." } },
+  { "collection": "pages", "id": 11, "fields": { "hero.intro": "Trois cartes de membre pour accéder librement à la bibliothèque, au cinéma et aux activités, et participer à la vie de la Fondation." } }
+]

@@ -11,7 +11,9 @@ import { SiteHeader } from '@/components/layout/SiteHeader'
 import { PreviewBar } from '@/components/preview/PreviewBar'
 import { SmoothScroll } from '@/components/SmoothScroll'
 import { routing } from '@/i18n/routing'
+import { JsonLd, organizationLd, websiteLd } from '@/lib/jsonLd'
 import { getNavigation } from '@/lib/navigation'
+import { getSettings } from '@/lib/payload'
 import '../styles.css'
 
 const fraunces = Fraunces({
@@ -44,8 +46,15 @@ export async function generateMetadata({
     metadataBase: new URL(base),
     title: { default: t('title'), template: `%s — Fondation Gacha` },
     description: t('description'),
-    alternates: { languages: { fr: '/', en: '/en' } },
-    openGraph: { siteName: 'Fondation Jean-Félicien Gacha', locale },
+    alternates: { canonical: locale === 'en' ? '/en' : '/', languages: { fr: '/', en: '/en', 'x-default': '/' } },
+    openGraph: {
+      siteName: 'Fondation Jean-Félicien Gacha',
+      locale: locale === 'en' ? 'en_GB' : 'fr_FR',
+      alternateLocale: locale === 'en' ? 'fr_FR' : 'en_GB',
+      type: 'website',
+    },
+    twitter: { card: 'summary_large_image' },
+    formatDetection: { telephone: false },
   }
 }
 
@@ -59,12 +68,13 @@ export default async function LocaleLayout({
   const { locale } = await params
   if (!hasLocale(routing.locales, locale)) notFound()
   setRequestLocale(locale)
-  const nav = await getNavigation(locale)
+  const [nav, settings] = await Promise.all([getNavigation(locale), getSettings(locale)])
   const { isEnabled: preview } = await draftMode()
 
   return (
     <html lang={locale} className={`${fraunces.variable} ${inter.variable}`}>
       <body className="min-h-dvh">
+        <JsonLd data={[organizationLd(settings, locale), websiteLd(locale)]} />
         <NextIntlClientProvider>
           <a
             href="#main"

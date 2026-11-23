@@ -26,6 +26,7 @@ import { Container, Section } from '@/components/ui/Section'
 import { pageLocale } from '@/i18n/params'
 import type { Locale } from '@/i18n/routing'
 import { Link } from '@/i18n/navigation'
+import { breadcrumbLd, JsonLd, lodgingLd } from '@/lib/jsonLd'
 import { buildMetadata } from '@/lib/metadata'
 import {
   findRedirect,
@@ -310,11 +311,22 @@ export default async function CatchAllPage({ params }: { params: Params }) {
   }
 
   const extra = await extraSections(path, locale)
+  const prefix = locale === 'en' ? '/en' : ''
+  const ld: object[] = [
+    breadcrumbLd([
+      ...crumbs.map((c) => ({ name: c.label, path: `${prefix}${c.href}` })),
+      { name: page.title, path: `${prefix}/${path}` },
+    ]),
+  ]
+  if (path === 'sejourner/villa-boutanga') {
+    ld.push(lodgingLd((await getRooms(locale)).docs, await getSettings(locale)))
+  }
   const showBody = !HIDE_BODY.has(path)
   const portrait = path === 'fondation' ? page.hero?.image : null
 
   return (
     <>
+      <JsonLd data={ld} />
       <PageHero
         eyebrow={page.hero?.eyebrow ?? undefined}
         title={page.title}

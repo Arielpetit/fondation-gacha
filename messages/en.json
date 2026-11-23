@@ -55,7 +55,8 @@
     "copied": "Copied",
     "notFoundTitle": "Page not found",
     "notFoundText": "This page does not exist or moved when the website was redesigned.",
-    "notFoundCta": "Back to home"
+    "notFoundCta": "Back to home",
+    "frenchOnly": "This article is only available in French. The title and summary have been translated."
   },
   "home": {
     "tagline": "Recognising others and their values",

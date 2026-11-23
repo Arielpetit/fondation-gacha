@@ -14,8 +14,9 @@ import { Tag } from '@/components/ui/Tag'
 import { pageLocale } from '@/i18n/params'
 import { Link } from '@/i18n/navigation'
 import { eventLabel, formatDate } from '@/lib/format'
+import { JsonLd } from '@/lib/jsonLd'
 import { buildMetadata } from '@/lib/metadata'
-import { getPost, getRelatedPosts } from '@/lib/payload'
+import { getPost, getRelatedPosts, hasOwnTranslation } from '@/lib/payload'
 import type { Theme } from '@/payload-types'
 
 export const revalidate = 600
@@ -61,7 +62,10 @@ export default async function PostPage({ params }: { params: Params }) {
   const t = await getTranslations('common')
   const tn = await getTranslations('nav')
   const tnews = await getTranslations('news')
-  const related = await getRelatedPosts(locale, post)
+  const [related, translated] = await Promise.all([
+    getRelatedPosts(locale, post),
+    hasOwnTranslation('posts', post.id, locale),
+  ])
   const themes = (post.themes ?? []).filter((x): x is Theme => typeof x === 'object')
   const when = post.eventStart ? eventLabel(post, locale) : null
   // Migrated posts often open with the summary text itself: don't print it twice.
@@ -82,11 +86,13 @@ export default async function PostPage({ params }: { params: Params }) {
         }
       : { headline: post.title, datePublished: post.publishedAt, dateModified: post.updatedAt }),
     description: post.summary ?? undefined,
+    image: post.cover && typeof post.cover === 'object' && post.cover.url ? [`${base}${post.cover.url.replace(/^https?:\/\/[^/]+/, '')}`] : undefined,
+    inLanguage: translated ? locale : 'fr',
   }
 
   return (
     <article>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
       <PageHero
         eyebrow={themes[0]?.title ?? tn('news')}
         title={post.title}
@@ -141,7 +147,15 @@ export default async function PostPage({ params }: { params: Params }) {
                 <p className="mb-10 font-display text-display-sm font-light text-balance text-ink">{post.summary}</p>
               </Reveal>
             )}
-            <RichText data={post.content as never} className="max-w-[44rem]" />
+            {!translated && (
+              <p className="mb-8 max-w-[44rem] rounded-sm border-l-2 border-terracotta bg-sand px-5 py-4 text-sm text-ink/80">
+                {t('frenchOnly')}
+              </p>
+            )}
+            {/* Untranslated body: tell assistive tech it is French. */}
+            <div lang={translated ? undefined : 'fr'}>
+              <RichText data={post.content as never} className="max-w-[44rem]" />
+            </div>
             <div className="mt-16 border-t border-line pt-8">
               <ArrowLink href="/actualites">{t('backToNews')}</ArrowLink>
             </div>

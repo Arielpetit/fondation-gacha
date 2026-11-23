@@ -55,7 +55,8 @@
     "copied": "Copié",
     "notFoundTitle": "Page introuvable",
     "notFoundText": "Cette page n’existe pas ou a été déplacée lors de la refonte du site.",
-    "notFoundCta": "Retour à l’accueil"
+    "notFoundCta": "Retour à l’accueil",
+    "frenchOnly": "Cet article n’est disponible qu’en français."
   },
   "home": {
     "tagline": "La reconnaissance de l'autre et de ses valeurs",

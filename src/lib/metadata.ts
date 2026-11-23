@@ -35,7 +35,7 @@ export function buildMetadata({
     // SEO titles from the plugin already end with "— Fondation Gacha".
     title: seo?.title ? { absolute: seo.title } : title,
     description: desc,
-    alternates: { canonical: locale === 'en' ? en : fr, languages: { fr, en } },
+    alternates: { canonical: locale === 'en' ? en : fr, languages: { fr, en, 'x-default': fr } },
     openGraph: {
       type,
       title: seo?.title || title,

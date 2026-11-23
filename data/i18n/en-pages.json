@@ -1,0 +1,711 @@
+[
+ {
+  "collection": "pages",
+  "id": 1,
+  "fields": {
+   "title": "About us",
+   "hero.eyebrow": "The Foundation",
+   "hero.intro": "A word from the president, and the values and mission of the Jean-Félicien Gacha Foundation.",
+   "content": [
+    "A word from the president",
+    "Dear friends,\nDear friends,",
+    "The Jean-Félicien Gacha Foundation is a non-governmental organisation working in Cameroon to nurture vocations, develop talent and share knowledge. It draws on the generous spirit of my father, Jean-Félicien Gacha, who lived by a phrase that is dear to me: we must help others, listen to others, respect others, heal others… and above all, love others.",
+    "We work in five main areas: education and training, culture and crafts, health and social action, environment and farming, and community tourism. In everything we do, we are committed to sharing knowledge, encouraging know-how and passing it on, so that people can grow. We will be delighted to welcome you to the Jean-Félicien Gacha Foundation, to discover and share all of our activities.\nWelcome to our website!",
+    "Ly Dumas\nPresident of the Foundation",
+    "Portrait of Ly Dumas, President of the NGO Jean-Félicien Gacha Foundation.",
+    "Values, mission and objectives",
+    "The Jean-Félicien Gacha Foundation stands 1,500 metres above sea level on the heights of the village of Bangoulap, near the town of Bangangté, in West Cameroon. This region is known as the “Grassland” because of its green and fertile land.",
+    "A non-profit organisation, it was created in 2002 to carry on the work of Jean-Félicien Gacha (1922–1972), senior civil servant, great builder, francophile and upright patriot. Throughout his life he showed a deep humanism, helping his fellow citizens to learn and to develop.",
+    "Portrait of Jean-Félicien Gacha.",
+    "Since 26 February 2014, the Foundation has held NGO status, granted by Cameroon’s Ministry of Territorial Administration and Decentralisation (MINATD).",
+    "View of the facilities of the NGO Jean-Félicien Gacha Foundation, 2017.",
+    "The Foundation’s vision is to “nurture vocations and develop talent”.",
+    "Its work in Cameroon brings this vision to life. It is organised around three families of objectives: HEAD, HAND and HEART.",
+    "HEAD: sharing knowledge",
+    "– Promoting culture and traditional knowledge",
+    "HAND: encouraging know-how",
+    "– Encouraging education and training",
+    "– Teaching young people to be versatile",
+    "HEART: helping people grow",
+    "– Supporting social action for community development",
+    "– Working for living together through intercultural exchange",
+    "The Foundation employs committed people, recruited to bring its many activities to life.",
+    "The Foundation invests (buildings and equipment, passing on donated materials) and supports community projects (volunteer missions, work in the general interest, and more)."
+   ]
+  }
+ },
+ {
+  "collection": "pages",
+  "id": 2,
+  "fields": {
+   "title": "Facilities",
+   "hero.eyebrow": "The Foundation",
+   "hero.intro": "The JLD Culture Centre, auditorium, library, collection, botanical garden and heritage huts: the Foundation’s spaces in Bangoulap.",
+   "content": [
+    "The JLD Culture Centre",
+    "The JLD Culture Centre is the main building of the Jean-Félicien Gacha Foundation. It was built to pass on knowledge in many fields to younger generations, with high-quality facilities. A gift from the Arstarté gallery was essential to its completion.",
+    "The JLD Culture Centre offers training in its workshops. It is also a meeting place for young people who want to enjoy its facilities and programme, on their own or with their school.",
+    "View of the JLD Culture Centre and its workshops.",
+    "The auditorium",
+    "The heart of the JLD Culture Centre, the auditorium hosts lectures, debates, performances, concerts and film screenings.",
+    "The Harth library",
+    "The library was built in 2012 thanks to a gift from Mr and Mrs Harth. It offers everyone a large collection of books – general literature, children’s books, school books… – many of them given by donors.",
+    "The computer room",
+    "The computer room is open to everyone. Computer training is also offered.",
+    "The Ly and Frédéric Dumas Collection",
+    "An exhibition space showcases objects, costumes and traditional sculptures that bear witness to the richness and quality of craftsmanship, especially beadwork.",
+    "The multisports ground",
+    "Open to all members of the JLD Culture Centre, the sports ground overlooks the Foundation. It is the first step of a project to offer a complete sports facility.",
+    "The FOUDJEM children’s house",
+    "Opened in 2017, the main room of this building for young children was named “Salle Marcel et Ulo Zwingmann”, in tribute to the gift from the Zwingmann Foundation that made it possible. Its spaces and equipment are dedicated to children.",
+    "The botanical garden and the medicinal plants laboratory",
+    "A botanical garden and a laboratory with more than 420 plant varieties were created at the heart of the Foundation, for education – passing on knowledge –, for health – preparing therapeutic decoctions and herbal teas – and for conserving and protecting natural heritage.",
+    "The heritage huts",
+    "Examples of vernacular architecture have been rebuilt on the Foundation’s grounds to show past and present know-how that is disappearing. The traditional huts (Mousgoum, Bamiléké, Bororo) illustrate the architectural richness of Cameroon.",
+    "Exceptional aerial views of the Jean-Félicien Gacha Foundation, made at the initiative of a loyal member and friend of the Foundation."
+   ]
+  }
+ },
+ {
+  "collection": "pages",
+  "id": 3,
+  "fields": {
+   "title": "Team & volunteers",
+   "hero.eyebrow": "The Foundation",
+   "hero.intro": "The women and men who run the Foundation every day, and the volunteers who support them.",
+   "content": [
+    "Our team:",
+    "Jules Jacques Mde Moujefou",
+    "Elodie Tchouakui",
+    "Laurence Yogoum",
+    "Igénie Nomba Gniaye",
+    "Gilbert Wembe",
+    "Dominique Manga",
+    "Benjamin Campaore",
+    "Guillaume Yanga",
+    "Dieudonné Koudjo Djamen",
+    "Our volunteers:",
+    "Raoul Paul Etoko",
+    "Daryl Etoundi",
+    "Daniela Ulieriu",
+    "Rajesh Kumar",
+    "Elizabeth Ledoux",
+    "Solène Rolland Huckel"
+   ]
+  }
+ },
+ {
+  "collection": "pages",
+  "id": 4,
+  "fields": {
+   "title": "The shop",
+   "hero.eyebrow": "Stay",
+   "hero.intro": "Pieces from the Foundation’s beadwork, sewing and ironwork workshops, to discover and buy on site."
+  }
+ },
+ {
+  "collection": "pages",
+  "id": 5,
+  "fields": {
+   "title": "Villa Boutanga & Le Jacaranda restaurant",
+   "hero.eyebrow": "Stay",
+   "hero.intro": "Twenty-six rooms and suites in the hills of Bangoulap, and the table of Le Jacaranda restaurant.",
+   "content": [
+    "From Villa Boutanga, many discoveries are possible for culture lovers, food lovers and hikers… In particular, guided tours and visits of the Jean-Félicien Gacha Foundation and the JLD Culture Centre.",
+    "Rooms:",
+    "Twin room (2 single beds, shared toilets and showers on the landing), sleeps up to 2. 26,000 FCFA from 1 January 2024.",
+    "Double room (1 double bed, shared toilets and showers on the landing), sleeps up to 2. 26,000 FCFA from 1 January 2024.",
+    "Suites:",
+    "Fenga suite (one double bed, TV, bathroom), sleeps 2. 44,000 FCFA from 1 January 2024.",
+    "Junior suite (1 double bed / 1 single bed, private bathroom, TV), sleeps up to 3",
+    "2 guests: 38,000 FCFA from 1 January 2024.",
+    "3 guests: 46,000 FCFA from 1 January 2024.",
+    "Senior “business” suite (1 double bed, small lounge, desk, private bathroom, TV), sleeps up to 2. 46,000 FCFA from 1 January 2024.",
+    "Senior “family” suite (1 double bed, 2 single beds, private bathroom, TV), sleeps up to 4. 58,000 FCFA from 1 January 2024.",
+    "Parents’ suite (2 separate bedrooms, bathroom and TV on the parents’ side, 1 double bed, 1 bunk bed, 1 single bed), sleeps up to 5. 64,000 FCFA from 1 January 2024.",
+    "Boukarou suite in the “ambassador” wing: 1 double bed, shared lounge, kitchenette, sleeps up to 2. 78,000 FCFA from 1 January 2024.",
+    "LE JACARANDA RESTAURANT",
+    "Restaurant opening hours:",
+    "Breakfast: 7am – 10am",
+    "Lunch: 12pm – 3pm",
+    "Dinner: 7pm – 10pm"
+   ]
+  }
+ },
+ {
+  "collection": "pages",
+  "id": 6,
+  "fields": {
+   "title": "Visits & practical information",
+   "hero.eyebrow": "Stay",
+   "hero.intro": "Free access to the site every day from 9am to 5pm, guided tours of the collection and trips across the region.",
+   "content": [
+    "Access and opening hours",
+    " \nThe Foundation and its shop are open Monday to Sunday, 9am – 5pm",
+    "Contacts and bookings",
+    "Villa Boutanga:\nPhone: +237 695 85 60 95 / +237 650 07 02 35 / +237 683 66 02 02 / +237 697 82 06 28\nEmail: villa@fondationgacha.org",
+    " \nJLD Culture Centre:\nWilliam KUIHANE Phone: +237 670 23 35 95 / +237 656 57 16 05\nEmail: contact@fondationgacha.org",
+    " \nFoundation administration:\nDirector: Pierre TCHOMOBE\nPhone: +237 243 10 82 30 / +237 690 70 01 89\nEmail: contact@fondationgacha.org",
+    " \nDonations and volunteering:\nElodie TCHOUAKUI KETCHIAMEN\nPhone: +237 243 10 82 28 / +237 696 82 11 04\nEmail: Elodie.tchouakui@fondationgacha.org",
+    " \nVisitor services",
+    "Access to the Foundation’s grounds is free.",
+    "Visitors can follow a tour presenting the history and setting of the site, as well as the collection of traditional objects (open only on guided tours). The tour is charged as follows.",
+    "Guided tours of the Foundation and the Collection: prices",
+    "Tour and commentary by the Foundation’s cultural guide.",
+    ". Foreign visitor or expatriate: 2,000 FCFA per person",
+    ". Cameroonian resident: 1,000 FCFA per person",
+    ". Pupil / student: 500 FCFA per person",
+    ". Children up to 12: free",
+    ". Villa Boutanga guests: free",
+    "Group prices:",
+    "(A group is 10 to 15 visitors)",
+    ". Foreign visitor or expatriate: 1,500 FCFA per person",
+    ". Cameroonian resident: 750 FCFA per person",
+    ". Pupil / student: 250 FCFA per person",
+    ". Children up to 12: free",
+    ". Villa Boutanga guests: free",
+    "On request, guided cultural or walking tours\nare offered across the whole region, tailored to\nvisitors’ wishes, over one or several days, and can include transport and\nmeals."
+   ]
+  }
+ },
+ {
+  "collection": "pages",
+  "id": 7,
+  "fields": {
+   "title": "Donate",
+   "hero.eyebrow": "Support us",
+   "hero.intro": "Your donation goes to the work of your choice: education, training, culture, health or the environment.",
+   "content": [
+    "Make a financial donation to the Foundation",
+    " \nThe Foundation will direct your donation to one of its activities, according to your wishes. In return you will receive a membership card inviting you to the events organised by the Foundation.",
+    "By bank transfer:",
+    "IBAN: FR76 3000 4025 4900 0102 4828 802",
+    "BIC: BNPAFRPPXXX",
+    "By PayPal:",
+    "Donation coupon – Espace Culturel Gacha",
+    "Support a specific project",
+    " \nOur projects and fields of work are varied. If one of them\nespecially interests you, and you would like to offer\nyour time, money or equipment, please contact us.\nFor example: you work in sport – help us build our multisports ground and our children’s garden.\nFor example: you work in a travel agency – let’s work together on a partnership bringing visitors to Villa Boutanga.\nFor example: access to drinking water matters to you – donate to install water pumps that bring drinking water to the villages, or to plant trees.",
+    "Become a partner",
+    " \nWe work in many fields and are looking to develop partnerships in each of them: health, environment, education, training, culture and the arts.",
+    " \nJoin the Espace Culturel Gacha association – €30 (annual fee)",
+    "Join the association in France. You will receive invitations to the events we organise from Paris.",
+    "Buy the book Perles, Couleurs d’Afrique – €100",
+    " \nYou can buy the book Perles, couleurs d’Afrique (Beads, Colours of Africa); all profits go to the Espace Culturel Gacha to fund its activities. It is sold by the association for €100, membership included.",
+    " \nIt reveals the collections of beaded objects and the personal creations of its author, Ly Dumas. The book looks at the bead, its history, its symbolism and its central place in Africa in a poetic and aesthetic way.",
+    " \nPerles, couleurs d’Afrique is the first book devoted to Ly Dumas’s work and passion. This “art object” book tells the story of her passion for beads and reveals her collections and creations through photographs and texts by a specialist in the art of beadwork, Professor Jean-Paul Notué. It offers a deep and beautiful insight into the world of African craftsmanship.",
+    "Published by Gourcuff Gradenigo\nReleased in December 2009\nSize: 27 × 29 cm, about 200 pages\nBilingual French / English\nWith contributions from: Jean-Paul Notué, PhD in art history, anthropology and museology, who introduces each of the book’s three parts with a scholarly and aesthetic commentary. Francine Vormèse, journalist, who paints an original portrait of Ly Dumas in a delightful, lively text. Brigitte Gacha, PhD in literature, poet, author of Le Masque du Hibou. Her text Le dit de la perle tells, as a poetic tale, the story of the bead through the ages and its symbols.",
+    "OUR PARTNERS",
+    "MINEFOP (Cameroon’s Ministry of Employment and Vocational Training): the JLD Culture Centre is approved by MINEFOP\nfor the vocational training it provides. AGIR abcd (an association of retired volunteers working for cooperation and development): retired volunteers share their experience across the Foundation’s fields of work.",
+    "The French Institute of Cameroon: part of the network of French cultural institutions under the Ministry of Foreign Affairs, in Africa and around the world. The partnership allows the Foundation to host writers in residence at Villa Boutanga.",
+    " \nLa Route des Chefferies (museum, cultural and tourism programme): travellers can stop at the Foundation during its tours.",
+    "Université des Montagnes: an animal production unit has been made available to veterinary students. Many other projects are run with the university.",
+    "We have also worked with valued partners on one-off cultural events:",
+    " \nIAM Intense Art Magazine: Ly Dumas’s work is featured in the first issue dedicated to Cameroonian women; the Jean-Félicien Gacha Foundation took part in the exhibition held at the MAM gallery in Douala in October 2015.",
+    " \nLittle Africa: as part of its off-site cultural programme, Espace Culturel Gacha offers its members guided tours of Little Africa to discover Africa in Paris.",
+    " \nAfro-Polis: the Foundation has taken part in successive editions of this festival, which presents African culture in all its forms (crafts, design, literature, food…).",
+    " \nThe Musée du Quai Branly – Jacques Chirac, in Paris, when its audio guide was redesigned in 2011, with a commentary on the beaded statue of Queen Bansoa. Since 2017 the museum shop has also sold pieces from the Foundation’s craft workshops. The Foundation’s president is a member of the board of the Société des Amis du Musée du Quai Branly."
+   ]
+  }
+ },
+ {
+  "collection": "pages",
+  "id": 8,
+  "fields": {
+   "title": "Partners",
+   "hero.eyebrow": "Support us",
+   "hero.intro": "Institutions, associations, universities and museums: they support the Foundation in Cameroon and in France.",
+   "content": [
+    "MINEFOP (Cameroon’s Ministry of Employment and Vocational Training): the JLD Culture Centre is approved by MINEFOP\nfor the vocational training it provides. AGIR abcd (an association of retired volunteers working for cooperation and development): retired volunteers share their experience across the Foundation’s fields of work.",
+    "The French Institute of Cameroon: part of the network of French cultural institutions under the Ministry of Foreign Affairs, in Africa and around the world. The partnership allows the Foundation to host writers in residence at Villa Boutanga.",
+    " \nLa Route des Chefferies (museum, cultural and tourism programme): travellers can stop at the Foundation during its tours.",
+    "Université des Montagnes: an animal production unit has been made available to veterinary students. Many other projects are run with the university.",
+    "We have also worked with valued partners on one-off cultural events:",
+    " \nIAM Intense Art Magazine: Ly Dumas’s work is featured in the first issue dedicated to Cameroonian women; the Jean-Félicien Gacha Foundation took part in the exhibition held at the MAM gallery in Douala in October 2015.",
+    " \nLittle Africa: as part of its off-site cultural programme, Espace Culturel Gacha offers its members guided tours of Little Africa to discover Africa in Paris.",
+    " \nAfro-Polis: the Foundation has taken part in successive editions of this festival, which presents African culture in all its forms (crafts, design, literature, food…).",
+    " \nThe Musée du Quai Branly – Jacques Chirac, in Paris, when its audio guide was redesigned in 2011, with a commentary on the beaded statue of Queen Bansoa. Since 2017 the museum shop has also sold pieces from the Foundation’s craft workshops. The Foundation’s president is a member of the board of the Société des Amis du Musée du Quai Branly."
+   ]
+  }
+ },
+ {
+  "collection": "pages",
+  "id": 9,
+  "fields": {
+   "title": "Press & videos",
+   "hero.eyebrow": "Resources",
+   "hero.intro": "Press kit, films and podcasts to discover the Jean-Félicien Gacha Foundation.",
+   "content": [
+    "FJFG press kit – February 2022 (light version)",
+    "Official video of the Jean-Félicien Gacha Foundation, by director Francesca Church",
+    "The Jean-Félicien Gacha Foundation, by director Florent Lévy",
+    "Exceptional aerial views of the Jean-Félicien Gacha Foundation, made at the initiative of a loyal member and friend of the Foundation.",
+    "Podcast ‘Perles d’Afrique’ #1: Igénie Nomba, the art of beadwork",
+    "Length: 3 min 14",
+    "Produced by Bruno Reguet",
+    "> Listen and share on Spotify: https://spoti.fi/2LgPfu1",
+    "__",
+    "Transcript (translated from French):",
+    "“Let’s say it happened like a love story – I didn’t even know it was called a bead. I just saw beaded objects and loved them; I saw them in traditional settings. I liked them very much and often wanted to touch them, but people here often speak of mysticism around these objects, so we were afraid to touch them. So when I discovered this workshop in Bafoussam, I said to myself: well, ordinary people can work with beads. Since that day I have been working with beads, and I am growing old with them. In the past, to work with beads you had to be a craftsman of the King’s Court, for example; to make these traditional objects you had to live at the King’s Court. But now, whatever your social class, you can work with beads. I like religious music when I bead… gospel. We bead on everything: calabashes, canes, thrones, traditional fabrics, headdresses, sneakers, bracelets, traditional musical instruments too, and giant bracelets. Here we will work with white and blue beads, the colours of our traditional cloth, ndop, with the double-serpent motif generally used by the Bamoun people. Oh yes, it’s very meticulous work that takes a lot of patience, and really, if you’re not patient, as I said, you won’t manage. Now and then I think of breaking up this love story between the bead and me, but I can’t. I love it so much! And I believe it loves me too.”",
+    "Podcast ‘Perles d’Afrique’ #2: Gilbert Ouembe, the art of ironwork",
+    "Length: 3 min 09",
+    "Produced by Bruno Reguet",
+    "> Listen and share on Spotify: https://spoti.fi/2LgPfu1",
+    "__",
+    "Transcript (translated from French):",
+    "“I arrived in Bangoulap on 27 July 1998, still very young – even today I’m not very tall. I worked, made the plates, ran some errands. But little by little I kept feeling that there was something I had to develop. I always felt that I had to do something; I had the impression I was creating, but I didn’t yet know what – I had to create, I always felt inside that I must create. Madame Dumas had her great vision too; one day she said to me: Gilbert, you must do something, you must do something, you can do it. That is where the real encouragement came from, and from there came the idea of the figures, because I always loved drawing and always liked going to cultural places. Now I keep creating Bamiléké figures. I tried this figure and it works. I keep moving forward; today I can hardly keep count because I’ve made so many. There are paramount chiefs, notables, warriors, I mean, and their appearance is solemn, because when you see a figure like this one, the appearance is so solemn – no ceremony happens by chance. It’s true that when you see all these figures dressed in ndop, with the elephant mask, big special bracelets, belts, distinctions, it is not by chance. Paramount chiefs, sub-chiefs and great notables wear them, and only those who have earned them can wear them – they cannot be worn without being earned. Even if you are the richest, you will never wear that without having earned it. The Fo’o! The name I can give is “the king!”, Fo’o! There, Fo’o – in French you would say “His Majesty the King”, in the local language Fo’o; everything that is Fo’o, in the West, means “King”. When you see the bells everywhere under his mask, it symbolises his wealth – it means he is rich, a happy man, a happy king. He can gather bells all over, to be exceptional, exceptional.”",
+    "Podcast #3: Benjamin Campaoré and botany",
+    "Length: 2 min 19",
+    "Produced by Bruno Reguet",
+    "> Listen and share on Spotify: https://spoti.fi/2LgPfu1",
+    "__",
+    "Transcript (translated from French):",
+    "“We already have more than 400 species on the Foundation’s site, and we keep increasing the number by propagating them. These are plants with many virtues. My name is Benjamin Campaoré. I come from Burkina Faso and arrived in Cameroon five years ago. I came to develop projects on the healing properties of medicinal plants. My idea was to develop the herbal tea project with Lippia alba, also called ‘brisée’. Next comes hibiscus, called ‘bissap’. And so on – we will have quite a few herbal teas at the Foundation, which could help treat malaria, fatigue and many other things. The Foundation’s aim is to carry out this project so that people who don’t have enough means can treat themselves with natural plants they find around their homes – naturally – and also to pass on to others the knowledge I gained from my father. He is a herbalist; he learnt it from his own father. I am proud to share this knowledge at the Jean-Félicien Gacha Foundation, so that the knowledge of my grandfather and my father lives on and helps others live. And with this better life, as I say, it can keep moving forward forever, without end.”"
+   ]
+  }
+ },
+ {
+  "collection": "pages",
+  "id": 10,
+  "fields": {
+   "title": "Activity reports",
+   "hero.eyebrow": "Resources",
+   "hero.intro": "Read the activity reports and discover the many projects carried out at the Foundation in previous years.",
+   "content": [
+    "Read the activity reports and discover the many projects carried out at the Foundation in previous years.",
+    "Jean-Félicien Gacha Foundation report 2014",
+    "Jean-Félicien Gacha Foundation report 2015",
+    "Jean-Félicien Gacha Foundation report 2016",
+    "Jean-Félicien Gacha Foundation report 2017"
+   ]
+  }
+ },
+ {
+  "collection": "pages",
+  "id": 11,
+  "fields": {
+   "title": "Become a member",
+   "hero.eyebrow": "Support us",
+   "hero.intro": "Three membership cards giving free access to the library, cinema and activities, and a voice in the life of the Foundation.",
+   "content": [
+    "‘Benefactor’ membership card: 100,000 FCFA",
+    "‘Active’ membership card: 25,000 FCFA",
+    "‘Youth’ membership card: 2,000 FCFA for pupils and students, and 5,000 FCFA for non-students",
+    "Membership lets you:",
+    ". receive regular news of the activities offered by the NGO Jean-Félicien Gacha Foundation.",
+    ". use the library, cinema, occasional activities on the Foundation’s site, debates and lectures, and the various events on site for free.",
+    ". get discounts on guided tours and temporary events…",
+    ". take part in the projects of the JLD Culture Centre.",
+    ". submit any proposal or suggestion about an activity of the JLD Culture Centre or the Foundation.",
+    ". attend the Foundation’s General Assembly and support it in its missions when asked."
+   ]
+  }
+ },
+ {
+  "collection": "pages",
+  "id": 12,
+  "fields": {
+   "title": "Maison Gacha",
+   "hero.eyebrow": "Paris",
+   "hero.intro": "Maison Gacha is dedicated to preserving and promoting the craftsmanship and hand skills of Africa and beyond.",
+   "content": [
+    "Maison Gacha is dedicated to preserving and promoting the craftsmanship and hand skills of Africa and beyond. Its work covers both tangible and intangible heritage. Maison Gacha holds a private collection of African art. Open to the contemporary and respectful of tradition, it exhibits, publishes, creates and shares. Its mission is carried out through a cultural programme on site and beyond – exhibitions, talks, artist residencies and workshops. Maison Gacha has its roots in the Jean-Félicien Gacha Foundation, in Bangoulap, Cameroon.",
+    "Maison Gacha works with craftswomen and craftsmen from many backgrounds. It develops, supports and encourages research and contemporary creation. These makers work materials in all their forms: iron, wood, textile, beads, clay. Through its work, Maison Gacha embraces intercultural exchange and the sharing of knowledge.",
+    "Maison Gacha will open its doors in Paris in 2025!"
+   ]
+  }
+ },
+ {
+  "collection": "activities",
+  "id": 1,
+  "fields": {
+   "title": "Education",
+   "summary": "The Jean-Félicien Gacha Foundation gives teaching and material support to schools in the region, including distributing equipment generously given by its donors.",
+   "content": [
+    "The Jean-Félicien Gacha Foundation gives teaching and material support to schools in the region, including distributing equipment generously given by its donors.",
+    "School support",
+    " \nIt takes several forms.",
+    "The “Education for all” programme, set up to give a second chance to young people from Maka – the village next to the Foundation – who had dropped out of school, lets the Foundation help them catch up. Literacy classes for adults are also offered.",
+    " \nAs part of a partnership, students from the Université des Montagnes give extra tuition to pupils who need it, especially at exam time.\n",
+    "The schools of Maka and Manoré",
+    "Access to schooling in Cameroon is a real challenge, made harder by the fact that many children, especially in the Bororo community, have no birth certificate – which they need to sit exams.",
+    " \nMaka is one of the Foundation’s historic education sites. Donations from Réna and Jean-Louis Dumas were vital while its school was being built, and since it opened in 2005, hundreds of children have been taught there.",
+    " \nIn 2012, Maka primary school was handed over to the State (Ministry of Basic Education). It nevertheless remains under the Foundation’s protection, which continues to support its staff.",
+    "In 2014, the Foundation funded a new primary school in Manoré, allowing more than a hundred more children to go to school without travelling to Maka.",
+    " \nBy 2016, most children from Maka and Manoré had attended schools supported by the Foundation, and many of them completed primary school.",
+    "Thanks to the Jean-Félicien Gacha Foundation, Manoré has a primary school and a nursery school, with a head teacher who teaches all the classes.",
+    "In September 2018, Manoré’s nursery pupils started the school year in a brand-new building built for them. It was opened in the presence of families and the teams of the Jean-Félicien Gacha Foundation and Espace Culturel Gacha.",
+    "Other schools and nurseries in the region are not forgotten: the Foundation regularly helps them carry out their projects."
+   ]
+  }
+ },
+ {
+  "collection": "activities",
+  "id": 2,
+  "fields": {
+   "title": "Vocational training",
+   "summary": "All year round, the JLD Culture Centre runs short training courses that help young people gain professional, state-recognised skills, taught by volunteers from the French association AGIRabcd.",
+   "content": [
+    "All year round, the JLD Culture Centre runs short training courses. They help young people gain professional skills and access qualifying training. The courses are taught by volunteers from the French association AGIRabcd.",
+    "The JLD Centre is a private training centre (CPF-JLD). In 2010 the Foundation was approved by Cameroon’s Ministry of Employment and Vocational Training (MINEFOP). Its practical courses are therefore recognised by the State in the following trades: garment making, farming and livestock, secretarial and office skills, basketry, masonry, plumbing, woodwork, metalwork and beadwork."
+   ]
+  }
+ },
+ {
+  "collection": "activities",
+  "id": 3,
+  "fields": {
+   "title": "Craft workshops",
+   "summary": "The Foundation works to keep alive and pass on Cameroon’s culture and its artistic and technical know-how, through the craft workshops and cultural programme of the JLD Culture Centre.",
+   "content": [
+    "The Foundation works to keep alive and pass on Cameroon’s culture and its artistic and technical know-how. The JLD Culture Centre is very active in this field, through its craft workshops and cultural programme.",
+    "The beadwork workshop\nThe ironwork workshop\nThe sewing workshop\nThe carpentry workshop (framing)\nThe masonry workshop (rendering)"
+   ]
+  }
+ },
+ {
+  "collection": "activities",
+  "id": 4,
+  "fields": {
+   "title": "Culture & cultural facilities",
+   "summary": "The Foundation organises and hosts educational and cultural activities and opens its facilities to young people and local communities: film screenings, photography, poetry and storytelling workshops…",
+   "content": [
+    "The Foundation organises and hosts educational and cultural activities and opens its facilities to young people and local communities: film screenings, photography workshops, poetry and storytelling workshops for young children, Scrabble competitions…\n",
+    "Every July and August, the “Vacances Utiles” summer programme fills the Foundation with games and workshops for children and young people from the region."
+   ]
+  }
+ },
+ {
+  "collection": "activities",
+  "id": 5,
+  "fields": {
+   "title": "Artist residencies",
+   "summary": "With the French Institute of Cameroon or independently, the JLD Culture Centre hosts writers, sculptors, designers and painters at Villa Boutanga for their professional projects.",
+   "content": [
+    "With the French Institute of Cameroon or independently, the JLD Culture Centre hosts writers, sculptors, designers and painters at Villa Boutanga for their professional projects.",
+    "Talks or writing workshops are held at the JLD Culture Centre during their stay.\nJulien Blanc-Gras and Guillaume Jan, residents in 2017",
+    "Barbara Dantoni Asei, resident in 2023",
+    "Alice Ifergan Rey, resident in 2023",
+    "Pierre Christophe Gam, resident in 2021",
+    "Annick Kamga, resident in 2020",
+    "Cajou Matumbo, resident in 2016\nMaud Basan, resident in 2015\nArno Bertina, resident in 2014\nJoël Raffier, resident in 2014\nSami Tchak, resident in 2013"
+   ]
+  }
+ },
+ {
+  "collection": "activities",
+  "id": 6,
+  "fields": {
+   "title": "Environment & farming",
+   "summary": "The Foundation raises awareness of sustainable farming and runs training in agriculture and livestock.",
+   "content": [
+    "In the field of the environment, the Foundation raises awareness of sustainable farming and runs training in agriculture and livestock.",
+    " \nDeveloping crops and livestock",
+    " \nThe Foundation keeps a herd of dairy cows, aiming for a degree of food self-sufficiency and possibly to sell its farm produce."
+   ]
+  }
+ },
+ {
+  "collection": "activities",
+  "id": 7,
+  "fields": {
+   "title": "Health & social action",
+   "summary": "Discussion groups for women, awareness debates and donations of medical equipment to the region’s hospitals and health centres.",
+   "content": [
+    "Prevention and social action",
+    " \nThe JLD Culture Centre organises discussion groups for women, similar to family planning sessions. Planned by the Foundation or at the request of local partners, awareness debates are also held on topics such as girls’ education, early marriage, child nutrition and cholera.",
+    "Equipment support",
+    "Thanks to its network of partners and donors, the Foundation has for many years distributed medical equipment to the hospitals of the division and to the Bangoulap integrated health centre. These donations are often handed over at the General Assemblies."
+   ]
+  }
+ },
+ {
+  "collection": "activities",
+  "id": 8,
+  "fields": {
+   "title": "Community tourism",
+   "summary": "Villa Boutanga, the Foundation’s 26-room guesthouse in the hills, welcomes visitors to discover West Cameroon and its artistic, culinary and natural traditions.",
+   "content": [
+    "The Foundation runs a 26-room guesthouse: Villa Boutanga. Visitors enjoy a beautiful site in the heart of the hills, surrounded by nature, and discover West Cameroon and its artistic, culinary and landscape traditions… Since it opened, Villa Boutanga has welcomed thousands of visitors from around the world.\n",
+    "It has also allowed the Foundation to contribute to highlights of Cameroon’s cultural life: the Bangoulap Tour, a cultural hike promoting the sites of the Ndé region, and the Trail du Cameroun organised by the Club Sportif Automobile du Littoral…"
+   ]
+  }
+ },
+ {
+  "collection": "rooms",
+  "id": 1,
+  "fields": {
+   "name": "Twin room",
+   "description": "2 single beds, shared toilets and showers on the landing."
+  }
+ },
+ {
+  "collection": "rooms",
+  "id": 2,
+  "fields": {
+   "name": "Double room",
+   "description": "1 double bed, shared toilets and showers on the landing."
+  }
+ },
+ {
+  "collection": "rooms",
+  "id": 3,
+  "fields": {
+   "name": "Fenga suite",
+   "description": "One double bed, TV, bathroom."
+  }
+ },
+ {
+  "collection": "rooms",
+  "id": 4,
+  "fields": {
+   "name": "Junior suite",
+   "description": "1 double bed and 1 single bed, private bathroom, TV.",
+   "priceVariants": [
+    "2 guests",
+    "3 guests"
+   ]
+  }
+ },
+ {
+  "collection": "rooms",
+  "id": 5,
+  "fields": {
+   "name": "Senior “business” suite",
+   "description": "1 double bed, small lounge, desk, private bathroom, TV."
+  }
+ },
+ {
+  "collection": "rooms",
+  "id": 6,
+  "fields": {
+   "name": "Senior “family” suite",
+   "description": "1 double bed, 2 single beds, private bathroom, TV."
+  }
+ },
+ {
+  "collection": "rooms",
+  "id": 7,
+  "fields": {
+   "name": "Parents’ suite",
+   "description": "2 separate bedrooms, bathroom and TV on the parents’ side, 1 double bed, 1 bunk bed, 1 single bed."
+  }
+ },
+ {
+  "collection": "rooms",
+  "id": 8,
+  "fields": {
+   "name": "Boukarou suite",
+   "description": "In the “ambassador” wing: 1 double bed, shared lounge, kitchenette."
+  }
+ },
+ {
+  "collection": "partners",
+  "id": 1,
+  "fields": {
+   "description": "Cameroon’s Ministry of Employment and Vocational Training: approval of the JLD Culture Centre’s vocational courses."
+  }
+ },
+ {
+  "collection": "partners",
+  "id": 2,
+  "fields": {
+   "description": "An association of retired volunteers for cooperation and development, active in all of the Foundation’s fields of work."
+  }
+ },
+ {
+  "collection": "partners",
+  "id": 3,
+  "fields": {
+   "description": "A partnership that brings writers in residence to Villa Boutanga."
+  }
+ },
+ {
+  "collection": "partners",
+  "id": 4,
+  "fields": {
+   "description": "A museum, cultural and tourism programme: travellers can stop at the Foundation during its tours."
+  }
+ },
+ {
+  "collection": "partners",
+  "id": 5,
+  "fields": {
+   "description": "An animal production unit for veterinary students, school support and joint projects."
+  }
+ },
+ {
+  "collection": "partners",
+  "id": 6,
+  "fields": {
+   "description": "The Foundation has been a member of the International Council of Museums since 2024."
+  }
+ },
+ {
+  "collection": "partners",
+  "id": 7,
+  "fields": {
+   "description": "Audio guide for the beaded statue of Queen Bansoa (2011); the museum shop has sold pieces from the workshops since 2017."
+  }
+ },
+ {
+  "collection": "partners",
+  "id": 8,
+  "fields": {
+   "description": "Joint projects for health and access to water; 2023 Prize awarded to Ly Dumas."
+  }
+ },
+ {
+  "collection": "partners",
+  "id": 9,
+  "fields": {
+   "description": "Collecting and safeguarding Cameroon’s traditional songs."
+  }
+ },
+ {
+  "collection": "partners",
+  "id": 10,
+  "fields": {
+   "description": "A festival of African cultures in which the Foundation has taken part several times."
+  }
+ },
+ {
+  "collection": "partners",
+  "id": 11,
+  "fields": {
+   "description": "Exhibition at the MAM gallery in Douala (2015) and an issue dedicated to Cameroonian women."
+  }
+ },
+ {
+  "collection": "team",
+  "id": 1,
+  "fields": {
+   "role": "Founder and president"
+  }
+ },
+ {
+  "collection": "team",
+  "id": 2,
+  "fields": {
+   "role": "Director"
+  }
+ },
+ {
+  "collection": "team",
+  "id": 3,
+  "fields": {
+   "role": "JLD Culture Centre"
+  }
+ },
+ {
+  "collection": "team",
+  "id": 4,
+  "fields": {
+   "role": "Donations and volunteering"
+  }
+ },
+ {
+  "collection": "team",
+  "id": 7,
+  "fields": {
+   "role": "Master beadworker"
+  }
+ },
+ {
+  "collection": "team",
+  "id": 8,
+  "fields": {
+   "role": "Art ironwork"
+  }
+ },
+ {
+  "collection": "team",
+  "id": 11,
+  "fields": {
+   "role": "Painter"
+  }
+ },
+ {
+  "collection": "residents",
+  "id": 1,
+  "fields": {
+   "discipline": "Visual arts"
+  }
+ },
+ {
+  "collection": "residents",
+  "id": 2,
+  "fields": {
+   "discipline": "Creation"
+  }
+ },
+ {
+  "collection": "residents",
+  "id": 3,
+  "fields": {
+   "discipline": "Design"
+  }
+ },
+ {
+  "collection": "residents",
+  "id": 5,
+  "fields": {
+   "discipline": "Writing"
+  }
+ },
+ {
+  "collection": "residents",
+  "id": 6,
+  "fields": {
+   "discipline": "Writing"
+  }
+ },
+ {
+  "collection": "residents",
+  "id": 9,
+  "fields": {
+   "discipline": "Writing"
+  }
+ },
+ {
+  "collection": "residents",
+  "id": 10,
+  "fields": {
+   "discipline": "Writing"
+  }
+ },
+ {
+  "collection": "residents",
+  "id": 11,
+  "fields": {
+   "discipline": "Writing"
+  }
+ },
+ {
+  "collection": "reports",
+  "id": 1,
+  "fields": {
+   "title": "Activity report 2014"
+  }
+ },
+ {
+  "collection": "reports",
+  "id": 2,
+  "fields": {
+   "title": "Activity report 2015"
+  }
+ },
+ {
+  "collection": "reports",
+  "id": 3,
+  "fields": {
+   "title": "Activity report 2016"
+  }
+ },
+ {
+  "collection": "reports",
+  "id": 4,
+  "fields": {
+   "title": "Activity report 2017"
+  }
+ }
+]
