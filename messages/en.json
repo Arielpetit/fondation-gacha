@@ -164,5 +164,23 @@
     "legalDataText": "Information sent by email or through the forms is only used to answer your request. You can ask for it to be deleted at any time by writing to contact@fondationgacha.org. The site uses no advertising cookies.",
     "legalCredits": "Credits",
     "legalCreditsText": "Photographs: Fondation Jean-Félicien Gacha and their authors. Patterns inspired by Ndop, the cloth of the Grassfields."
+  },
+  "forms": {
+    "submit": "Send",
+    "thanks": "Thank you! Your message has been sent.",
+    "sending": "Sending…",
+    "error": "Sending failed. Please try again or email us.",
+    "required": "Required fields",
+    "contactTitle": "Write to us",
+    "contactIntro": "A question, a visit, a partnership? We usually reply within two working days.",
+    "bookingTitle": "Booking request",
+    "bookingIntro": "Tell us your dates: Villa Boutanga will confirm availability and price by email or WhatsApp. No online payment.",
+    "membershipTitle": "Join online",
+    "membershipIntro": "Choose your card: we will contact you about payment (on site, bank transfer or Mobile Money) and send your card.",
+    "volunteerTitle": "Offer my help",
+    "volunteerIntro": "Tell us about your skills and availability: we will build a useful assignment together.",
+    "receiptTitle": "Request a donation receipt",
+    "receiptIntro": "After your transfer, request your receipt here: it will be sent by email.",
+    "newsletterError": "Subscription is not possible right now. Please try again."
   }
 }

@@ -5,6 +5,7 @@ import { publishedOrStaff } from '@/access/published'
 import { legacyFields } from '@/fields/legacy'
 import { contentField } from '@/fields/richText'
 import { slugField } from '@/fields/slug'
+import { previewUrl } from '@/lib/previewPath'
 
 /**
  * Editorial pages (Présentation, Infrastructures, Villa Boutanga…).
@@ -17,7 +18,7 @@ export const Pages: CollectionConfig = {
     group: 'Contenu',
     useAsTitle: 'title',
     defaultColumns: ['title', 'path', '_status', 'updatedAt'],
-    preview: (doc) => `/${doc.path ?? ''}`,
+    preview: (doc, { locale }) => previewUrl('pages', doc as { slug?: string; path?: string }, locale),
   },
   versions: { drafts: { autosave: { interval: 2000 } }, maxPerDoc: 25 },
   access: { read: publishedOrStaff, create: isStaff, update: isStaff, delete: isStaff },

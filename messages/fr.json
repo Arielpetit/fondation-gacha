@@ -164,5 +164,23 @@
     "legalDataText": "Les informations envoyées par e-mail ou par les formulaires servent uniquement à répondre à votre demande. Vous pouvez demander leur suppression à tout moment en écrivant à contact@fondationgacha.org. Le site n’utilise pas de cookies publicitaires.",
     "legalCredits": "Crédits",
     "legalCreditsText": "Photographies : Fondation Jean-Félicien Gacha et leurs auteurs. Motifs inspirés du Ndop, étoffe des Grassfields."
+  },
+  "forms": {
+    "submit": "Envoyer",
+    "thanks": "Merci ! Votre message a bien été envoyé.",
+    "sending": "Envoi…",
+    "error": "L’envoi a échoué. Merci de réessayer ou de nous écrire par e-mail.",
+    "required": "Champs obligatoires",
+    "contactTitle": "Écrivez-nous",
+    "contactIntro": "Une question, une visite, un partenariat ? Nous répondons en général sous deux jours ouvrés.",
+    "bookingTitle": "Demande de réservation",
+    "bookingIntro": "Indiquez vos dates : la Villa Boutanga vous confirme la disponibilité et le tarif par e-mail ou WhatsApp. Aucun paiement en ligne.",
+    "membershipTitle": "Adhérer en ligne",
+    "membershipIntro": "Choisissez votre carte : nous vous contactons pour le règlement (sur place, virement ou Mobile Money) et l’envoi de votre carte.",
+    "volunteerTitle": "Proposer mon aide",
+    "volunteerIntro": "Décrivez vos compétences et vos disponibilités : nous construisons ensemble une mission utile.",
+    "receiptTitle": "Demander un reçu de don",
+    "receiptIntro": "Après votre virement, demandez ici votre reçu : il vous sera envoyé par e-mail.",
+    "newsletterError": "Inscription impossible pour le moment. Merci de réessayer."
   }
 }

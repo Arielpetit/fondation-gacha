@@ -272,7 +272,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <Button href="/sejourner/villa-boutanga" variant="secondary" arrow>
                 {t('villaCta')}
               </Button>
-              <Button href="/sejourner/visites" variant="outline">
+              <Button href="/sejourner/villa-boutanga#reserver" variant="outline">
                 {t('villaBook')}
               </Button>
             </Reveal>

@@ -1,6 +1,6 @@
 # Fondation Jean-Félicien Gacha — redesign progress & handover
 
-_Last updated: 23 November 2026_
+_Last updated: 23 November 2026 (after Phase 4)_
 
 This document describes the rebuild of **fondationgacha.org**: why it is being rebuilt, what has been done
 phase by phase, how the project is organised, and what remains. It is meant to let anyone pick the work up.
@@ -68,8 +68,8 @@ and West Cameroon earth tones.
 | 1 | Design system | ✅ Done |
 | 2 | Content model + WordPress migration | ✅ Done |
 | 3 | Public pages | ✅ Done |
-| 4 | Forms, admin polish, live preview | ⏳ Next |
-| 5 | English content, SEO, performance, accessibility | ⏳ To do |
+| 4 | Forms, admin polish, live preview | ✅ Done |
+| 5 | English content, SEO, performance, accessibility | ⏳ Next |
 | 6 | QA, deployment, DNS switch | ⏳ To do |
 
 ---
@@ -190,14 +190,52 @@ Known limitations (planned for later phases):
   list); editors can trim the old text in the admin.
 - Photos in `public/images/sg/` (hero, hubs) are taken from the old site; replace with new photography when available.
 
-### Phase 4 — Forms, admin polish, live preview ⏳
-- Payload form builder: contact, Villa booking request, membership, volunteering; submissions inbox + email
-  notifications (email adapter: Resend or SMTP).
-- Newsletter: connect to the existing Mailchimp list.
-- Live preview and draft preview for posts, pages and actions.
-- Navigation and footer as editable globals (today in `src/lib/site.ts`).
-- Admin dashboard tweaks (quick links, recent posts), role review (editors cannot change bank details or users).
-- Donation page: PayPal link (needs the URL in settings); optional online card / Mobile Money payments.
+### Phase 4 — Forms, admin polish, live preview ✅
+**Goal:** visitors can contact, book, join and subscribe from the site; editors manage menus and preview drafts.
+
+**Forms** (Payload form builder, admin group *Formulaires*):
+| Form (slug) | Where | Sent to |
+|---|---|---|
+| Contact (`contact`) | `/contact` | contact@fondationgacha.org |
+| Villa booking request (`reservation-villa`) — dates, guests, room, restaurant | `/sejourner/villa-boutanga#reserver`, homepage "Réserver" | villa@fondationgacha.org |
+| Membership (`adhesion`) — card choice | `/soutenir/adhesion#adherer` (the card buttons scroll to it) | donations & volunteering |
+| Volunteering (`benevolat`) | `/soutenir/benevolat` | donations & volunteering |
+| Donation receipt (`recu-don`) | `/soutenir/don#recu` | donations & volunteering |
+
+- Labels in French and English; editors can change fields, recipients and confirmation texts in the admin.
+- Every submission is stored in **Messages reçus** (staff only) and emailed with a filled-in subject
+  (e.g. "Demande de réservation — Name (2027-01-10 → 2027-01-12)") and the visitor's address as reply-to.
+- Spam protection: hidden honeypot field, 8 submissions / 10 min per IP, 5,000-character limit.
+- `pnpm seed:forms` (re)creates the five forms.
+
+**Email:** SMTP through `SMTP_HOST`/`SMTP_PORT`/`SMTP_USER`/`SMTP_PASS`/`EMAIL_FROM` (any provider: Brevo, Resend SMTP,
+OVH mail…). Without SMTP (local dev) emails are printed in the server console.
+
+**Newsletter:** the footer field posts to `/api-site/newsletter`; addresses are stored in **Abonnés newsletter**
+(private, duplicates ignored, honeypot, rate limit) and mirrored to the existing Mailchimp list when
+`MAILCHIMP_API_KEY` + `MAILCHIMP_LIST_ID` are set.
+
+**Editable menu:** new global **Menu du site** (sections, sub-links with descriptions, featured image card,
+"show in footer"), FR/EN. Header mega menu, mobile menu and footer columns read it; the built-in menu is the
+fallback. `pnpm seed:nav` resets it.
+
+**Draft preview & live preview:** the admin's eye icon opens a side-by-side live preview (mobile / tablet / desktop)
+that refreshes on every autosave; the preview button opens the page in draft mode with a "Mode aperçu" bar.
+`/next/preview` only works for logged-in staff and only redirects to paths on this site; the public always sees
+the published version.
+
+**Admin dashboard:** welcome block with "Nouvelle actualité" and "Voir le site", counters (messages in the last
+7 days, drafts, subscribers) and the latest edited posts and messages.
+
+Checks: production build (pages still cached), typecheck, lint, **21 e2e tests** (+7: form rendering and
+validation, booking form, membership anchor, English labels, newsletter validation and privacy, honeypot
+rejection, preview protection), 10 unit tests. Manually verified: a booking submission is stored and the email
+is addressed to villa@ with the right subject; draft edits are visible only in preview mode.
+
+Still open:
+- SMTP credentials and the Mailchimp API key must be provided (Phase 6 environment).
+- PayPal donation link: add the URL in *Réglages du site → Dons* when the Foundation provides it.
+- Online card / Mobile Money payments: not built; decide provider first.
 
 ### Phase 5 — English, SEO, performance, accessibility ⏳
 - English translations of all content (machine draft + review), `hreflang` alternates, localized slugs if wanted.

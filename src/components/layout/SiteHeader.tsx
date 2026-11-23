@@ -13,20 +13,23 @@ import { Logo } from '@/components/ui/Logo'
 import { NdopPattern } from '@/components/ndop/NdopPattern'
 import { Link, usePathname } from '@/i18n/navigation'
 import { cn } from '@/lib/cn'
-import { contact, navigation, t, type NavItem } from '@/lib/site'
+import type { ResolvedNavItem } from '@/lib/navigation'
+import { contact } from '@/lib/site'
+
+type NavItem = ResolvedNavItem
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
 /** Every public page opens on a dark hero, so the header starts transparent with light text — except these. */
 const SOLID_ROUTES = ['/styleguide']
 
-export function SiteHeader() {
+export function SiteHeader({ items }: { items: NavItem[] }) {
   const pathname = usePathname()
   const reduce = useSafeReducedMotion()
   const { scrollY } = useScroll()
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
-  const [open, setOpen] = useState<NavItem['key'] | null>(null)
+  const [open, setOpen] = useState<string | null>(null)
   const [drawer, setDrawer] = useState(false)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -61,7 +64,7 @@ export function SiteHeader() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  const openMenu = useCallback((key: NavItem['key'] | null) => {
+  const openMenu = useCallback((key: string | null) => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
     setOpen(key)
   }, [])
@@ -89,7 +92,7 @@ export function SiteHeader() {
             <Logo />
           </Link>
 
-          <DesktopNav open={open} onOpen={openMenu} />
+          <DesktopNav items={items} open={open} onOpen={openMenu} />
 
           <div className="flex items-center gap-2">
             <LocaleSwitch className="hidden sm:inline-flex" />
@@ -115,10 +118,10 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <MegaPanel openKey={open} onEnter={() => openMenu(open)} onLeave={scheduleClose} />
+        <MegaPanel items={items} openKey={open} onEnter={() => openMenu(open)} onLeave={scheduleClose} />
       </motion.header>
 
-      <MobileDrawer open={drawer} onClose={() => setDrawer(false)} />
+      <MobileDrawer items={items} open={drawer} onClose={() => setDrawer(false)} />
     </>
   )
 }
@@ -129,44 +132,46 @@ function DonateLabel() {
 }
 
 function DesktopNav({
+  items,
   open,
   onOpen,
 }: {
-  open: NavItem['key'] | null
-  onOpen: (key: NavItem['key'] | null) => void
+  items: NavItem[]
+  open: string | null
+  onOpen: (key: string | null) => void
 }) {
-  const tr = useTranslations('nav')
   const pathname = usePathname()
 
   return (
     <nav aria-label="Navigation principale" className="hidden xl:block">
       <ul className="flex items-center gap-1">
-        {navigation.map((item) => {
+        {items.map((item) => {
           const active = pathname === item.href || pathname.startsWith(item.href + '/')
-          const label = tr(item.key)
+          const label = item.label
+          const hasChildren = item.children.length > 0
           const base =
             'relative inline-flex h-10 items-center rounded-full px-3 text-[0.9rem] whitespace-nowrap transition-colors hover:bg-current/8'
           const indicator = (
             <span
               className={cn(
                 'absolute inset-x-3 bottom-1.5 h-px origin-left bg-current transition-transform duration-500 ease-out-expo',
-                active || open === item.key ? 'scale-x-100' : 'scale-x-0',
+                active || open === item.id ? 'scale-x-100' : 'scale-x-0',
               )}
               aria-hidden
             />
           )
 
           return (
-            <li key={item.key} onMouseEnter={() => onOpen(item.children ? item.key : null)}>
-              {item.children ? (
+            <li key={item.id} onMouseEnter={() => onOpen(hasChildren ? item.id : null)}>
+              {hasChildren ? (
                 <button
                   type="button"
                   className={base}
-                  aria-expanded={open === item.key}
-                  aria-controls={`mega-${item.key}`}
+                  aria-expanded={open === item.id}
+                  aria-controls={`mega-${item.id}`}
                   // Mouse: hover already opened it, so a click must not close it.
                   // Keyboard (detail === 0): Enter/Space toggles.
-                  onClick={(e) => onOpen(e.detail > 0 || open !== item.key ? item.key : null)}
+                  onClick={(e) => onOpen(e.detail > 0 || open !== item.id ? item.id : null)}
                 >
                   {label}
                   {indicator}
@@ -186,24 +191,25 @@ function DesktopNav({
 }
 
 function MegaPanel({
+  items,
   openKey,
   onEnter,
   onLeave,
 }: {
-  openKey: NavItem['key'] | null
+  items: NavItem[]
+  openKey: string | null
   onEnter: () => void
   onLeave: () => void
 }) {
-  const locale = useLocale()
   const tr = useTranslations('nav')
-  const item = navigation.find((n) => n.key === openKey && n.children)
+  const item = items.find((n) => n.id === openKey && n.children.length > 0)
 
   return (
     <AnimatePresence>
       {item && (
         <motion.div
           key="panel"
-          id={`mega-${item.key}`}
+          id={`mega-${item.id}`}
           className="absolute inset-x-0 top-full hidden overflow-hidden border-t border-line bg-ivory text-ink shadow-[0_30px_60px_-30px_rgba(18,25,51,0.35)] xl:block"
           initial={{ height: 0 }}
           animate={{ height: 'auto' }}
@@ -214,7 +220,7 @@ function MegaPanel({
         >
           <AnimatePresence mode="wait">
             <motion.div
-              key={item.key}
+              key={item.id}
               className="container-site grid grid-cols-12 gap-10 py-12"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -222,7 +228,7 @@ function MegaPanel({
               transition={{ duration: 0.35, ease: EASE }}
             >
               <div className="col-span-3">
-                <p className="eyebrow text-terracotta">{tr(item.key)}</p>
+                <p className="eyebrow text-terracotta">{item.label}</p>
                 <Link
                   href={item.href}
                   className="group mt-5 inline-flex items-center gap-2 font-display text-3xl font-light"
@@ -232,7 +238,7 @@ function MegaPanel({
                 </Link>
               </div>
               <ul className={cn('grid content-start gap-x-10 gap-y-1', item.feature ? 'col-span-5 grid-cols-2' : 'col-span-9 grid-cols-3')}>
-                {item.children!.map((child, i) => (
+                {item.children.map((child, i) => (
                   <motion.li
                     key={child.href}
                     initial={{ opacity: 0, y: 10 }}
@@ -244,11 +250,11 @@ function MegaPanel({
                       className="group block rounded-sm border-b border-line py-3.5 transition-colors hover:border-ink"
                     >
                       <span className="flex items-center justify-between gap-3 font-medium">
-                        {t(child.label, locale)}
+                        {child.label}
                         <ArrowRight className="size-4 -translate-x-2 opacity-0 transition-all duration-500 ease-out-expo group-hover:translate-x-0 group-hover:opacity-100" />
                       </span>
                       {child.description && (
-                        <span className="mt-1 block text-sm text-muted">{t(child.description, locale)}</span>
+                        <span className="mt-1 block text-sm text-muted">{child.description}</span>
                       )}
                     </Link>
                   </motion.li>
@@ -261,14 +267,14 @@ function MegaPanel({
                 >
                   <Image
                     src={item.feature.image}
-                    alt={t(item.feature.alt, locale)}
+                    alt={item.feature.alt}
                     fill
                     sizes="30vw"
                     className="-z-10 object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105"
                   />
                   <span className="absolute inset-0 -z-10 bg-gradient-to-t from-indigo-deep/90 to-transparent" />
-                  <span className="font-display text-2xl">{t(item.feature.title, locale)}</span>
-                  <span className="mt-1 text-sm text-ivory/80">{t(item.feature.text, locale)}</span>
+                  <span className="font-display text-2xl">{item.feature.title}</span>
+                  <span className="mt-1 text-sm text-ivory/80">{item.feature.text}</span>
                 </Link>
               )}
             </motion.div>
@@ -279,10 +285,9 @@ function MegaPanel({
   )
 }
 
-function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
+function MobileDrawer({ items, open, onClose }: { items: NavItem[]; open: boolean; onClose: () => void }) {
   const tr = useTranslations('nav')
-  const locale = useLocale()
-  const [expanded, setExpanded] = useState<NavItem['key'] | null>(null)
+  const [expanded, setExpanded] = useState<string | null>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
   const titleId = useId()
 
@@ -328,29 +333,29 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
 
           <nav aria-label="Navigation mobile" className="container-site relative flex-1 pt-6 pb-10">
             <ul>
-              {navigation.map((item, i) => (
+              {items.map((item, i) => (
                 <motion.li
-                  key={item.key}
+                  key={item.id}
                   className="border-b border-ivory/15"
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.25 + i * 0.05, duration: 0.6, ease: EASE }}
                 >
-                  {item.children ? (
+                  {item.children.length > 0 ? (
                     <>
                       <button
                         type="button"
                         className="flex w-full items-center justify-between py-4 text-left font-display text-[1.9rem] font-light"
-                        aria-expanded={expanded === item.key}
-                        onClick={() => setExpanded(expanded === item.key ? null : item.key)}
+                        aria-expanded={expanded === item.id}
+                        onClick={() => setExpanded(expanded === item.id ? null : item.id)}
                       >
-                        {tr(item.key)}
+                        {item.label}
                         <Plus
-                          className={cn('size-6 transition-transform duration-500 ease-out-expo', expanded === item.key && 'rotate-45')}
+                          className={cn('size-6 transition-transform duration-500 ease-out-expo', expanded === item.id && 'rotate-45')}
                         />
                       </button>
                       <AnimatePresence initial={false}>
-                        {expanded === item.key && (
+                        {expanded === item.id && (
                           <motion.ul
                             className="overflow-hidden"
                             initial={{ height: 0 }}
@@ -358,11 +363,11 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
                             exit={{ height: 0 }}
                             transition={{ duration: 0.45, ease: EASE }}
                           >
-                            {[{ href: item.href, label: { fr: tr('overview'), en: tr('overview') } }, ...item.children].map((c) => (
+                            {[{ href: item.href, label: tr('overview') }, ...item.children].map((c) => (
                               <li key={c.href}>
                                 <Link href={c.href} className="flex items-center gap-3 py-2.5 text-ivory/80 hover:text-ivory">
                                   <span className="h-px w-4 bg-raffia" aria-hidden />
-                                  {t(c.label, locale)}
+                                  {c.label}
                                 </Link>
                               </li>
                             ))}
@@ -373,7 +378,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
                     </>
                   ) : (
                     <Link href={item.href} className="block py-4 font-display text-[1.9rem] font-light">
-                      {tr(item.key)}
+                      {item.label}
                     </Link>
                   )}
                 </motion.li>

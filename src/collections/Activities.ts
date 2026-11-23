@@ -5,6 +5,7 @@ import { publishedOrStaff } from '@/access/published'
 import { legacyFields } from '@/fields/legacy'
 import { contentField } from '@/fields/richText'
 import { slugField } from '@/fields/slug'
+import { previewUrl } from '@/lib/previewPath'
 
 /** The Foundation's fields of action ("Nos actions"). */
 export const Activities: CollectionConfig = {
@@ -14,7 +15,7 @@ export const Activities: CollectionConfig = {
     group: 'Contenu',
     useAsTitle: 'title',
     defaultColumns: ['title', 'order', '_status'],
-    preview: (doc) => `/actions/${doc.slug}`,
+    preview: (doc, { locale }) => previewUrl('activities', doc as { slug?: string; path?: string }, locale),
   },
   defaultSort: 'order',
   versions: { drafts: true, maxPerDoc: 20 },

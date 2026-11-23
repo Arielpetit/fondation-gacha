@@ -5,6 +5,7 @@ import { publishedOrStaff } from '@/access/published'
 import { legacyFields } from '@/fields/legacy'
 import { contentField } from '@/fields/richText'
 import { slugField } from '@/fields/slug'
+import { previewUrl } from '@/lib/previewPath'
 
 /** News & agenda. An item with event dates also appears in the agenda. */
 export const Posts: CollectionConfig = {
@@ -15,7 +16,7 @@ export const Posts: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'publishedAt', 'themes', '_status'],
     listSearchableFields: ['title', 'slug'],
-    preview: (doc) => `/actualites/${doc.slug}`,
+    preview: (doc, { locale }) => previewUrl('posts', doc as { slug?: string; path?: string }, locale),
   },
   defaultSort: '-publishedAt',
   versions: { drafts: { autosave: { interval: 2000 } }, maxPerDoc: 25 },

@@ -1,4 +1,5 @@
 import configPromise from '@payload-config'
+import { draftMode } from 'next/headers'
 import { getPayload, type Where } from 'payload'
 import { cache } from 'react'
 
@@ -9,6 +10,20 @@ export const payload = cache(async () => getPayload({ config: configPromise }))
 
 type L = { locale: Locale }
 const base = (locale: Locale) => ({ locale, fallbackLocale: 'fr' as const, overrideAccess: false })
+
+/**
+ * Query options for a single document: in draft mode (enabled only for logged-in staff by /next/preview)
+ * the latest draft is returned; otherwise only published content.
+ */
+async function docOptions(locale: Locale) {
+  let draft = false
+  try {
+    draft = (await draftMode()).isEnabled
+  } catch {
+    // Outside a request (build, sitemap): published content only.
+  }
+  return { locale, fallbackLocale: 'fr' as const, draft, overrideAccess: draft }
+}
 
 // ── Media helpers ───────────────────────────────────────────────────────────
 export type ImageLike = Media | number | null | undefined
@@ -89,7 +104,7 @@ export const getRecentEvents = cache(async (locale: Locale, limit = 4) =>
 export const getPost = cache(async (locale: Locale, slug: string) => {
   const res = await (await payload()).find({
     collection: 'posts',
-    ...base(locale),
+    ...(await docOptions(locale)),
     where: { slug: { equals: slug } },
     limit: 1,
     depth: 2,
@@ -138,7 +153,7 @@ export const getActivities = cache(async (locale: Locale) =>
 export const getActivity = cache(async (locale: Locale, slug: string) => {
   const res = await (await payload()).find({
     collection: 'activities',
-    ...base(locale),
+    ...(await docOptions(locale)),
     where: { slug: { equals: slug } },
     limit: 1,
     depth: 2,
@@ -150,7 +165,7 @@ export const getActivity = cache(async (locale: Locale, slug: string) => {
 export const getPage = cache(async (locale: Locale, path: string) => {
   const res = await (await payload()).find({
     collection: 'pages',
-    ...base(locale),
+    ...(await docOptions(locale)),
     where: { path: { equals: path } },
     limit: 1,
     depth: 2,
@@ -173,6 +188,18 @@ export const getPartners = list('partners', 'order')
 export const getRooms = list('rooms', 'order')
 export const getReports = list('reports', '-year')
 export const getPress = list('press', '-date')
+
+// ── Forms ───────────────────────────────────────────────────────────────────
+export const getForm = cache(async (locale: Locale, slug: string) => {
+  const res = await (await payload()).find({
+    collection: 'forms',
+    ...base(locale),
+    where: { slug: { equals: slug } },
+    limit: 1,
+    depth: 0,
+  })
+  return res.docs[0] ?? null
+})
 
 // ── Redirects (old WordPress URLs) ──────────────────────────────────────────
 export const findRedirect = cache(async (path: string) => {

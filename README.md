@@ -58,6 +58,18 @@ pnpm migrate:wp    # import into the local database (~15 min first run, ~1 min a
   `data/wp-cache/failed-media.txt` after a run.
 - `WP_ONLY=5862 pnpm migrate:wp` re-imports specific WordPress post ids; `WP_LIMIT=20` imports only the latest 20.
 
+## Forms, menu and preview
+
+```bash
+pnpm seed:forms    # create/update the 5 site forms (FR/EN labels)
+pnpm seed:nav      # reset the "Menu du site" global from the built-in menu
+```
+
+- Form submissions land in **Formulaires → Messages reçus** and are emailed (set `SMTP_*` in `.env`;
+  without it, emails are printed in the dev server console).
+- Newsletter sign-ups land in **Abonnés newsletter** and sync to Mailchimp when `MAILCHIMP_*` is set.
+- Editors preview drafts with the eye icon (live preview) or the preview button (`/next/preview`, staff only).
+
 ## Content model (admin)
 
 | Group | Collections |
@@ -98,6 +110,6 @@ scripts/wp/                  export download scripts (fetch.mjs, fetch-extras.mj
 | 1 | Design system: tokens, type, Ndop patterns, components, motion primitives (see `/styleguide`) | done |
 | 2 | Data model + WordPress migration (228 posts, 12 pages, 8 actions, 838 media, 253 redirects) | done |
 | 3 | Public pages: homepage, news + agenda, actions, CMS pages with structured sections, hubs, old-URL redirects, 404, sitemap, ISR | done |
-| 4 | Forms, admin polish, live preview, roles | |
+| 4 | Forms (contact, Villa booking, membership, volunteering, receipts), newsletter, editable menu, live preview, admin dashboard | done |
 | 5 | English content, SEO, performance and accessibility | |
 | 6 | QA, Vercel deploy, OVH DNS switch | |

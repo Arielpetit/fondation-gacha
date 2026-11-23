@@ -4,6 +4,7 @@ import { notFound, permanentRedirect } from 'next/navigation'
 import type { ReactNode } from 'react'
 
 import { PostCard } from '@/components/content/PostCards'
+import { CmsForm } from '@/components/forms/CmsForm'
 import {
   ContactsSection,
   DonationSection,
@@ -139,8 +140,10 @@ async function virtualPage(path: string, locale: Locale): Promise<Virtual | null
         image: '/images/sg/site-aerial.webp',
         body: async () => {
           const settings = await getSettings(locale)
+          const tf = await getTranslations('forms')
           return (
             <>
+              <CmsForm slug="contact" title={tf('contactTitle')} intro={tf('contactIntro')} tone="ivory" id="ecrire" />
               <ContactsSection settings={settings} />
               <Section tone="ivory" spacing="none">
                 <div className="relative aspect-[16/9] w-full sm:aspect-[21/8]">
@@ -162,7 +165,15 @@ async function virtualPage(path: string, locale: Locale): Promise<Virtual | null
         eyebrow: tn('support'),
         intro: t('volunteerText'),
         image: '/images/sg/atelier-perlage.webp',
-        body: async () => <ContactsSection settings={await getSettings(locale)} />,
+        body: async () => {
+          const tf = await getTranslations('forms')
+          return (
+            <>
+              <CmsForm slug="benevolat" title={tf('volunteerTitle')} intro={tf('volunteerIntro')} tone="ivory" />
+              <ContactsSection settings={await getSettings(locale)} />
+            </>
+          )
+        },
       }
     case 'ressources/publications':
       return {
@@ -211,11 +222,17 @@ async function virtualPage(path: string, locale: Locale): Promise<Virtual | null
 
 // ── Sections appended to CMS pages, by path ─────────────────────────────────
 async function extraSections(path: string, locale: Locale): Promise<ReactNode> {
+  const tf = await getTranslations('forms')
   switch (path) {
     case 'fondation/equipe':
       return <TeamGrid team={(await getTeam(locale)).docs} />
     case 'sejourner/villa-boutanga':
-      return <RoomsSection rooms={(await getRooms(locale)).docs} settings={await getSettings(locale)} />
+      return (
+        <>
+          <RoomsSection rooms={(await getRooms(locale)).docs} settings={await getSettings(locale)} />
+          <CmsForm slug="reservation-villa" title={tf('bookingTitle')} intro={tf('bookingIntro')} tone="indigo" id="reserver" />
+        </>
+      )
     case 'sejourner/visites': {
       const settings = await getSettings(locale)
       return (
@@ -226,9 +243,19 @@ async function extraSections(path: string, locale: Locale): Promise<ReactNode> {
       )
     }
     case 'soutenir/don':
-      return <DonationSection settings={await getSettings(locale)} />
+      return (
+        <>
+          <DonationSection settings={await getSettings(locale)} />
+          <CmsForm slug="recu-don" title={tf('receiptTitle')} intro={tf('receiptIntro')} tone="paper" id="recu" />
+        </>
+      )
     case 'soutenir/adhesion':
-      return <MembershipSection settings={await getSettings(locale)} />
+      return (
+        <>
+          <MembershipSection settings={await getSettings(locale)} />
+          <CmsForm slug="adhesion" title={tf('membershipTitle')} intro={tf('membershipIntro')} tone="paper" id="adherer" />
+        </>
+      )
     case 'soutenir/partenaires':
       return <PartnersGrid partners={(await getPartners(locale)).docs} />
     case 'ressources/bilans':

@@ -6,13 +6,15 @@ import { Facebook, Mail, MapPin, Phone, Clock, ArrowUpRight } from '@/components
 import { Logo } from '@/components/ui/Logo'
 import { NewsletterForm } from '@/components/ui/NewsletterForm'
 import { Link } from '@/i18n/navigation'
-import { contact, navigation, t } from '@/lib/site'
+import type { ResolvedNavItem } from '@/lib/navigation'
+import { contact, t } from '@/lib/site'
 
-export async function SiteFooter() {
+export async function SiteFooter({ items }: { items: ResolvedNavItem[] }) {
   const locale = await getLocale()
   const tr = await getTranslations('footer')
   const nav = await getTranslations('nav')
-  const columns = navigation.filter((n) => ['foundation', 'actions', 'stay', 'support'].includes(n.key))
+  const tf = await getTranslations('forms')
+  const columns = items.filter((n) => n.inFooter && n.children.length > 0).slice(0, 4)
 
   return (
     <footer className="grain relative overflow-hidden bg-indigo-deep text-ivory">
@@ -30,6 +32,8 @@ export async function SiteFooter() {
                 placeholder={tr('newsletterPlaceholder')}
                 submit={tr('newsletterSubmit')}
                 success={tr('newsletterSuccess')}
+                error={tf('newsletterError')}
+                locale={locale}
               />
             </div>
           </div>
@@ -87,13 +91,13 @@ export async function SiteFooter() {
             </div>
           </div>
           {columns.map((col) => (
-            <nav key={col.key} aria-label={nav(col.key)} className="lg:col-span-2">
-              <p className="eyebrow text-raffia">{nav(col.key)}</p>
+            <nav key={col.id} aria-label={col.label} className="lg:col-span-2">
+              <p className="eyebrow text-raffia">{col.label}</p>
               <ul className="mt-5 space-y-2.5 text-sm text-ivory/70">
-                {col.children?.map((c) => (
+                {col.children.map((c) => (
                   <li key={c.href}>
                     <Link href={c.href} className="transition-colors hover:text-ivory">
-                      {t(c.label, locale)}
+                      {c.label}
                     </Link>
                   </li>
                 ))}

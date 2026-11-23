@@ -5,6 +5,6 @@ import { routing } from './i18n/routing'
 export default createMiddleware(routing)
 
 export const config = {
-  // Skip Payload admin + API, Next internals and any file with an extension.
-  matcher: ['/((?!admin|api|_next|_vercel|.*\\..*).*)'],
+  // Skip Payload admin + API, preview routes (/next/*), Next internals and any file with an extension.
+  matcher: ['/((?!admin|api|next/|_next|_vercel|.*\\..*).*)'],
 }

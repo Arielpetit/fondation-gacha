@@ -2,13 +2,16 @@ import type { Metadata } from 'next'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Fraunces, Inter } from 'next/font/google'
+import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteHeader } from '@/components/layout/SiteHeader'
+import { PreviewBar } from '@/components/preview/PreviewBar'
 import { SmoothScroll } from '@/components/SmoothScroll'
 import { routing } from '@/i18n/routing'
+import { getNavigation } from '@/lib/navigation'
 import '../styles.css'
 
 const fraunces = Fraunces({
@@ -56,6 +59,8 @@ export default async function LocaleLayout({
   const { locale } = await params
   if (!hasLocale(routing.locales, locale)) notFound()
   setRequestLocale(locale)
+  const nav = await getNavigation(locale)
+  const { isEnabled: preview } = await draftMode()
 
   return (
     <html lang={locale} className={`${fraunces.variable} ${inter.variable}`}>
@@ -68,9 +73,16 @@ export default async function LocaleLayout({
             {locale === 'fr' ? 'Aller au contenu' : 'Skip to content'}
           </a>
           <SmoothScroll />
-          <SiteHeader />
+          <SiteHeader items={nav} />
           <main id="main">{children}</main>
-          <SiteFooter />
+          <SiteFooter items={nav} />
+          {preview && (
+            <PreviewBar
+              serverURL={process.env.NEXT_PUBLIC_SERVER_URL || ''}
+              label={locale === 'fr' ? 'Mode aperçu : brouillons visibles' : 'Preview mode: drafts visible'}
+              exit={locale === 'fr' ? 'Quitter' : 'Exit'}
+            />
+          )}
         </NextIntlClientProvider>
       </body>
     </html>

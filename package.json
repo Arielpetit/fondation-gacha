@@ -17,10 +17,13 @@
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
     "migrate:wp": "cross-env NODE_OPTIONS=--no-deprecation payload run src/scripts/migrate-wp.ts",
-    "wp:fetch": "node scripts/wp/fetch.mjs && node scripts/wp/fetch-extras.mjs"
+    "wp:fetch": "node scripts/wp/fetch.mjs && node scripts/wp/fetch-extras.mjs",
+    "seed:forms": "cross-env NODE_OPTIONS=--no-deprecation payload run src/scripts/seed-forms.ts",
+    "seed:nav": "cross-env NODE_OPTIONS=--no-deprecation payload run src/scripts/seed-navigation.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.94.1",
+    "@payloadcms/email-nodemailer": "3.94.1",
     "@payloadcms/live-preview-react": "3.94.1",
     "@payloadcms/next": "3.94.1",
     "@payloadcms/plugin-form-builder": "3.94.1",

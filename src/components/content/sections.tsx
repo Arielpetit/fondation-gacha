@@ -8,7 +8,7 @@ import { CopyField } from '@/components/content/CopyField'
 import { CmsImage } from '@/components/media/CmsImage'
 import { Reveal, Stagger, StaggerItem } from '@/components/motion'
 import { NdopPattern } from '@/components/ndop/NdopPattern'
-import { Button } from '@/components/ui/Button'
+import { Button, buttonClasses } from '@/components/ui/Button'
 import { RoomCard, TierCard } from '@/components/ui/cards'
 import { ArrowUpRight, Clock, Mail, MapPin, Phone } from '@/components/ui/icons'
 import { Container, Section, SectionHeading } from '@/components/ui/Section'
@@ -271,7 +271,6 @@ export async function MembershipSection({ settings }: { settings: Setting }) {
   const locale = await getLocale()
   const tiers = settings.membershipTiers ?? []
   const perks = (settings.membershipPerks ?? []).map((p) => p.text).filter(Boolean) as string[]
-  const contact = settings.contacts?.find((c) => /don|volont/i.test(c.service))
 
   return (
     <Section tone="sand" spacing="md" id="cartes">
@@ -289,14 +288,9 @@ export async function MembershipSection({ settings }: { settings: Setting }) {
                 highlighted={Boolean(tier.highlighted)}
                 perks={tier.highlighted ? perks : perks.slice(0, 2)}
                 cta={
-                  <Button
-                    href={`mailto:${contact?.email ?? 'contact@fondationgacha.org'}?subject=${encodeURIComponent(`Adhésion — carte ${tier.name}`)}`}
-                    external
-                    variant={tier.highlighted ? 'light' : 'outline'}
-                    className="w-full"
-                  >
+                  <a href="#adherer" className={buttonClasses(tier.highlighted ? 'light' : 'outline', 'md', 'w-full')}>
                     {t('join')}
-                  </Button>
+                  </a>
                 }
               />
             </StaggerItem>
@@ -337,13 +331,9 @@ export async function DonationSection({ settings }: { settings: Setting }) {
                 {t('donateByPaypal')}
               </Button>
             )}
-            <Button
-              href={`mailto:${contact?.email ?? 'contact@fondationgacha.org'}?subject=${encodeURIComponent('Reçu de don')}`}
-              external
-              variant="outline-light"
-            >
+            <a href="#recu" className={buttonClasses('outline-light')}>
               {t('donateReceipt')}
-            </Button>
+            </a>
           </div>
           {contact && (
             <p className="mt-8 text-sm text-ivory/65">
