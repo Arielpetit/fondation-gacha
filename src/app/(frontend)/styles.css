@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* Dark theme is driven by a `dark` class on <html> (set before paint, see ThemeScript). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /*
  * Design tokens — Fondation Gacha
  * Rooted in Ndop textile (indigo + white) and West Cameroon earth tones.
@@ -9,16 +12,27 @@
   --color-indigo-ndop: #1e2a55;
   --color-indigo-deep: #121933;
   --color-indigo-soft: #33427a;
+  /* Brand colours: identical in both themes. `ivory` is also the light text used on indigo sections. */
   --color-ivory: #f7f3ec;
-  --color-paper: #fdfbf7;
-  --color-sand: #ede4d3;
   --color-raffia: #d9c7a3;
   --color-terracotta: #a24a25;
   --color-terracotta-dark: #8f3f1e;
   --color-forest: #2f4a3a;
-  --color-ink: #1b1b1f;
-  --color-muted: #6b6558;
-  --color-line: #1b1b1f1f;
+}
+
+/* Theme-aware colours: surfaces and text that switch between light and dark (values below). */
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-paper: var(--paper);
+  --color-sand: var(--sand);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+}
+
+@theme {
 
   /* Type */
   --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
@@ -86,11 +100,44 @@
 }
 
 :root {
-  --background: var(--color-ivory);
-  --foreground: var(--color-ink);
+  /* Light theme */
+  --canvas: #f7f3ec;
+  --paper: #fdfbf7;
+  --sand: #ede4d3;
+  --ink: #1b1b1f;
+  --muted: #6b6558;
+  --line: #1b1b1f1f;
+  --accent: #a24a25;
+  --accent-strong: #8f3f1e;
+
+  --background: var(--canvas);
+  --foreground: var(--ink);
   --gutter: clamp(1rem, 0.5rem + 2.5vw, 3rem);
   --header-h: 4.5rem;
   color-scheme: light;
+}
+
+/* Dark theme: Ndop at night — deep indigo surfaces, warm cream text, a lighter terracotta for text accents. */
+.dark {
+  --canvas: #0c1020;
+  --paper: #131a30;
+  --sand: #19213d;
+  --ink: #ede7dc;
+  --muted: #a8a294;
+  --line: #ede7dc26;
+  --accent: #e59a72;
+  --accent-strong: #f0b08d;
+  color-scheme: dark;
+}
+
+/* Smooth colour change when switching theme (not on first paint). */
+.theme-ready body,
+.theme-ready header,
+.theme-ready section,
+.theme-ready footer {
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
 }
 
 html {
@@ -111,7 +158,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-terracotta);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -144,6 +191,12 @@ body {
     mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
+}
+
+/* Page change: short fade-up of the whole page. */
+.page-enter {
+  animation: rise 0.55s var(--ease-out-expo) both;
+  --rise: 10px;
 }
 
 /* First-paint animations (hero titles and intros), independent of JavaScript. */
@@ -191,7 +244,7 @@ body {
   font-size: 1.2rem;
 }
 .prose-gacha a {
-  color: var(--color-terracotta-dark);
+  color: var(--accent-strong);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
@@ -218,10 +271,10 @@ body {
   margin-top: 0.4em;
 }
 .prose-gacha li::marker {
-  color: var(--color-terracotta);
+  color: var(--accent);
 }
 .prose-gacha blockquote {
-  border-left: 2px solid var(--color-terracotta);
+  border-left: 2px solid var(--accent);
   padding-left: 1.25em;
   font-family: var(--font-display);
   font-size: 1.3rem;

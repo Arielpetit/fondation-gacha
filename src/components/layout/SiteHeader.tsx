@@ -10,6 +10,7 @@ import { setScrollLocked } from '@/components/SmoothScroll'
 import { buttonClasses } from '@/components/ui/Button'
 import { ArrowRight, ArrowUpRight, Close, Plus } from '@/components/ui/icons'
 import { Logo } from '@/components/ui/Logo'
+import { ThemeToggle } from '@/components/theme/ThemeToggle'
 import { NdopPattern } from '@/components/ndop/NdopPattern'
 import { Link, usePathname } from '@/i18n/navigation'
 import { cn } from '@/lib/cn'
@@ -81,7 +82,7 @@ export function SiteHeader({ items }: { items: NavItem[] }) {
       <m.header
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-[background-color,color,box-shadow,backdrop-filter] duration-500',
-          solid ? 'bg-ivory/90 text-ink shadow-[0_1px_0_var(--color-line)] backdrop-blur-md' : 'bg-transparent text-ivory',
+          solid ? 'bg-canvas/90 text-ink shadow-[0_1px_0_var(--line)] backdrop-blur-md' : 'bg-transparent text-ivory',
         )}
         animate={{ y: hidden && !reduce ? '-100%' : '0%' }}
         transition={{ duration: 0.5, ease: EASE }}
@@ -94,7 +95,8 @@ export function SiteHeader({ items }: { items: NavItem[] }) {
 
           <DesktopNav items={items} open={open} onOpen={openMenu} />
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
+            <ThemeToggleNav />
             <LocaleSwitch className="hidden sm:inline-flex" />
             <Link
               href="/soutenir/don"
@@ -124,6 +126,11 @@ export function SiteHeader({ items }: { items: NavItem[] }) {
       <MobileDrawer items={items} open={drawer} onClose={() => setDrawer(false)} />
     </>
   )
+}
+
+function ThemeToggleNav({ className }: { className?: string }) {
+  const tr = useTranslations('nav')
+  return <ThemeToggle className={className} labels={{ toDark: tr('toDark'), toLight: tr('toLight') }} />
 }
 
 function DonateLabel() {
@@ -210,7 +217,7 @@ function MegaPanel({
         <m.div
           key="panel"
           id={`mega-${item.id}`}
-          className="absolute inset-x-0 top-full hidden overflow-hidden border-t border-line bg-ivory text-ink shadow-[0_30px_60px_-30px_rgba(18,25,51,0.35)] xl:block"
+          className="absolute inset-x-0 top-full hidden overflow-hidden border-t border-line bg-canvas text-ink shadow-[0_30px_60px_-30px_rgba(18,25,51,0.35)] xl:block"
           initial={{ height: 0 }}
           animate={{ height: 'auto' }}
           exit={{ height: 0 }}
@@ -228,7 +235,7 @@ function MegaPanel({
               transition={{ duration: 0.35, ease: EASE }}
             >
               <div className="col-span-3">
-                <p className="eyebrow text-terracotta">{item.label}</p>
+                <p className="eyebrow text-accent">{item.label}</p>
                 <Link
                   href={item.href}
                   className="group mt-5 inline-flex items-center gap-2 font-display text-3xl font-light"
@@ -394,11 +401,14 @@ function MobileDrawer({ items, open, onClose }: { items: NavItem[]; open: boolea
               <Link href="/soutenir/don" className={buttonClasses('primary', 'lg', 'w-full')}>
                 {tr('donate')}
               </Link>
-              <div className="flex items-center justify-between text-sm text-ivory/70">
-                <a href={`mailto:${contact.email}`} className="hover:text-ivory">
+              <div className="flex items-center justify-between gap-2 text-sm text-ivory/70">
+                <a href={`mailto:${contact.email}`} className="min-w-0 truncate hover:text-ivory">
                   {contact.email}
                 </a>
-                <LocaleSwitch />
+                <div className="flex shrink-0 items-center gap-1">
+                  <ThemeToggleNav />
+                  <LocaleSwitch />
+                </div>
               </div>
               <a
                 href={contact.maisonGacha}

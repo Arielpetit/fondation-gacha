@@ -6,11 +6,12 @@ import { getLocale, getTranslations } from 'next-intl/server'
 
 import { CopyField } from '@/components/content/CopyField'
 import { CmsImage } from '@/components/media/CmsImage'
-import { Reveal, Stagger, StaggerItem } from '@/components/motion'
+import { ImageReveal, Reveal, Stagger, StaggerItem } from '@/components/motion'
+import { Gallery, type GalleryImage } from '@/components/media/Gallery'
 import { NdopPattern } from '@/components/ndop/NdopPattern'
 import { Button, buttonClasses } from '@/components/ui/Button'
-import { RoomCard, TierCard } from '@/components/ui/cards'
-import { ArrowUpRight, Clock, Mail, MapPin, Phone } from '@/components/ui/icons'
+import { TierCard } from '@/components/ui/cards'
+import { ArrowUpRight, Clock, Mail, MapPin, Phone, Users } from '@/components/ui/icons'
 import { Container, Section, SectionHeading } from '@/components/ui/Section'
 import { cn } from '@/lib/cn'
 import { formatDate, formatPrice, splitPhones, telHref } from '@/lib/format'
@@ -105,11 +106,11 @@ export async function PartnersGrid({ partners }: { partners: Partner[] }) {
             return (
               <StaggerItem key={p.id}>
                 {p.url ? (
-                  <a href={p.url} target="_blank" rel="noopener noreferrer" className="block h-full rounded-sm border border-line bg-ivory p-6 transition-colors hover:border-ink">
+                  <a href={p.url} target="_blank" rel="noopener noreferrer" className="block h-full rounded-sm border border-line bg-canvas p-6 transition-colors hover:border-ink">
                     {body}
                   </a>
                 ) : (
-                  <div className="h-full rounded-sm border border-line bg-ivory p-6">{body}</div>
+                  <div className="h-full rounded-sm border border-line bg-canvas p-6">{body}</div>
                 )}
               </StaggerItem>
             )
@@ -126,50 +127,59 @@ export async function RoomsSection({ rooms, settings }: { rooms: Room[]; setting
   const tc = await getTranslations('common')
   const locale = await getLocale()
   const villa = settings.contacts?.find((c) => /villa/i.test(c.service))
+  const groups = [
+    { key: 'rooms', title: t('roomsGroup'), items: rooms.filter((r) => !/suite/i.test(r.name)) },
+    { key: 'suites', title: t('suitesGroup'), items: rooms.filter((r) => /suite/i.test(r.name)) },
+  ].filter((g) => g.items.length)
 
   return (
     <Section tone="sand" spacing="md" id="chambres">
       <Container>
-        <SectionHeading title={t('rooms')} size="sm" />
-        <Stagger className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {rooms.map((r, i) => {
-            const img = (r.images ?? [])[i % Math.max(1, (r.images ?? []).length)]
-            const media = typeof img === 'object' ? img : null
-            return (
-              <StaggerItem key={r.id}>
-                <RoomCard
-                  className="h-full"
-                  locale={locale}
-                  name={r.name}
-                  description={
-                    r.description +
-                    (r.priceVariants?.length
-                      ? ` ${r.priceVariants.map((v) => `${v.label} : ${formatPrice(v.price ?? 0, locale)} FCFA`).join(' · ')}`
-                      : '')
-                  }
-                  capacity={r.capacity}
-                  price={r.price}
-                  perNight={tc('perNight')}
-                  guestsLabel={tc('guests')}
-                  image={{ src: mediaSrc(media, 'card') ?? '/images/sg/villa-terrace.webp', alt: media?.alt ?? r.name }}
-                />
-              </StaggerItem>
-            )
-          })}
-        </Stagger>
+        <SectionHeading title={t('rooms')} intro={t('roomsIntro')} size="sm" />
+        <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
+          {groups.map((g) => (
+            <div key={g.key}>
+              <p className="eyebrow text-accent">{g.title}</p>
+              <Stagger as="ul" className="mt-5 border-t border-line">
+                {g.items.map((r) => (
+                  <StaggerItem as="li" key={r.id} className="group grid grid-cols-[1fr_auto] gap-x-6 gap-y-1 border-b border-line py-5">
+                    <h3 className="font-display text-xl leading-snug">{r.name}</h3>
+                    <p className="row-span-2 text-right">
+                      <span className="font-display text-2xl tabular-nums">{formatPrice(r.price, locale)}</span>
+                      <span className="ml-1 text-sm text-muted">FCFA</span>
+                      <span className="block text-xs text-muted">{tc('perNight')}</span>
+                    </p>
+                    <p className="text-sm leading-relaxed text-muted">
+                      {r.description}
+                      <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+                        <span className="inline-flex items-center gap-1.5 text-ink/70">
+                          <Users className="size-3.5" />
+                          {tc('upTo', { count: r.capacity })}
+                        </span>
+                        {(r.priceVariants ?? []).map((v) => (
+                          <span key={v.id} className="text-ink/70">
+                            {v.label} · {formatPrice(v.price ?? 0, locale)} FCFA
+                          </span>
+                        ))}
+                      </span>
+                    </p>
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </div>
+          ))}
+        </div>
         {villa && (
-          <Reveal className="mt-12 flex flex-col gap-6 rounded-sm bg-indigo-ndop p-8 text-ivory sm:flex-row sm:items-center sm:justify-between">
+          <Reveal className="mt-14 flex flex-col gap-6 rounded-sm bg-indigo-ndop p-8 text-ivory sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="eyebrow text-raffia">{t('contacts')}</p>
               <p className="mt-2 font-display text-2xl">{villa.service}</p>
               <p className="mt-1 text-sm text-ivory/70">{splitPhones(villa.phones).join(' · ')}</p>
             </div>
             <div className="flex flex-wrap gap-3">
-              {villa.email && (
-                <Button href={`mailto:${villa.email}`} external variant="light" arrow>
-                  {villa.email}
-                </Button>
-              )}
+              <a href="#reserver" className={buttonClasses('light', 'md')}>
+                {t('bookCta')}
+              </a>
               {splitPhones(villa.phones)[0] && (
                 <Button href={telHref(splitPhones(villa.phones)[0])} external variant="outline-light">
                   {splitPhones(villa.phones)[0]}
@@ -178,6 +188,76 @@ export async function RoomsSection({ rooms, settings }: { rooms: Room[]; setting
             </div>
           </Reveal>
         )}
+      </Container>
+    </Section>
+  )
+}
+
+/** Villa intro: the page's lead text next to a photo gallery (with lightbox). */
+export async function VillaIntro({ text, images }: { text?: string; images: GalleryImage[] }) {
+  const locale = await getLocale()
+  if (!text && !images.length) return null
+  return (
+    <Section tone="ivory" spacing="md">
+      <Container className="grid gap-12 lg:grid-cols-12">
+        {text && (
+          <Reveal className="lg:col-span-4">
+            <p className="font-display text-xl leading-relaxed font-light text-pretty sm:text-2xl">{text}</p>
+          </Reveal>
+        )}
+        <Reveal className="prose-gacha lg:col-span-8">
+          <Gallery
+            images={images}
+            labels={
+              locale === 'en'
+                ? { open: 'Enlarge image', close: 'Close', prev: 'Previous image', next: 'Next image' }
+                : { open: 'Agrandir l’image', close: 'Fermer', prev: 'Image précédente', next: 'Image suivante' }
+            }
+          />
+        </Reveal>
+      </Container>
+    </Section>
+  )
+}
+
+/** Le Jacaranda: hours from the site settings, a photo and a link to the booking form. */
+export async function RestaurantSection({ settings }: { settings: Setting }) {
+  const t = await getTranslations('pages')
+  const hours = settings.restaurantHours ?? []
+  return (
+    <Section tone="deep" spacing="md" id="restaurant" className="relative overflow-hidden">
+      <Container className="relative grid items-center gap-12 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <SectionHeading dark eyebrow="Villa Boutanga" title={t('restaurant')} intro={t('restaurantIntro')} size="sm" />
+          {hours.length > 0 && (
+            <dl className="mt-8 border-t border-ivory/15">
+              {hours.map((h) => (
+                <div key={h.id} className="flex items-baseline justify-between gap-6 border-b border-ivory/15 py-4">
+                  <dt className="text-ivory/80">{h.label}</dt>
+                  <dd className="font-display text-xl tabular-nums">{h.hours}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+          <a href="#reserver" className={buttonClasses('light', 'md', 'mt-8')}>
+            {t('bookTable')}
+          </a>
+        </div>
+        <div className="grid grid-cols-5 gap-3 lg:col-span-6 lg:col-start-7">
+          <ImageReveal
+            src="/images/sg/jacaranda-restaurant.webp"
+            alt="Le restaurant Le Jacaranda"
+            sizes="(min-width: 1024px) 30vw, 60vw"
+            className="col-span-3 aspect-[3/4] rounded-sm"
+          />
+          <ImageReveal
+            src="/images/sg/villa-terrace.webp"
+            alt="La terrasse de la Villa Boutanga"
+            sizes="20vw"
+            className="col-span-2 mt-16 aspect-[3/4] rounded-sm"
+            delay={0.15}
+          />
+        </div>
       </Container>
     </Section>
   )
@@ -194,13 +274,13 @@ export async function ContactsSection({ settings }: { settings: Setting }) {
           <ul className="mt-8 space-y-4 text-muted">
             {settings.address && (
               <li className="flex gap-3">
-                <MapPin className="mt-0.5 size-5 shrink-0 text-terracotta" />
+                <MapPin className="mt-0.5 size-5 shrink-0 text-accent" />
                 {settings.address}
               </li>
             )}
             {settings.hours && (
               <li className="flex gap-3">
-                <Clock className="mt-0.5 size-5 shrink-0 text-terracotta" />
+                <Clock className="mt-0.5 size-5 shrink-0 text-accent" />
                 {settings.hours}
               </li>
             )}
@@ -208,13 +288,13 @@ export async function ContactsSection({ settings }: { settings: Setting }) {
         </div>
         <Stagger className="grid gap-4 sm:grid-cols-2 lg:col-span-8">
           {(settings.contacts ?? []).map((c) => (
-            <StaggerItem key={c.id} className="rounded-sm border border-line bg-ivory p-6">
+            <StaggerItem key={c.id} className="rounded-sm border border-line bg-canvas p-6">
               <p className="font-display text-xl">{c.service}</p>
               {c.person && <p className="mt-1 text-sm text-muted">{c.person}</p>}
               <ul className="mt-4 space-y-2 text-sm">
                 {splitPhones(c.phones).map((p) => (
                   <li key={p}>
-                    <a href={telHref(p)} className="inline-flex items-center gap-2 hover:text-terracotta">
+                    <a href={telHref(p)} className="inline-flex items-center gap-2 hover:text-accent">
                       <Phone className="size-4 text-muted" />
                       {p}
                     </a>
@@ -222,7 +302,7 @@ export async function ContactsSection({ settings }: { settings: Setting }) {
                 ))}
                 {c.email && (
                   <li>
-                    <a href={`mailto:${c.email}`} className="inline-flex items-center gap-2 break-all hover:text-terracotta">
+                    <a href={`mailto:${c.email}`} className="inline-flex items-center gap-2 break-all hover:text-accent">
                       <Mail className="size-4 shrink-0 text-muted" />
                       {c.email}
                     </a>
@@ -354,7 +434,7 @@ function FileRow({ title, meta, href }: { title: string; meta?: string; href?: s
   const inner = (
     <>
       <span className="flex min-w-0 items-center gap-4">
-        <span className="flex size-12 shrink-0 items-center justify-center rounded-sm bg-terracotta/10 text-xs font-semibold text-terracotta-dark">PDF</span>
+        <span className="flex size-12 shrink-0 items-center justify-center rounded-sm bg-terracotta/10 text-xs font-semibold text-accent-strong">PDF</span>
         <span className="min-w-0">
           <span className="block font-display text-xl">{title}</span>
           {meta && <span className="block text-sm text-muted">{meta}</span>}

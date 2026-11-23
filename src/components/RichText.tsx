@@ -6,6 +6,7 @@ import {
 } from '@payloadcms/richtext-lexical/react'
 
 import { CmsImage } from '@/components/media/CmsImage'
+import { Gallery, type GalleryImage } from '@/components/media/Gallery'
 import { asMedia, mediaSrc } from '@/lib/payload'
 import { cn } from '@/lib/cn'
 
@@ -28,8 +29,44 @@ function toEmbedUrl(raw: string): string | null {
   }
 }
 
-const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
+const LIGHTBOX = {
+  fr: { open: 'Agrandir l’image', close: 'Fermer', prev: 'Image précédente', next: 'Image suivante' },
+  en: { open: 'Enlarge image', close: 'Close', prev: 'Previous image', next: 'Next image' },
+}
+
+type Node = { type: string; value?: unknown; children?: Node[]; [k: string]: unknown }
+
+const isImageUpload = (n: Node) => n.type === 'upload' && Boolean(asMedia(n.value as never)?.mimeType?.startsWith('image/'))
+
+const toGalleryImage = (n: Node): GalleryImage => {
+  const media = asMedia(n.value as never)!
+  return {
+    src: mediaSrc(media) ?? '',
+    alt: media.alt ?? '',
+    width: media.width ?? 1600,
+    height: media.height ?? 1000,
+    caption: media.caption,
+  }
+}
+
+/** Groups consecutive images into one "gallery" node so they render as a grid instead of a tall stack. */
+function withGalleries(data: SerializedEditorState): SerializedEditorState {
+  const out: Node[] = []
+  for (const node of data.root.children as unknown as Node[]) {
+    const prev = out[out.length - 1]
+    if (isImageUpload(node)) {
+      if (prev?.type === 'gallery') (prev.images as GalleryImage[]).push(toGalleryImage(node))
+      else out.push({ type: 'gallery', version: 1, images: [toGalleryImage(node)] })
+    } else {
+      out.push(node)
+    }
+  }
+  return { ...data, root: { ...data.root, children: out as never } }
+}
+
+const makeConverters = (locale: 'fr' | 'en'): JSXConvertersFunction => ({ defaultConverters }) => ({
   ...defaultConverters,
+  gallery: ({ node }: { node: { images: GalleryImage[] } }) => <Gallery images={node.images} labels={LIGHTBOX[locale]} />,
   ...LinkJSXConverter({ internalDocToHref: () => '#' }),
   upload: ({ node }) => {
     const media = asMedia(node.value as never)
@@ -84,14 +121,23 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
   },
 })
 
-/** Renders Payload rich text with the site's typography (.prose-gacha). */
+/** Renders Payload rich text with the site's typography (.prose-gacha); images become galleries with a lightbox. */
 export function RichText({
   data,
   className,
+  locale = 'fr',
 }: {
   data: SerializedEditorState | null | undefined
   className?: string
+  locale?: string
 }) {
   if (!data?.root?.children?.length) return null
-  return <PayloadRichText data={data} converters={converters} className={cn('prose-gacha', className)} disableContainer={false} />
+  return (
+    <PayloadRichText
+      data={withGalleries(data)}
+      converters={makeConverters(locale === 'en' ? 'en' : 'fr')}
+      className={cn('prose-gacha', className)}
+      disableContainer={false}
+    />
+  )
 }

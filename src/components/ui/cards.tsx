@@ -152,12 +152,12 @@ export function EventCard({
         className,
       )}
     >
-      <div className="flex w-16 flex-col items-center rounded-sm bg-indigo-ndop py-3 text-ivory sm:w-20">
+      <div className="flex w-16 flex-col items-center rounded-sm bg-indigo-ndop py-3 text-ivory sm:w-20 dark:bg-indigo-soft">
         <span className="font-display text-3xl leading-none sm:text-4xl">{day}</span>
         <span className="eyebrow mt-1.5 text-[0.65rem] text-raffia">{month}</span>
       </div>
       <div className="min-w-0">
-        {category && <p className="eyebrow mb-2 text-[0.65rem] text-terracotta">{category}</p>}
+        {category && <p className="eyebrow mb-2 text-[0.65rem] text-accent">{category}</p>}
         <h3 className="font-display text-xl leading-snug font-light text-balance sm:text-2xl">
           <Link href={href} className="after:absolute after:inset-0">
             {title}
@@ -173,7 +173,7 @@ export function EventCard({
           )}
         </p>
       </div>
-      <ArrowRight className="hidden size-6 text-ink/40 transition-all duration-500 ease-out-expo group-hover:translate-x-1 group-hover:text-terracotta sm:block" />
+      <ArrowRight className="hidden size-6 text-ink/40 transition-all duration-500 ease-out-expo group-hover:translate-x-1 group-hover:text-accent sm:block" />
     </article>
   )
 }
@@ -243,7 +243,7 @@ export function Quote({
     <figure className={cn('relative', className)}>
       <span
         aria-hidden
-        className={cn('absolute -top-10 -left-2 font-display text-[8rem] leading-none select-none', dark ? 'text-ivory/15' : 'text-terracotta/20')}
+        className={cn('absolute -top-10 -left-2 font-display text-[8rem] leading-none select-none', dark ? 'text-ivory/15' : 'text-accent/20')}
       >
         “
       </span>
@@ -287,7 +287,7 @@ export function TierCard({
         className,
       )}
     >
-      <p className={cn('eyebrow', highlighted ? 'text-raffia' : 'text-terracotta')}>{name}</p>
+      <p className={cn('eyebrow', highlighted ? 'text-raffia' : 'text-accent')}>{name}</p>
       <p className="mt-6 font-display text-display-md font-light">
         {new Intl.NumberFormat(locale).format(price)}
         <span className={cn('ml-2 font-sans text-base', highlighted ? 'text-ivory/60' : 'text-muted')}>FCFA</span>

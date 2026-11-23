@@ -45,7 +45,7 @@ export function PostCard({
         </div>
         <div className="min-w-0">
           <p className="text-xs text-muted">
-            {firstTheme(post) && <span className="eyebrow mr-2 text-[0.65rem] text-terracotta">{firstTheme(post)}</span>}
+            {firstTheme(post) && <span className="eyebrow mr-2 text-[0.65rem] text-accent">{firstTheme(post)}</span>}
             <time dateTime={post.publishedAt}>{formatDate(post.publishedAt, locale)}</time>
           </p>
           <h3 className="mt-2 font-display text-xl leading-snug font-light text-balance">

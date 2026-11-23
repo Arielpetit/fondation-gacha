@@ -10,11 +10,11 @@ type Size = 'sm' | 'md' | 'lg'
 
 const variants: Record<Variant, string> = {
   primary: 'bg-terracotta text-ivory hover:bg-terracotta-dark',
-  secondary: 'bg-indigo-ndop text-ivory hover:bg-indigo-deep',
-  outline: 'border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-ivory',
+  secondary: 'bg-indigo-ndop text-ivory hover:bg-indigo-deep dark:bg-ivory dark:text-indigo-ndop dark:hover:bg-white',
+  outline: 'border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-canvas',
   light: 'bg-ivory text-indigo-ndop hover:bg-white',
   'outline-light': 'border border-ivory/40 text-ivory hover:border-ivory hover:bg-ivory hover:text-indigo-ndop',
-  ghost: 'text-ink hover:text-terracotta px-0!',
+  ghost: 'text-ink hover:text-accent px-0!',
 }
 
 const sizes: Record<Size, string> = {

@@ -66,7 +66,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             stagger={0.05}
             duration={0.85}
             text={t('tagline')}
-            className="mt-6 max-w-5xl font-display text-display-xl font-light text-balance"
+            className="mt-6 max-w-5xl font-display text-display-xl font-[360] text-balance"
           />
           <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:items-end">
             <Reveal immediate delay={0.4} className="lg:col-span-6">
@@ -121,7 +121,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               sizes="(min-width: 1024px) 40vw, 100vw"
               className="aspect-[4/5] rounded-sm"
             />
-            <NdopDraw className="absolute -bottom-16 -left-16 hidden size-48 text-terracotta/60 lg:block" />
+            <NdopDraw className="absolute -bottom-16 -left-16 hidden size-48 text-accent/60 lg:block" />
           </div>
         </Container>
         <Container className="mt-24 lg:mt-32">
@@ -313,7 +313,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* ── Partners ────────────────────────────────────────────────── */}
       {partners.docs.length > 0 && (
-        <section aria-label={t('partnersEyebrow')} className="bg-ivory py-16">
+        <section aria-label={t('partnersEyebrow')} className="bg-canvas py-16">
           <Container>
             <Eyebrow className="mb-8">{t('partnersEyebrow')}</Eyebrow>
           </Container>

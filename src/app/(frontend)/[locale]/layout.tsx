@@ -9,6 +9,7 @@ import React from 'react'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteHeader } from '@/components/layout/SiteHeader'
 import { PreviewBar } from '@/components/preview/PreviewBar'
+import { ThemeScript } from '@/components/theme/ThemeScript'
 import { MotionProvider } from '@/components/motion/MotionProvider'
 import { SmoothScroll } from '@/components/SmoothScroll'
 import { routing } from '@/i18n/routing'
@@ -77,7 +78,11 @@ export default async function LocaleLayout({
   const clientMessages = { nav: messages.nav }
 
   return (
-    <html lang={locale} className={`${fraunces.variable} ${inter.variable}`}>
+    // suppressHydrationWarning: ThemeScript adds the `dark` class before React hydrates.
+    <html lang={locale} className={`${fraunces.variable} ${inter.variable}`} suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body className="min-h-dvh">
         <JsonLd data={[organizationLd(settings, locale), websiteLd(locale)]} />
         <NextIntlClientProvider messages={clientMessages}>

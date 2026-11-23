@@ -98,7 +98,7 @@ export async function PageHero({
           duration={0.8}
           text={title}
           className={cn(
-            'mt-5 max-w-5xl font-display font-light text-balance',
+            'mt-5 max-w-5xl font-display font-[360] text-balance',
             size === 'lg' ? 'text-display-xl' : 'text-display-lg',
           )}
         />

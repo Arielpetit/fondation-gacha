@@ -1417,6 +1417,13 @@ export interface Setting {
       }[]
     | null;
   visitNotes?: string | null;
+  restaurantHours?:
+    | {
+        label: string;
+        hours: string;
+        id?: string | null;
+      }[]
+    | null;
   membershipTiers?:
     | {
         name: string;
@@ -1514,6 +1521,13 @@ export interface SettingsSelect<T extends boolean = true> {
         id?: T;
       };
   visitNotes?: T;
+  restaurantHours?:
+    | T
+    | {
+        label?: T;
+        hours?: T;
+        id?: T;
+      };
   membershipTiers?:
     | T
     | {

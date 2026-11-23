@@ -88,7 +88,7 @@ export function NewsletterForm({
           <ArrowRight className="size-5 transition-transform duration-500 ease-out-expo group-hover:translate-x-0.5" />
         </button>
       </div>
-      <p role="status" className={cn('mt-3 text-sm', failed ? 'text-terracotta' : dark ? 'text-raffia' : 'text-forest', !done && !failed && 'sr-only')}>
+      <p role="status" className={cn('mt-3 text-sm', failed ? 'text-accent' : dark ? 'text-raffia' : 'text-forest', !done && !failed && 'sr-only')}>
         {done ? success : failed ? error : ''}
       </p>
     </form>

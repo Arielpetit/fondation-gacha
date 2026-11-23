@@ -13,9 +13,9 @@ export function Tag({
 }) {
   const tones = {
     default: 'border-ink/15 text-ink/75',
-    indigo: 'border-transparent bg-indigo-ndop/8 text-indigo-ndop',
-    terracotta: 'border-transparent bg-terracotta/10 text-terracotta-dark',
-    forest: 'border-transparent bg-forest/10 text-forest',
+    indigo: 'border-transparent bg-indigo-ndop/8 text-indigo-ndop dark:bg-ivory/10 dark:text-ivory',
+    terracotta: 'border-transparent bg-accent/12 text-accent-strong',
+    forest: 'border-transparent bg-forest/10 text-forest dark:bg-[#8fc0a5]/12 dark:text-[#a9d3bb]',
     light: 'border-ivory/30 text-ivory/85',
   }
   return (

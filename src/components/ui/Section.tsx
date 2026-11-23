@@ -5,7 +5,7 @@ import { cn } from '@/lib/cn'
 export type Tone = 'ivory' | 'paper' | 'sand' | 'indigo' | 'deep' | 'forest' | 'terracotta'
 
 const tones: Record<Tone, string> = {
-  ivory: 'bg-ivory text-ink',
+  ivory: 'bg-canvas text-ink',
   paper: 'bg-paper text-ink',
   sand: 'bg-sand text-ink',
   indigo: 'bg-indigo-ndop text-ivory grain',
@@ -68,7 +68,7 @@ export function Eyebrow({
   dark?: boolean
 }) {
   return (
-    <p className={cn('eyebrow flex items-center gap-3', dark ? 'text-raffia' : 'text-terracotta', className)}>
+    <p className={cn('eyebrow flex items-center gap-3', dark ? 'text-raffia' : 'text-accent', className)}>
       <span className="inline-block h-px w-8 bg-current" aria-hidden />
       {children}
     </p>

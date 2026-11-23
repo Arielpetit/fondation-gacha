@@ -28,6 +28,11 @@ export const settings = {
     { label: 'Groupe (10–15 pers.) — Camerounais résident', price: 750 },
     { label: 'Groupe (10–15 pers.) — élève / étudiant', price: 250 },
   ],
+  restaurantHours: [
+    { label: 'Petit-déjeuner', hours: '7h – 10h' },
+    { label: 'Déjeuner', hours: '12h – 15h' },
+    { label: 'Dîner', hours: '19h – 22h' },
+  ],
   visitNotes:
     'L’accès au site de la Fondation est libre. La collection d’objets traditionnels se découvre uniquement en visite guidée, avec le médiateur culturel de la Fondation. Sur demande, des parcours culturels ou de marche guidés sont proposés dans toute la région, sur une ou plusieurs journées, transport et restauration possibles.',
   membershipTiers: [

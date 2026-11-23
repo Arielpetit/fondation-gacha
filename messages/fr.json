@@ -17,7 +17,9 @@
     "close": "Fermer le menu",
     "switchLocale": "English",
     "home": "Accueil",
-    "breadcrumb": "Fil d’Ariane"
+    "breadcrumb": "Fil d’Ariane",
+    "toDark": "Passer en thème sombre",
+    "toLight": "Passer en thème clair"
   },
   "footer": {
     "tagline": "Il faut aider les autres, écouter les autres, respecter les autres… et surtout aimer les autres.",
@@ -164,7 +166,13 @@
     "legalData": "Données personnelles",
     "legalDataText": "Les informations envoyées par e-mail ou par les formulaires servent uniquement à répondre à votre demande. Vous pouvez demander leur suppression à tout moment en écrivant à contact@fondationgacha.org. Le site n’utilise pas de cookies publicitaires.",
     "legalCredits": "Crédits",
-    "legalCreditsText": "Photographies : Fondation Jean-Félicien Gacha et leurs auteurs. Motifs inspirés du Ndop, étoffe des Grassfields."
+    "legalCreditsText": "Photographies : Fondation Jean-Félicien Gacha et leurs auteurs. Motifs inspirés du Ndop, étoffe des Grassfields.",
+    "roomsGroup": "Chambres",
+    "suitesGroup": "Suites",
+    "roomsIntro": "Tarifs par nuit au 1er janvier 2024. Petit-déjeuner servi au restaurant Le Jacaranda.",
+    "bookCta": "Demander une réservation",
+    "restaurantIntro": "Le restaurant de la Villa Boutanga vous accueille en salle ou en terrasse, face aux collines de Bangoulap.",
+    "bookTable": "Réserver une table"
   },
   "forms": {
     "submit": "Envoyer",

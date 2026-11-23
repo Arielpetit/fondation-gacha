@@ -17,7 +17,9 @@
     "close": "Close menu",
     "switchLocale": "Français",
     "home": "Home",
-    "breadcrumb": "Breadcrumb"
+    "breadcrumb": "Breadcrumb",
+    "toDark": "Switch to dark theme",
+    "toLight": "Switch to light theme"
   },
   "footer": {
     "tagline": "We must help others, listen to others, respect others… and above all, love others.",
@@ -164,7 +166,13 @@
     "legalData": "Personal data",
     "legalDataText": "Information sent by email or through the forms is only used to answer your request. You can ask for it to be deleted at any time by writing to contact@fondationgacha.org. The site uses no advertising cookies.",
     "legalCredits": "Credits",
-    "legalCreditsText": "Photographs: Fondation Jean-Félicien Gacha and their authors. Patterns inspired by Ndop, the cloth of the Grassfields."
+    "legalCreditsText": "Photographs: Fondation Jean-Félicien Gacha and their authors. Patterns inspired by Ndop, the cloth of the Grassfields.",
+    "roomsGroup": "Rooms",
+    "suitesGroup": "Suites",
+    "roomsIntro": "Nightly rates from 1 January 2024. Breakfast is served at Le Jacaranda restaurant.",
+    "bookCta": "Request a booking",
+    "restaurantIntro": "Villa Boutanga’s restaurant welcomes you inside or on the terrace, facing the hills of Bangoulap.",
+    "bookTable": "Book a table"
   },
   "forms": {
     "submit": "Send",

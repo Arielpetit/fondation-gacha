@@ -79,7 +79,7 @@ export function FormRenderer({
     'w-full rounded-sm border bg-transparent px-4 py-3 text-base outline-none transition-colors',
     dark
       ? 'border-ivory/25 placeholder:text-ivory/40 focus:border-raffia'
-      : 'border-ink/15 bg-paper placeholder:text-ink/35 focus:border-indigo-ndop',
+      : 'border-ink/15 bg-paper placeholder:text-ink/35 focus:border-accent',
   )
 
   return (
@@ -91,7 +91,7 @@ export function FormRenderer({
             role="status"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className={cn('rounded-sm p-8', dark ? 'bg-ivory/10' : 'bg-forest/10 text-forest')}
+            className={cn('rounded-sm p-8', dark ? 'bg-ivory/10' : 'bg-forest/10 text-forest dark:bg-[#8fc0a5]/12 dark:text-[#a9d3bb]')}
           >
             <p className="font-display text-display-sm font-light">✓</p>
             <p className="mt-3 text-lead">{form.confirmation}</p>
@@ -111,7 +111,7 @@ export function FormRenderer({
                 <span className={cn('mb-2 block text-sm font-medium', dark ? 'text-ivory/80' : 'text-ink/80')}>
                   {f.label}
                   {f.required && (
-                    <span className="text-terracotta" aria-hidden>
+                    <span className="text-accent" aria-hidden>
                       {' '}
                       *
                     </span>
@@ -177,7 +177,7 @@ export function FormRenderer({
               </button>
             </div>
             {status === 'error' && error && (
-              <p role="alert" className="text-sm text-terracotta sm:col-span-2">
+              <p role="alert" className="text-sm text-accent sm:col-span-2">
                 {error}
               </p>
             )}

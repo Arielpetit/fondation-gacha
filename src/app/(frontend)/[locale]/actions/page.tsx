@@ -59,9 +59,9 @@ export default async function ActionsPage({ params }: { params: Promise<{ locale
                   </div>
                 </Reveal>
                 <Reveal className={cn('lg:col-span-5', flip && 'lg:order-1 lg:col-span-5 lg:col-start-1')}>
-                  <p className="font-display text-display-sm text-terracotta">{String(i + 1).padStart(2, '0')}</p>
+                  <p className="font-display text-display-sm text-accent">{String(i + 1).padStart(2, '0')}</p>
                   <h2 className="mt-3 font-display text-display-md font-light text-balance">
-                    <Link href={`/actions/${a.slug}`} className="hover:text-indigo-soft">
+                    <Link href={`/actions/${a.slug}`} className="hover:text-indigo-soft dark:hover:text-raffia">
                       {a.title}
                     </Link>
                   </h2>

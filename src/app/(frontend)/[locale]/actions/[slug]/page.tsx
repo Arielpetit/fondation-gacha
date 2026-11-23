@@ -73,7 +73,7 @@ export default async function ActionPage({ params }: { params: Params }) {
       <Section tone="ivory" spacing="md">
         <Container className="grid gap-12 lg:grid-cols-12">
           <div className="min-w-0 lg:col-span-7">
-            <RichText data={action.content as never} />
+            <RichText data={action.content as never} locale={locale} />
           </div>
           {action.highlights && action.highlights.length > 0 && (
             <aside className="lg:col-span-4 lg:col-start-9">

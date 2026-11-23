@@ -5,7 +5,9 @@ import { notFound } from 'next/navigation'
 import { PostCard } from '@/components/content/PostCards'
 import { ShareLinks } from '@/components/content/ShareLinks'
 import { PageHero } from '@/components/layout/PageHero'
+import { Gallery } from '@/components/media/Gallery'
 import { Reveal, Stagger, StaggerItem } from '@/components/motion'
+import { ReadingProgress } from '@/components/motion/ReadingProgress'
 import { RichText } from '@/components/RichText'
 import { ArrowLink } from '@/components/ui/Button'
 import { Clock, MapPin } from '@/components/ui/icons'
@@ -16,7 +18,7 @@ import { Link } from '@/i18n/navigation'
 import { eventLabel, formatDate } from '@/lib/format'
 import { JsonLd } from '@/lib/jsonLd'
 import { buildMetadata } from '@/lib/metadata'
-import { getPost, getRelatedPosts, hasOwnTranslation } from '@/lib/payload'
+import { asMedia, getPost, getRelatedPosts, hasOwnTranslation, mediaSrc } from '@/lib/payload'
 import type { Theme } from '@/payload-types'
 
 export const revalidate = 600
@@ -68,6 +70,8 @@ export default async function PostPage({ params }: { params: Params }) {
   ])
   const themes = (post.themes ?? []).filter((x): x is Theme => typeof x === 'object')
   const when = post.eventStart ? eventLabel(post, locale) : null
+  const cover = asMedia(post.cover)
+  const bodyHasImages = JSON.stringify(post.content ?? {}).includes('"type":"upload"')
   // Migrated posts often open with the summary text itself: don't print it twice.
   const showLead = Boolean(post.summary) && !leadingText(post.content).includes(normalize(post.summary!).slice(0, 80))
   const base = process.env.NEXT_PUBLIC_SERVER_URL || 'https://www.fondationgacha.org'
@@ -93,10 +97,11 @@ export default async function PostPage({ params }: { params: Params }) {
   return (
     <article>
       <JsonLd data={jsonLd} />
+      <ReadingProgress />
       <PageHero
         eyebrow={themes[0]?.title ?? tn('news')}
         title={post.title}
-        image={post.cover}
+        motif="moon"
         crumbs={[{ href: '/actualites', label: tn('news') }]}
       >
         <p className="text-sm text-ivory/70">{t('published', { date: formatDate(post.publishedAt, locale) })}</p>
@@ -111,7 +116,7 @@ export default async function PostPage({ params }: { params: Params }) {
                   {when && (
                     <div className="grid grid-cols-[1.25rem_1fr] gap-x-3">
                       <dt className="eyebrow col-start-2 text-[0.65rem] text-muted">
-                        <Clock className="absolute -ml-8 size-5 text-terracotta" />
+                        <Clock className="absolute -ml-8 size-5 text-accent" />
                         {tnews('when')}
                       </dt>
                       <dd className="col-start-2 mt-1 first-letter:uppercase">{when}</dd>
@@ -120,7 +125,7 @@ export default async function PostPage({ params }: { params: Params }) {
                   {post.place && (
                     <div className="grid grid-cols-[1.25rem_1fr] gap-x-3">
                       <dt className="eyebrow col-start-2 text-[0.65rem] text-muted">
-                        <MapPin className="absolute -ml-8 size-5 text-terracotta" />
+                        <MapPin className="absolute -ml-8 size-5 text-accent" />
                         {tnews('where')}
                       </dt>
                       <dd className="col-start-2 mt-1">{post.place}</dd>
@@ -142,19 +147,28 @@ export default async function PostPage({ params }: { params: Params }) {
           </aside>
 
           <div className="order-1 min-w-0 lg:order-2 lg:col-span-8 lg:col-start-5">
+            {/* Cover shown in full (often an event poster) — skipped when the article already shows its own images. */}
+            {cover && !bodyHasImages && (
+              <Reveal className="mb-10">
+                <Gallery
+                  images={[{ src: mediaSrc(cover) ?? '', alt: cover.alt ?? '', width: cover.width ?? 1600, height: cover.height ?? 1000 }]}
+                  labels={locale === 'en' ? { open: 'Enlarge image', close: 'Close', prev: 'Previous', next: 'Next' } : { open: 'Agrandir l’image', close: 'Fermer', prev: 'Précédente', next: 'Suivante' }}
+                />
+              </Reveal>
+            )}
             {showLead && (
               <Reveal>
                 <p className="mb-10 font-display text-display-sm font-light text-balance text-ink">{post.summary}</p>
               </Reveal>
             )}
             {!translated && (
-              <p className="mb-8 max-w-[44rem] rounded-sm border-l-2 border-terracotta bg-sand px-5 py-4 text-sm text-ink/80">
+              <p className="mb-8 max-w-[44rem] rounded-sm border-l-2 border-accent bg-sand px-5 py-4 text-sm text-ink/80">
                 {t('frenchOnly')}
               </p>
             )}
             {/* Untranslated body: tell assistive tech it is French. */}
             <div lang={translated ? undefined : 'fr'}>
-              <RichText data={post.content as never} className="max-w-[44rem]" />
+              <RichText data={post.content as never} className="max-w-[44rem]" locale={locale} />
             </div>
             <div className="mt-16 border-t border-line pt-8">
               <ArrowLink href="/actualites">{t('backToNews')}</ArrowLink>

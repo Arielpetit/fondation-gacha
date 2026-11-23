@@ -55,6 +55,15 @@ export const SiteSettings: GlobalConfig = {
               ],
             },
             { name: 'visitNotes', label: 'Informations', type: 'textarea', localized: true },
+            {
+              name: 'restaurantHours',
+              label: 'Horaires du restaurant Le Jacaranda',
+              type: 'array',
+              fields: [
+                { name: 'label', label: 'Service', type: 'text', required: true, localized: true },
+                { name: 'hours', label: 'Horaires', type: 'text', required: true, localized: true },
+              ],
+            },
           ],
         },
         {

@@ -12,7 +12,9 @@ import {
   PartnersGrid,
   PressList,
   ReportsList,
+  RestaurantSection,
   RoomsSection,
+  VillaIntro,
   TeamGrid,
   VisitPrices,
 } from '@/components/content/sections'
@@ -28,8 +30,11 @@ import type { Locale } from '@/i18n/routing'
 import { Link } from '@/i18n/navigation'
 import { breadcrumbLd, JsonLd, lodgingLd } from '@/lib/jsonLd'
 import { buildMetadata } from '@/lib/metadata'
+import { type GalleryImage } from '@/components/media/Gallery'
 import {
+  asMedia,
   findRedirect,
+  mediaSrc,
   getPage,
   getPartners,
   getPosts,
@@ -222,18 +227,46 @@ async function virtualPage(path: string, locale: Locale): Promise<Virtual | null
 }
 
 // ── Sections appended to CMS pages, by path ─────────────────────────────────
-async function extraSections(path: string, locale: Locale): Promise<ReactNode> {
+type LexNode = { type?: string; text?: string; value?: unknown; children?: LexNode[] }
+
+/** Lead paragraph and photos of a migrated page (used where the old body is replaced by structured sections). */
+function pageHighlights(page: Page | null, exclude: RegExp) {
+  const root = (page?.content as { root?: LexNode } | null)?.root
+  const text = (n: LexNode): string => n.text ?? (n.children ?? []).map(text).join('')
+  const firstParagraph = (root?.children ?? []).find((n) => n.type === 'paragraph' && text(n).trim().length > 60)
+  const images: GalleryImage[] = []
+  const walk = (n: LexNode) => {
+    if (n.type === 'upload') {
+      const media = asMedia(n.value as never)
+      if (media?.mimeType?.startsWith('image/') && !exclude.test(media.filename ?? '')) {
+        images.push({ src: mediaSrc(media) ?? '', alt: media.alt ?? '', width: media.width ?? 1600, height: media.height ?? 1000 })
+      }
+    }
+    ;(n.children ?? []).forEach(walk)
+  }
+  if (root) walk(root)
+  return { text: firstParagraph ? text(firstParagraph).trim() : undefined, images }
+}
+
+async function extraSections(path: string, locale: Locale, page: Page | null = null): Promise<ReactNode> {
   const tf = await getTranslations('forms')
   switch (path) {
     case 'fondation/equipe':
       return <TeamGrid team={(await getTeam(locale)).docs} />
     case 'sejourner/villa-boutanga':
+    {
+      // The old page body repeated the room list and an image of the price poster: show its photos as a gallery instead.
+      const { text, images } = pageHighlights(page, /tarif|^23\./i)
+      const settings = await getSettings(locale)
       return (
         <>
-          <RoomsSection rooms={(await getRooms(locale)).docs} settings={await getSettings(locale)} />
-          <CmsForm slug="reservation-villa" title={tf('bookingTitle')} intro={tf('bookingIntro')} tone="indigo" id="reserver" />
+          <VillaIntro text={text} images={images} />
+          <RoomsSection rooms={(await getRooms(locale)).docs} settings={settings} />
+          <RestaurantSection settings={settings} />
+          <CmsForm slug="reservation-villa" title={tf('bookingTitle')} intro={tf('bookingIntro')} tone="paper" id="reserver" />
         </>
       )
+    }
     case 'sejourner/visites': {
       const settings = await getSettings(locale)
       return (
@@ -269,7 +302,7 @@ async function extraSections(path: string, locale: Locale): Promise<ReactNode> {
 }
 
 /** Pages whose CMS body is fully replaced by structured sections (avoid showing the old text twice). */
-const HIDE_BODY = new Set(['fondation/equipe', 'ressources/bilans', 'soutenir/adhesion', 'sejourner/visites'])
+const HIDE_BODY = new Set(['fondation/equipe', 'ressources/bilans', 'soutenir/adhesion', 'sejourner/visites', 'sejourner/villa-boutanga'])
 
 /** Pages where the structured section is the main content and goes before the CMS text. */
 const EXTRA_FIRST = new Set(['soutenir/don'])
@@ -310,7 +343,7 @@ export default async function CatchAllPage({ params }: { params: Params }) {
     notFound()
   }
 
-  const extra = await extraSections(path, locale)
+  const extra = await extraSections(path, locale, page)
   const prefix = locale === 'en' ? '/en' : ''
   const ld: object[] = [
     breadcrumbLd([
@@ -347,7 +380,7 @@ export default async function CatchAllPage({ params }: { params: Params }) {
               </Reveal>
             )}
             <div className={portrait ? 'min-w-0 lg:col-span-7 lg:col-start-6' : 'min-w-0 lg:col-span-8 lg:col-start-3'}>
-              <RichText data={page.content as never} />
+              <RichText data={page.content as never} locale={locale} />
               {path === 'maison-gacha' && (
                 <div className="mt-12">
                   <Button href="https://maisongacha.fr/" external arrow>
@@ -360,7 +393,6 @@ export default async function CatchAllPage({ params }: { params: Params }) {
         </Section>
       )}
       {!EXTRA_FIRST.has(path) && extra}
-      {path === 'sejourner/villa-boutanga' && <span id="restaurant" className="sr-only" />}
       {path === 'maison-gacha' && (
         <Section tone="sand" spacing="sm">
           <Container className="flex items-center gap-2 text-sm text-muted">

@@ -39,6 +39,30 @@ test.describe('Accessibility (axe, WCAG 2.1 AA)', () => {
     })
   }
 
+  // Dark theme (follows the system preference on first visit).
+  for (const path of ['/', '/actualites', '/sejourner/villa-boutanga', '/soutenir/don', '/contact', '/en/actions']) {
+    test(`no violations in dark theme on ${path}`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: 'reduce', colorScheme: 'dark' })
+      await page.goto(`${B}${path}`, { waitUntil: 'networkidle' })
+      await expect(page.locator('html')).toHaveClass(/dark/)
+      const results = await new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+        .exclude('nextjs-portal')
+        .analyze()
+      expect(results.violations.map((v) => `${v.id} (${v.nodes.length}): ${v.nodes[0]?.target.join(' ')}`)).toEqual([])
+    })
+  }
+
+  test('theme toggle switches and remembers the choice', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'light' })
+    await page.goto(`${B}/`)
+    await expect(page.locator('html')).not.toHaveClass(/dark/)
+    await page.getByRole('button', { name: 'Passer en thème sombre' }).first().click()
+    await expect(page.locator('html')).toHaveClass(/dark/)
+    await page.reload()
+    await expect(page.locator('html')).toHaveClass(/dark/)
+  })
+
   test('mobile menu dialog has no violations', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     await page.emulateMedia({ reducedMotion: 'reduce' })

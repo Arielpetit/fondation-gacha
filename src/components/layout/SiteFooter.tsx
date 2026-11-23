@@ -74,8 +74,8 @@ export async function SiteFooter({ items }: { items: ResolvedNavItem[] }) {
 
         <NdopBand className="my-16 text-raffia/50" motif="zigzag" />
 
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:grid-cols-12">
-          <div className="col-span-2 sm:col-span-4 lg:col-span-4">
+        <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 xl:grid-cols-12">
+          <div className="col-span-2 sm:col-span-4 xl:col-span-4">
             <Logo />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-ivory/60">{tr('about')}</p>
             <div className="mt-6 flex gap-2">
@@ -91,7 +91,7 @@ export async function SiteFooter({ items }: { items: ResolvedNavItem[] }) {
             </div>
           </div>
           {columns.map((col) => (
-            <nav key={col.id} aria-label={col.label} className="lg:col-span-2">
+            <nav key={col.id} aria-label={col.label} className="xl:col-span-2">
               <p className="eyebrow text-raffia">{col.label}</p>
               <ul className="mt-5 space-y-2.5 text-sm text-ivory/70">
                 {col.children.map((c) => (
