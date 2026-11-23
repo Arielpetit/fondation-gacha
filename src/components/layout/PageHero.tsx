@@ -55,7 +55,7 @@ export async function PageHero({
           ) : (
             <Image src={imageSrc!} alt="" fill priority sizes="100vw" className="-z-20 object-cover opacity-75" />
           )}
-          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-indigo-deep via-indigo-deep/55 to-indigo-deep/25" />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-indigo-deep via-indigo-deep/70 to-indigo-deep/40" />
         </>
       ) : (
         <div className="absolute inset-0 -z-10 text-ivory/[0.05]">
