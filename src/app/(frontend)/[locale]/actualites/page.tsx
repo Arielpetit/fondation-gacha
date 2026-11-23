@@ -118,6 +118,7 @@ export default async function NewsPage({
             </div>
           </div>
 
+          <h2 className="sr-only">{t('title')}</h2>
           <div className="mt-8 flex items-center justify-between text-sm text-muted" aria-live="polite">
             <span>{t('results', { count: posts.totalDocs })}</span>
             {filtered && (

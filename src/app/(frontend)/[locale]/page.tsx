@@ -56,18 +56,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-indigo-deep via-indigo-deep/45 to-indigo-deep/20" />
 
         <Container className="pt-40 pb-14 sm:pb-20">
-          <Reveal delay={0.1}>
+          <Reveal immediate delay={0.1}>
             <Eyebrow dark>Bangoulap · Ouest-Cameroun</Eyebrow>
           </Reveal>
           <SplitText
             as="h1"
             animateOnMount
-            delay={0.25}
+            delay={0.15}
+            stagger={0.05}
+            duration={0.85}
             text={t('tagline')}
             className="mt-6 max-w-5xl font-display text-display-xl font-light text-balance"
           />
           <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:items-end">
-            <Reveal delay={0.8} className="lg:col-span-6">
+            <Reveal immediate delay={0.4} className="lg:col-span-6">
               <p className="text-lead text-pretty text-ivory/80">{t('intro')}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Magnetic>
@@ -81,7 +83,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               </div>
             </Reveal>
             {events[0] && (
-              <Reveal delay={1} className="lg:col-span-4 lg:col-start-9">
+              <Reveal immediate delay={0.55} className="lg:col-span-4 lg:col-start-9">
                 <Link
                   href={`/actualites/${events[0].slug}`}
                   className="group block rounded-sm border border-ivory/20 bg-indigo-deep/40 p-5 backdrop-blur-md transition-colors hover:bg-indigo-deep/70"

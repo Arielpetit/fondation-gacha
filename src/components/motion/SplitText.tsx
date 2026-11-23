@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 import { createElement, type ElementType } from 'react'
 
 import { cn } from '@/lib/cn'
@@ -32,14 +32,33 @@ export function SplitText({
   const reduce = useSafeReducedMotion()
   const words = text.split(' ')
 
-  const trigger = animateOnMount
-    ? { animate: 'visible' }
-    : { whileInView: 'visible', viewport: { once: true, amount: 0.5 } }
+  // Above the fold: pure CSS animation, so the title appears on first paint without waiting for JavaScript.
+  if (animateOnMount) {
+    return createElement(
+      as,
+      { className: cn(className), 'aria-label': text },
+      <span aria-hidden className="inline">
+        {words.map((word, i) => (
+          <span key={`${word}-${i}`} className="inline-block overflow-hidden pb-[0.12em] align-top">
+            <span
+              className="anim-word"
+              style={{ '--delay': `${delay + i * stagger}s`, '--duration': `${duration}s` } as React.CSSProperties}
+            >
+              {word}
+              {i < words.length - 1 ? '\u00A0' : ''}
+            </span>
+          </span>
+        ))}
+      </span>,
+    )
+  }
+
+  const trigger = { whileInView: 'visible', viewport: { once: true, amount: 0.5 } }
 
   return createElement(
     as,
     { className: cn(className), 'aria-label': text },
-    <motion.span
+    <m.span
       aria-hidden
       className="inline"
       initial="hidden"
@@ -48,7 +67,7 @@ export function SplitText({
     >
       {words.map((word, i) => (
         <span key={`${word}-${i}`} className="inline-block overflow-hidden pb-[0.12em] align-top">
-          <motion.span
+          <m.span
             className="inline-block will-change-transform"
             variants={{
               hidden: { y: '110%', rotate: 4 },
@@ -61,9 +80,9 @@ export function SplitText({
           >
             {word}
             {i < words.length - 1 ? ' ' : ''}
-          </motion.span>
+          </m.span>
         </span>
       ))}
-    </motion.span>,
+    </m.span>,
   )
 }

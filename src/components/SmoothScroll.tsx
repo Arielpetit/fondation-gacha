@@ -1,6 +1,6 @@
 'use client'
 
-import Lenis from 'lenis'
+import type Lenis from 'lenis'
 import { useEffect } from 'react'
 
 let instance: Lenis | null = null
@@ -17,18 +17,25 @@ export function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
-    instance = lenis
+    // Loaded after hydration, in its own chunk, so it never delays the first render.
     let frame = 0
-    const raf = (time: number) => {
-      lenis.raf(time)
+    let cancelled = false
+    let lenis: Lenis | null = null
+    import('lenis').then(({ default: LenisCtor }) => {
+      if (cancelled) return
+      lenis = new LenisCtor({ lerp: 0.1, smoothWheel: true })
+      instance = lenis
+      const raf = (time: number) => {
+        lenis?.raf(time)
+        frame = requestAnimationFrame(raf)
+      }
       frame = requestAnimationFrame(raf)
-    }
-    frame = requestAnimationFrame(raf)
+    })
 
     return () => {
+      cancelled = true
       cancelAnimationFrame(frame)
-      lenis.destroy()
+      lenis?.destroy()
       instance = null
     }
   }, [])

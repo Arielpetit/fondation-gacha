@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
 import { Fraunces, Inter } from 'next/font/google'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
@@ -9,6 +9,7 @@ import React from 'react'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteHeader } from '@/components/layout/SiteHeader'
 import { PreviewBar } from '@/components/preview/PreviewBar'
+import { MotionProvider } from '@/components/motion/MotionProvider'
 import { SmoothScroll } from '@/components/SmoothScroll'
 import { routing } from '@/i18n/routing'
 import { JsonLd, organizationLd, websiteLd } from '@/lib/jsonLd'
@@ -20,7 +21,8 @@ const fraunces = Fraunces({
   subsets: ['latin'],
   variable: '--font-fraunces',
   display: 'swap',
-  axes: ['opsz', 'SOFT'],
+  // Optical size only: the extra SOFT axis doubled the font file.
+  axes: ['opsz'],
 })
 
 const inter = Inter({
@@ -70,12 +72,15 @@ export default async function LocaleLayout({
   setRequestLocale(locale)
   const [nav, settings] = await Promise.all([getNavigation(locale), getSettings(locale)])
   const { isEnabled: preview } = await draftMode()
+  // Only the strings used by client components (header/menu) are sent to the browser.
+  const messages = await getMessages()
+  const clientMessages = { nav: messages.nav }
 
   return (
     <html lang={locale} className={`${fraunces.variable} ${inter.variable}`}>
       <body className="min-h-dvh">
         <JsonLd data={[organizationLd(settings, locale), websiteLd(locale)]} />
-        <NextIntlClientProvider>
+        <NextIntlClientProvider messages={clientMessages}>
           <a
             href="#main"
             className="fixed top-3 left-3 z-[100] -translate-y-20 rounded-full bg-terracotta px-5 py-3 text-sm text-ivory transition-transform focus:translate-y-0"
@@ -83,9 +88,11 @@ export default async function LocaleLayout({
             {locale === 'fr' ? 'Aller au contenu' : 'Skip to content'}
           </a>
           <SmoothScroll />
-          <SiteHeader items={nav} />
-          <main id="main">{children}</main>
-          <SiteFooter items={nav} />
+          <MotionProvider>
+            <SiteHeader items={nav} />
+            <main id="main">{children}</main>
+            <SiteFooter items={nav} />
+          </MotionProvider>
           {preview && (
             <PreviewBar
               serverURL={process.env.NEXT_PUBLIC_SERVER_URL || ''}

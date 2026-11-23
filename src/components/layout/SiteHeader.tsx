@@ -1,6 +1,6 @@
 'use client'
 
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react'
+import { AnimatePresence, m, useMotionValueEvent, useScroll } from 'motion/react'
 import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
@@ -78,7 +78,7 @@ export function SiteHeader({ items }: { items: NavItem[] }) {
 
   return (
     <>
-      <motion.header
+      <m.header
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-[background-color,color,box-shadow,backdrop-filter] duration-500',
           solid ? 'bg-ivory/90 text-ink shadow-[0_1px_0_var(--color-line)] backdrop-blur-md' : 'bg-transparent text-ivory',
@@ -88,7 +88,7 @@ export function SiteHeader({ items }: { items: NavItem[] }) {
         onMouseLeave={scheduleClose}
       >
         <div className="container-site flex h-[var(--header-h)] items-center justify-between gap-6">
-          <Link href="/" className="relative z-10 shrink-0" aria-label="Accueil — Fondation Jean-Félicien Gacha">
+          <Link href="/" className="relative z-10 shrink-0">
             <Logo />
           </Link>
 
@@ -119,7 +119,7 @@ export function SiteHeader({ items }: { items: NavItem[] }) {
         </div>
 
         <MegaPanel items={items} openKey={open} onEnter={() => openMenu(open)} onLeave={scheduleClose} />
-      </motion.header>
+      </m.header>
 
       <MobileDrawer items={items} open={drawer} onClose={() => setDrawer(false)} />
     </>
@@ -207,7 +207,7 @@ function MegaPanel({
   return (
     <AnimatePresence>
       {item && (
-        <motion.div
+        <m.div
           key="panel"
           id={`mega-${item.id}`}
           className="absolute inset-x-0 top-full hidden overflow-hidden border-t border-line bg-ivory text-ink shadow-[0_30px_60px_-30px_rgba(18,25,51,0.35)] xl:block"
@@ -219,7 +219,7 @@ function MegaPanel({
           onMouseLeave={onLeave}
         >
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={item.id}
               className="container-site grid grid-cols-12 gap-10 py-12"
               initial={{ opacity: 0, y: 12 }}
@@ -239,7 +239,7 @@ function MegaPanel({
               </div>
               <ul className={cn('grid content-start gap-x-10 gap-y-1', item.feature ? 'col-span-5 grid-cols-2' : 'col-span-9 grid-cols-3')}>
                 {item.children.map((child, i) => (
-                  <motion.li
+                  <m.li
                     key={child.href}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -257,7 +257,7 @@ function MegaPanel({
                         <span className="mt-1 block text-sm text-muted">{child.description}</span>
                       )}
                     </Link>
-                  </motion.li>
+                  </m.li>
                 ))}
               </ul>
               {item.feature && (
@@ -277,9 +277,9 @@ function MegaPanel({
                   <span className="mt-1 text-sm text-ivory/80">{item.feature.text}</span>
                 </Link>
               )}
-            </motion.div>
+            </m.div>
           </AnimatePresence>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   )
@@ -301,7 +301,7 @@ function MobileDrawer({ items, open, onClose }: { items: NavItem[]; open: boolea
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           id="mobile-menu"
           role="dialog"
           aria-modal="true"
@@ -334,7 +334,7 @@ function MobileDrawer({ items, open, onClose }: { items: NavItem[]; open: boolea
           <nav aria-label="Navigation mobile" className="container-site relative flex-1 pt-6 pb-10">
             <ul>
               {items.map((item, i) => (
-                <motion.li
+                <m.li
                   key={item.id}
                   className="border-b border-ivory/15"
                   initial={{ opacity: 0, y: 24 }}
@@ -356,7 +356,7 @@ function MobileDrawer({ items, open, onClose }: { items: NavItem[]; open: boolea
                       </button>
                       <AnimatePresence initial={false}>
                         {expanded === item.id && (
-                          <motion.ul
+                          <m.ul
                             className="overflow-hidden"
                             initial={{ height: 0 }}
                             animate={{ height: 'auto' }}
@@ -372,7 +372,7 @@ function MobileDrawer({ items, open, onClose }: { items: NavItem[]; open: boolea
                               </li>
                             ))}
                             <li className="h-4" />
-                          </motion.ul>
+                          </m.ul>
                         )}
                       </AnimatePresence>
                     </>
@@ -381,11 +381,11 @@ function MobileDrawer({ items, open, onClose }: { items: NavItem[]; open: boolea
                       {item.label}
                     </Link>
                   )}
-                </motion.li>
+                </m.li>
               ))}
             </ul>
 
-            <motion.div
+            <m.div
               className="mt-10 flex flex-col gap-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -408,9 +408,9 @@ function MobileDrawer({ items, open, onClose }: { items: NavItem[]; open: boolea
               >
                 maisongacha.fr <ArrowUpRight className="size-4" />
               </a>
-            </motion.div>
+            </m.div>
           </nav>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   )
@@ -429,12 +429,15 @@ function LocaleSwitch({ className }: { className?: string }) {
         'inline-flex h-9 items-center gap-1 rounded-full px-3 text-xs font-medium tracking-[0.14em] uppercase transition-colors hover:bg-current/10',
         className,
       )}
-      aria-label={other === 'en' ? 'English version' : 'Version française'}
       hrefLang={other}
     >
+      {/* Accessible name starts with the visible text ("FR / EN") and then says what the link does. */}
       <span className={cn(locale === 'fr' ? 'opacity-100' : 'opacity-45')}>FR</span>
       <span className="opacity-30">/</span>
       <span className={cn(locale === 'en' ? 'opacity-100' : 'opacity-45')}>EN</span>
+      <span className="sr-only" lang={other}>
+        {other === 'en' ? ' — English version' : ' — version française'}
+      </span>
     </Link>
   )
 }

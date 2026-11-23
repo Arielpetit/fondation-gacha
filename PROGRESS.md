@@ -1,6 +1,6 @@
 # Fondation Jean-Félicien Gacha — redesign progress & handover
 
-_Last updated: 23 November 2026 (after Phase 4)_
+_Last updated: 23 November 2026 (after Phase 5)_
 
 This document describes the rebuild of **fondationgacha.org**: why it is being rebuilt, what has been done
 phase by phase, how the project is organised, and what remains. It is meant to let anyone pick the work up.
@@ -53,7 +53,7 @@ environment & farming, community tourism — through:
 Editorial and gallery-like, rooted in **Ndop** (the indigo-and-white resist-dyed cloth of the Grassfields)
 and West Cameroon earth tones.
 - **Palette:** Ndop indigo `#1E2A55`, deep indigo `#121933`, ivory `#F7F3EC`, sand `#EDE4D3`, raffia `#D9C7A3`,
-  terracotta `#B4532A`, forest `#2F4A3A`, ink `#1B1B1F`.
+  terracotta `#A24A25` (darkened in Phase 5 for contrast), forest `#2F4A3A`, ink `#1B1B1F`.
 - **Type:** Fraunces (display serif) + Inter (text), fluid type scale.
 - **Motifs:** seven Ndop patterns redrawn as SVG (dots, zigzag, diamonds, checker, moon, spider, ladder)
   and an emblem that draws itself on scroll.
@@ -69,8 +69,8 @@ and West Cameroon earth tones.
 | 2 | Content model + WordPress migration | ✅ Done |
 | 3 | Public pages | ✅ Done |
 | 4 | Forms, admin polish, live preview | ✅ Done |
-| 5 | English content, SEO, performance, accessibility | ⏳ Next |
-| 6 | QA, deployment, DNS switch | ⏳ To do |
+| 5 | English content, SEO, performance, accessibility | ✅ Done |
+| 6 | QA, deployment, DNS switch | ⏳ Next |
 
 ---
 
@@ -237,11 +237,56 @@ Still open:
 - PayPal donation link: add the URL in *Réglages du site → Dons* when the Foundation provides it.
 - Online card / Mobile Money payments: not built; decide provider first.
 
-### Phase 5 — English, SEO, performance, accessibility ⏳
-- English translations of all content (machine draft + review), `hreflang` alternates, localized slugs if wanted.
-- Structured data (Organization, NGO, Event, Article, LodgingBusiness).
-- Lighthouse ≥ 95 on all four scores; image budget; font subsetting.
-- WCAG AA audit: contrast, focus order, keyboard menus, alt texts (many migrated alts are the post title).
+### Phase 5 — English, SEO, performance, accessibility ✅
+**Goal:** a real English site, strong search presence, fast on Cameroonian mobile networks, accessible to all.
+
+**English content** (written by hand from the French; no translation service was available):
+| Content | English |
+|---|---|
+| Interface, menus, forms, footer | 100 % |
+| 12 pages, 8 actions | 100 % — text translated block by block, images/videos/links kept |
+| Rooms, partners, team roles, residents, reports, themes | 100 % |
+| News titles | 228 / 228 |
+| News summaries | 2021–2025 (59 posts); older summaries stay French |
+| News event dates | 185, generated in English from the dates |
+| News article bodies | French (≈220,000 characters) — English pages show a notice and mark the text `lang="fr"` |
+
+Tooling: `I18N=export pnpm i18n` writes `data/i18n/fr.json`; translations live in `data/i18n/en-*.json`
+(and French corrections in `fr-*.json`); `I18N=import pnpm i18n` applies them. Block counts are checked so a
+translation can never scramble a page. Weak French page intros inherited from the old site were rewritten.
+
+**SEO:** structured data — NGO + WebSite on every page, BreadcrumbList on content pages, LodgingBusiness with room
+offers on the Villa page, NewsArticle / Event on news; `hreflang` fr / en / x-default and self-canonicals;
+Open Graph locale data and a generated default share image (1200×630) for pages without a photo; sitemap and
+robots from Phase 3.
+
+**Performance** (Lighthouse 12, production build; mobile = simulated slow 4G + 4× CPU):
+| Page | Mobile before → after | Desktop after |
+|---|---|---|
+| Home | 63 → 79 | 96 |
+| Article | 60 → 81 | — |
+| Villa Boutanga | 56 → 75 | 88 |
+| Actions (EN) | 58 → 83 | — |
+| News list | — → 84 | — |
+
+Changes: hero titles and intros now animate in pure CSS on first paint (LCP no longer waits for JavaScript);
+Motion loaded through `LazyMotion` (lighter `m` components); only the menu's translation strings are sent to the
+browser; Lenis smooth scroll loaded after hydration in its own chunk; counter animation without the animation
+engine; display font reduced to one variable axis; no layout shift (CLS 0) anywhere.
+What remains on mobile is mostly React's own hydration cost; further gains would need fewer client components
+on long pages (e.g. server-rendered cards without motion wrappers).
+
+**Accessibility:** Lighthouse accessibility 100 on all audited pages; **axe WCAG 2.1 AA: 0 violations** on 15 pages
+(FR + EN) and the mobile menu, now part of the test suite. Fixes: terracotta darkened to `#A24A25` (all small text
+≥ 4.5:1, white on terracotta 5.4:1), logo and language-switch accessible names match their visible text, valid
+definition list for event dates, heading order on the news list, `lang` on untranslated text.
+
+Checks: **37 e2e tests** (+16 accessibility), 10 unit tests, typecheck, lint, production build.
+
+Still open for the Foundation:
+- Translating older news summaries and full article bodies (the tooling is ready).
+- Reviewing the English texts.
+- Better alt texts: many migrated images use the post title.
 
 ### Phase 6 — QA & launch ⏳
 - Production database (Neon or Supabase) and media storage (Cloudflare R2, S3 or Supabase Storage).

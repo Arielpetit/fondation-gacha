@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, type Variants } from 'motion/react'
+import { m, type Variants } from 'motion/react'
 import type { ReactNode } from 'react'
 
 import { useSafeReducedMotion } from './useSafeReducedMotion'
@@ -28,6 +28,7 @@ export function Reveal({
   duration = 0.9,
   amount = 0.25,
   as = 'div',
+  immediate = false,
 }: {
   children: ReactNode
   className?: string
@@ -37,9 +38,23 @@ export function Reveal({
   duration?: number
   amount?: number
   as?: 'div' | 'section' | 'li' | 'article' | 'span' | 'p'
+  /** Above the fold: CSS animation on first paint (no JavaScript, better LCP). Only rises up. */
+  immediate?: boolean
 }) {
   const reduce = useSafeReducedMotion()
-  const Tag = motion[as]
+  const Tag = m[as]
+
+  if (immediate) {
+    const Plain = as
+    return (
+      <Plain
+        className={`anim-rise ${className ?? ''}`}
+        style={{ '--delay': `${delay}s`, '--duration': `${duration}s`, '--rise': `${distance}px` } as React.CSSProperties}
+      >
+        {children}
+      </Plain>
+    )
+  }
 
   return (
     <Tag
@@ -81,7 +96,7 @@ export function Stagger({
   as?: 'div' | 'ul' | 'ol' | 'section'
 }) {
   const reduce = useSafeReducedMotion()
-  const Tag = motion[as]
+  const Tag = m[as]
 
   return (
     <Tag
@@ -106,7 +121,7 @@ export function StaggerItem({
   as?: 'div' | 'li' | 'article'
 }) {
   const reduce = useSafeReducedMotion()
-  const Tag = motion[as]
+  const Tag = m[as]
   return (
     <Tag className={className} variants={itemVariants(reduce)}>
       {children}

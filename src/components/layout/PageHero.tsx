@@ -65,7 +65,7 @@ export async function PageHero({
 
       <div className="container-site relative pt-[calc(var(--header-h)+4rem)] pb-14 sm:pb-20">
         {crumbs.length > 0 && (
-          <Reveal delay={0.05}>
+          <Reveal immediate delay={0.05}>
             <nav aria-label={t('breadcrumb')} className="mb-8 text-sm text-ivory/60">
               <ol className="flex flex-wrap items-center gap-2">
                 <li>
@@ -86,14 +86,16 @@ export async function PageHero({
           </Reveal>
         )}
         {eyebrow && (
-          <Reveal delay={0.1}>
+          <Reveal immediate delay={0.1}>
             <Eyebrow dark>{eyebrow}</Eyebrow>
           </Reveal>
         )}
         <SplitText
           as="h1"
           animateOnMount
-          delay={0.15}
+          delay={0.1}
+          stagger={0.04}
+          duration={0.8}
           text={title}
           className={cn(
             'mt-5 max-w-5xl font-display font-light text-balance',
@@ -101,12 +103,12 @@ export async function PageHero({
           )}
         />
         {intro && (
-          <Reveal delay={0.5} className="mt-7 max-w-2xl text-lead text-pretty text-ivory/80">
+          <Reveal immediate delay={0.35} className="mt-7 max-w-2xl text-lead text-pretty text-ivory/80">
             {intro}
           </Reveal>
         )}
         {children && (
-          <Reveal delay={0.65} className="mt-8">
+          <Reveal immediate delay={0.45} className="mt-8">
             {children}
           </Reveal>
         )}

@@ -109,21 +109,21 @@ export default async function PostPage({ params }: { params: Params }) {
               {(when || post.place) && (
                 <dl className="space-y-4 rounded-sm bg-sand p-5 text-sm">
                   {when && (
-                    <div className="flex gap-3">
-                      <Clock className="mt-0.5 size-5 shrink-0 text-terracotta" />
-                      <div>
-                        <dt className="eyebrow text-[0.65rem] text-muted">{tnews('when')}</dt>
-                        <dd className="mt-1 first-letter:uppercase">{when}</dd>
-                      </div>
+                    <div className="grid grid-cols-[1.25rem_1fr] gap-x-3">
+                      <dt className="eyebrow col-start-2 text-[0.65rem] text-muted">
+                        <Clock className="absolute -ml-8 size-5 text-terracotta" />
+                        {tnews('when')}
+                      </dt>
+                      <dd className="col-start-2 mt-1 first-letter:uppercase">{when}</dd>
                     </div>
                   )}
                   {post.place && (
-                    <div className="flex gap-3">
-                      <MapPin className="mt-0.5 size-5 shrink-0 text-terracotta" />
-                      <div>
-                        <dt className="eyebrow text-[0.65rem] text-muted">{tnews('where')}</dt>
-                        <dd className="mt-1">{post.place}</dd>
-                      </div>
+                    <div className="grid grid-cols-[1.25rem_1fr] gap-x-3">
+                      <dt className="eyebrow col-start-2 text-[0.65rem] text-muted">
+                        <MapPin className="absolute -ml-8 size-5 text-terracotta" />
+                        {tnews('where')}
+                      </dt>
+                      <dd className="col-start-2 mt-1">{post.place}</dd>
                     </div>
                   )}
                 </dl>

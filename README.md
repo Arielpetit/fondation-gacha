@@ -70,6 +70,16 @@ pnpm seed:nav      # reset the "Menu du site" global from the built-in menu
 - Newsletter sign-ups land in **Abonnés newsletter** and sync to Mailchimp when `MAILCHIMP_*` is set.
 - Editors preview drafts with the eye icon (live preview) or the preview button (`/next/preview`, staff only).
 
+## Translations
+
+```bash
+I18N=export pnpm i18n   # French source → data/i18n/fr.json
+I18N=import pnpm i18n   # apply data/i18n/en-*.json (English) and fr-*.json (French corrections)
+```
+
+Rich text is translated block by block, so images, videos and links stay in place. Editors can also translate
+directly in the admin by switching the locale to English.
+
 ## Content model (admin)
 
 | Group | Collections |
@@ -111,5 +121,5 @@ scripts/wp/                  export download scripts (fetch.mjs, fetch-extras.mj
 | 2 | Data model + WordPress migration (228 posts, 12 pages, 8 actions, 838 media, 253 redirects) | done |
 | 3 | Public pages: homepage, news + agenda, actions, CMS pages with structured sections, hubs, old-URL redirects, 404, sitemap, ISR | done |
 | 4 | Forms (contact, Villa booking, membership, volunteering, receipts), newsletter, editable menu, live preview, admin dashboard | done |
-| 5 | English content, SEO, performance and accessibility | |
+| 5 | English content (pages, actions, titles, recent summaries), structured data, performance (LCP/JS), WCAG 2.1 AA (axe in tests) | done |
 | 6 | QA, Vercel deploy, OVH DNS switch | |

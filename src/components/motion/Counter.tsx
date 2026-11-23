@@ -1,6 +1,6 @@
 'use client'
 
-import { animate, useInView } from 'motion/react'
+import { useInView } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { useSafeReducedMotion } from './useSafeReducedMotion'
@@ -30,12 +30,17 @@ export function Counter({
 
   useEffect(() => {
     if (!inView || reduce) return
-    const controls = animate(0, value, {
-      duration,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate: (v) => setCount(Math.round(v)),
-    })
-    return () => controls.stop()
+    // Small native loop (ease-out expo) instead of pulling in the full animation engine.
+    let frame = 0
+    const start = performance.now()
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / (duration * 1000))
+      const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
+      setCount(Math.round(value * eased))
+      if (t < 1) frame = requestAnimationFrame(tick)
+    }
+    frame = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(frame)
   }, [inView, reduce, value, duration])
 
   const fmt = new Intl.NumberFormat(locale)

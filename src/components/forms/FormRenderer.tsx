@@ -1,6 +1,6 @@
 'use client'
 
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, m } from 'motion/react'
 import { useId, useState, type FormEvent } from 'react'
 
 import { buttonClasses } from '@/components/ui/Button'
@@ -86,7 +86,7 @@ export function FormRenderer({
     <div className={cn('relative', className)}>
       <AnimatePresence mode="wait" initial={false}>
         {status === 'done' ? (
-          <motion.div
+          <m.div
             key="done"
             role="status"
             initial={{ opacity: 0, y: 12 }}
@@ -95,9 +95,9 @@ export function FormRenderer({
           >
             <p className="font-display text-display-sm font-light">✓</p>
             <p className="mt-3 text-lead">{form.confirmation}</p>
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.form
+          <m.form
             key="form"
             exit={{ opacity: 0, y: -8 }}
             onSubmit={onSubmit}
@@ -181,7 +181,7 @@ export function FormRenderer({
                 {error}
               </p>
             )}
-          </motion.form>
+          </m.form>
         )}
       </AnimatePresence>
     </div>

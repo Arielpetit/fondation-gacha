@@ -21,7 +21,7 @@ const colors = [
   { name: 'Ivory', token: 'ivory', hex: '#F7F3EC', cls: 'bg-ivory text-ink ring-1 ring-line ring-inset' },
   { name: 'Sand', token: 'sand', hex: '#EDE4D3', cls: 'bg-sand text-ink' },
   { name: 'Raffia', token: 'raffia', hex: '#D9C7A3', cls: 'bg-raffia text-ink' },
-  { name: 'Terracotta', token: 'terracotta', hex: '#B4532A', cls: 'bg-terracotta text-ivory' },
+  { name: 'Terracotta', token: 'terracotta', hex: '#A24A25', cls: 'bg-terracotta text-ivory' },
   { name: 'Forest', token: 'forest', hex: '#2F4A3A', cls: 'bg-forest text-ivory' },
   { name: 'Ink', token: 'ink', hex: '#1B1B1F', cls: 'bg-ink text-ivory' },
 ]

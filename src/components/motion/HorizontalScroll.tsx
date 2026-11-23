@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'motion/react'
+import { m, useScroll, useTransform } from 'motion/react'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 
 import { cn } from '@/lib/cn'
@@ -53,7 +53,7 @@ export function HorizontalScroll({
     >
       <div className={cn(enabled && 'sticky top-0 flex h-screen flex-col justify-center overflow-hidden')}>
         {header}
-        <motion.div
+        <m.div
           ref={track}
           style={enabled ? { x } : undefined}
           className={cn(
@@ -62,7 +62,7 @@ export function HorizontalScroll({
           )}
         >
           {children}
-        </motion.div>
+        </m.div>
       </div>
     </div>
   )

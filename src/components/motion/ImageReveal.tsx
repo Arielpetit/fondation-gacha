@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'motion/react'
+import { m, useScroll, useTransform } from 'motion/react'
 import Image, { type ImageProps } from 'next/image'
 import { useRef } from 'react'
 
@@ -52,8 +52,8 @@ export function ImageReveal({
   const instant = { duration: 0 }
 
   return (
-    <motion.div ref={ref} className={cn('relative overflow-hidden', className)} initial="hidden" {...trigger}>
-      <motion.div
+    <m.div ref={ref} className={cn('relative overflow-hidden', className)} initial="hidden" {...trigger}>
+      <m.div
         className="absolute inset-0 overflow-hidden"
         variants={{
           hidden: { clipPath: hidden },
@@ -63,7 +63,7 @@ export function ImageReveal({
           },
         }}
       >
-        <motion.div
+        <m.div
           className="absolute inset-[-8%]"
           style={parallax ? { y } : undefined}
           variants={{
@@ -75,8 +75,8 @@ export function ImageReveal({
           }}
         >
           <Image {...image} alt={alt} fill className={cn('object-cover', imageClassName)} />
-        </motion.div>
-      </motion.div>
-    </motion.div>
+        </m.div>
+      </m.div>
+    </m.div>
   )
 }

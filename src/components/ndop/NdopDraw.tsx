@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 
 import { useSafeReducedMotion } from '@/components/motion/useSafeReducedMotion'
 import { cn } from '@/lib/cn'
@@ -29,7 +29,7 @@ export function NdopDraw({ className, duration = 2.2 }: { className?: string; du
   const legs = [0, 45, 90, 135, 180, 225, 270, 315]
 
   return (
-    <motion.svg
+    <m.svg
       viewBox="0 0 200 200"
       className={cn('block', className)}
       fill="none"
@@ -40,15 +40,15 @@ export function NdopDraw({ className, duration = 2.2 }: { className?: string; du
       viewport={{ once: true, amount: 0.4 }}
       aria-hidden
     >
-      <motion.circle cx="100" cy="100" r="92" strokeWidth="1.5" variants={draw} custom={0} />
-      <motion.circle cx="100" cy="100" r="74" strokeWidth="1" strokeDasharray="2 6" variants={draw} custom={1} />
-      <motion.circle cx="100" cy="100" r="56" strokeWidth="1.5" variants={draw} custom={2} />
+      <m.circle cx="100" cy="100" r="92" strokeWidth="1.5" variants={draw} custom={0} />
+      <m.circle cx="100" cy="100" r="74" strokeWidth="1" strokeDasharray="2 6" variants={draw} custom={1} />
+      <m.circle cx="100" cy="100" r="56" strokeWidth="1.5" variants={draw} custom={2} />
       {legs.map((deg, i) => {
         const r1 = 18
         const r2 = 50
         const a = (deg * Math.PI) / 180
         return (
-          <motion.path
+          <m.path
             key={deg}
             d={`M${100 + r1 * Math.cos(a)} ${100 + r1 * Math.sin(a)} L${100 + r2 * Math.cos(a)} ${100 + r2 * Math.sin(a)}`}
             strokeWidth="2"
@@ -57,7 +57,7 @@ export function NdopDraw({ className, duration = 2.2 }: { className?: string; du
           />
         )
       })}
-      <motion.circle cx="100" cy="100" r="12" strokeWidth="2" variants={draw} custom={5} />
-    </motion.svg>
+      <m.circle cx="100" cy="100" r="12" strokeWidth="2" variants={draw} custom={5} />
+    </m.svg>
   )
 }
