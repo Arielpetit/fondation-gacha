@@ -71,7 +71,9 @@ test.describe('Accessibility (axe, WCAG 2.1 AA)', () => {
     await page.goto(`${B}/`)
     await page.getByRole('button', { name: 'Menu' }).click()
     await page.getByRole('dialog', { name: 'Menu' }).waitFor()
+    // Let the menu finish opening: under load axe could otherwise sample half-faded links.
+    await page.waitForTimeout(800)
     const results = await new AxeBuilder({ page }).include('#mobile-menu').withTags(['wcag2a', 'wcag2aa']).analyze()
-    expect(results.violations.map((v) => v.id)).toEqual([])
+    expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([])
   })
 })

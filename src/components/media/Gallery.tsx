@@ -58,7 +58,7 @@ export function Gallery({ images, labels }: { images: GalleryImage[]; labels: { 
           <button
             type="button"
             onClick={(e) => open(0, e.currentTarget)}
-            className="group block w-full cursor-zoom-in overflow-hidden rounded-sm bg-sand"
+            className="group block w-fit max-w-full cursor-zoom-in overflow-hidden rounded-sm"
             aria-label={`${labels.open}${images[0].alt ? ` : ${images[0].alt}` : ''}`}
           >
             <Image
@@ -67,7 +67,7 @@ export function Gallery({ images, labels }: { images: GalleryImage[]; labels: { 
               width={images[0].width}
               height={images[0].height}
               sizes="(min-width: 1024px) 760px, 100vw"
-              className="mx-auto h-auto max-h-[75vh] w-auto max-w-full transition-transform duration-700 ease-out-expo group-hover:scale-[1.02]"
+              className="block h-auto max-h-[75vh] w-auto max-w-full transition-transform duration-700 ease-out-expo group-hover:scale-[1.02]"
             />
           </button>
           {images[0].caption && <figcaption>{images[0].caption}</figcaption>}

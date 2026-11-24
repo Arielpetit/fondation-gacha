@@ -287,6 +287,7 @@ Still open for the Foundation:
 - Translating older news summaries and full article bodies (the tooling is ready).
 - Reviewing the English texts.
 - Better alt texts: many migrated images use the post title.
+- About 200 straight apostrophes remain inside migrated article bodies (most already use ’).
 
 ### Pre-launch design polish ✅
 **Goal:** a last design, UX and motion review before hosting, with a dark theme.
@@ -311,6 +312,17 @@ restaurant*) and the booking form, linked from every "Réserver" button.
 titles; footer columns fixed at 1024 px; partner strip, buttons, tags, cards and forms adapted to the dark theme;
 no horizontal scroll at 360 / 768 / 1024 / 1440 px (the Actions list no longer widens the page on phones
 while its images slide in).
+
+**Typography.** Large display titles cap Fraunces' optical size at 72: at its maximum the hairlines vanished and
+"e" read as "c" on big screens. Interface texts use typographic apostrophes (’). Single images in articles and pages
+now keep their own proportions, with no beige bars around portrait photos.
+
+**Admin.** Branded login screen (emblem, Foundation name, short welcome text, soft brand background, fade-in),
+sidebar emblem, brand colours on primary buttons (indigo; raffia in dark mode), Fraunces titles and Inter text.
+The dashboard greets the editor by first name, offers quick links (news, pages, media library, menu, settings),
+shows counters (messages this week, draft news, newsletter subscribers) and the latest news and messages; it works
+in light and dark mode and on phones. No account exists yet: the first account created at `/admin` becomes
+administrator.
 
 Checks: **44 e2e tests** (axe WCAG 2.1 AA: 0 violations on 15 pages in the light theme and 6 in the dark theme,
 plus a theme-toggle test), 10 unit tests, typecheck, lint, production build. A one-off axe pass on 9 more pages in

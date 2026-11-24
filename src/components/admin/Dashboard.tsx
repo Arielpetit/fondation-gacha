@@ -21,8 +21,20 @@ async function loadDashboard(payload: Payload) {
  * Shown above the admin dashboard: quick actions, counters and the latest activity,
  * so editors land on what needs their attention.
  */
-export async function Dashboard({ payload }: { payload: Payload }) {
+export async function Dashboard({ payload, user }: { payload: Payload; user?: { name?: string | null; email?: string } | null }) {
   const [posts, drafts, submissions, newSubmissions, subscribers] = await loadDashboard(payload)
+
+  const hour = Number(new Intl.DateTimeFormat('fr-FR', { hour: 'numeric', hour12: false, timeZone: 'Africa/Douala' }).format(new Date()))
+  const greeting = hour >= 18 || hour < 5 ? 'Bonsoir' : 'Bonjour'
+  const firstName = user?.name?.split(' ')[0]
+
+  const shortcuts = [
+    { label: 'Actualités', href: '/admin/collections/posts' },
+    { label: 'Pages', href: '/admin/collections/pages' },
+    { label: 'Médiathèque', href: '/admin/collections/media' },
+    { label: 'Menu du site', href: '/admin/globals/navigation' },
+    { label: 'Paramètres', href: '/admin/globals/settings' },
+  ]
 
   const stats = [
     { label: 'Messages reçus (7 jours)', value: newSubmissions.totalDocs, href: '/admin/collections/form-submissions' },
@@ -35,7 +47,10 @@ export async function Dashboard({ payload }: { payload: Payload }) {
       <div className="gacha-dash__head">
         <div>
           <p className="gacha-dash__eyebrow">Fondation Jean-Félicien Gacha</p>
-          <h2 className="gacha-dash__title">Bonjour 👋</h2>
+          <h2 className="gacha-dash__title">
+            {greeting}
+            {firstName ? `, ${firstName}` : ''}
+          </h2>
         </div>
         <div className="gacha-dash__actions">
           <Link className="btn btn--style-primary btn--size-medium" href="/admin/collections/posts/create">
@@ -46,6 +61,14 @@ export async function Dashboard({ payload }: { payload: Payload }) {
           </a>
         </div>
       </div>
+
+      <nav className="gacha-dash__shortcuts" aria-label="Accès rapides">
+        {shortcuts.map((x) => (
+          <Link key={x.href} href={x.href}>
+            {x.label}
+          </Link>
+        ))}
+      </nav>
 
       <div className="gacha-dash__stats">
         {stats.map((s) => (

@@ -7,7 +7,7 @@ test.describe('Frontend', () => {
     await expect(page.locator('html')).toHaveAttribute('lang', 'fr')
     // SplitText exposes the heading text through aria-label.
     await expect(
-      page.getByRole('heading', { level: 1, name: "La reconnaissance de l'autre et de ses valeurs" }),
+      page.getByRole('heading', { level: 1, name: 'La reconnaissance de l’autre et de ses valeurs' }),
     ).toBeVisible()
   })
 
