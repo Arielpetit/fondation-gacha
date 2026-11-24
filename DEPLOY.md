@@ -3,22 +3,25 @@
 What lives where: **Vercel** runs the site and the admin; **Supabase Postgres** holds the content;
 **Supabase Storage** (S3 compatible) holds the photos. Payload serves photos through `/api/media/file/…`, so URLs do not change.
 
-## One-time setup
-The Supabase project is **shared with other apps** (buckets `unit-photos`, `gallery`, …), so this site uses its own
-Postgres schema (`foundation`) and its own bucket (`fondation-media`). Nothing else is touched.
+## Status (24 Nov 2026)
+Done: bucket `fondation-media` with all 2,749 files; schema `foundation` created in Supabase (migration applied);
+content copied (228 news, 849 photos, 12 pages, 18 team…); tested end to end against Supabase (pages, photos,
+admin login, photo upload, saving).
 
-1. Bucket `fondation-media` (private) — created. Photos: `node --env-file=.env scripts/deploy/upload-media.mjs`.
-2. **Supabase → Connect**: copy the *Transaction pooler* URL (port 6543) for Vercel and the *Session pooler* URL
-   (port 5432) for migrations and the data copy. (The direct `db.<ref>.supabase.co` host is IPv6-only: it does not work on Vercel.)
-3. Create the tables: `DATABASE_SCHEMA=foundation DATABASE_URL=<session url> pnpm payload migrate`
-4. Copy the content: `LOCAL_URL=postgresql://…@127.0.0.1:5434/gacha REMOTE_URL=<session url> bash scripts/deploy/copy-data.sh`
-5. **Vercel**: import the GitHub repo, set the variables below, deploy (`vercel.json` runs the migrations first).
+## Vercel
+1. vercel.com → Add New → Project → import `Arielpetit/fondation-gacha`. Framework: Next.js (auto).
+2. Environment Variables → **Import .env** → choose the local file `.env.vercel` (it is git-ignored; it holds the values
+   listed below). Apply to Production, Preview and Development.
+3. Deploy. The build runs `payload migrate` on the session pooler (`DATABASE_URL_SESSION`) then `next build`.
+4. Open `/admin` on the deployed address and sign in with your existing account.
+5. Settings → Domains → add `www.fondationgacha.org` (then update OVH DNS as Vercel shows).
 
-## Environment variables (Vercel)
-`DATABASE_URL` (transaction pooler), `DATABASE_SCHEMA=foundation`, `USE_SUPABASE_STORAGE=true`, `SUPABASE_URL`,
-`SUPABASE_SECRET_KEY`, `SUPABASE_BUCKET=fondation-media`, `PAYLOAD_SECRET` (new long random value),
-`NEXT_PUBLIC_SERVER_URL` (final https URL), `PREVIEW_SECRET`, and later `SMTP_*`, `FORMS_TO_EMAIL`, `MAILCHIMP_*`.
+## Environment variables
+`DATABASE_URL` (transaction pooler, port 6543), `DATABASE_URL_SESSION` (session pooler, port 5432, used only by the
+build), `DATABASE_SCHEMA=foundation`, `USE_SUPABASE_STORAGE=true`, `SUPABASE_URL`, `SUPABASE_SECRET_KEY`,
+`SUPABASE_BUCKET=fondation-media`, `PAYLOAD_SECRET`, `PREVIEW_SECRET`, `FORMS_TO_EMAIL`. Later: `SMTP_*`, `MAILCHIMP_*`,
+and `NEXT_PUBLIC_SERVER_URL` once the custom domain is live (before that the Vercel project address is used).
 
-## After the first deploy
-Create your administrator account at `/admin` (the first account becomes administrator), then point the domain
-(`fondationgacha.org`) at Vercel in OVH DNS.
+## Re-running the tools
+Photos: `node --env-file=.env scripts/deploy/upload-media.mjs` (skips files already there).
+Content: `docker exec gacha-postgres pg_dump …` then load into schema `foundation` (see `scripts/deploy/copy-data.sh`).

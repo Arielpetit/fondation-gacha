@@ -49,6 +49,7 @@ export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
   // Payload's own screens live at /cms (an advanced fallback); the team's admin is the custom app at /admin.
   routes: { admin: '/cms' },
+  csrf: [process.env.NEXT_PUBLIC_SERVER_URL || '', 'https://www.fondationgacha.org', 'https://fondationgacha.org'].filter(Boolean),
   admin: {
     user: Users.slug,
     // Side-by-side live preview for news, pages and actions (refreshes on every autosave).

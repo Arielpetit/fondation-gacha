@@ -17,8 +17,13 @@ const securityHeaders = [
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
 ]
 
+// Until a custom domain is set, use the project's own Vercel domain as the site's public address.
+const publicUrl =
+  process.env.NEXT_PUBLIC_SERVER_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : '')
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  env: publicUrl ? { NEXT_PUBLIC_SERVER_URL: publicUrl } : undefined,
   images: {
     formats: ['image/avif', 'image/webp'],
     // Next 16 serves quality 75 by default; 85 keeps photos crisp (the default 75 is coerced to 85).

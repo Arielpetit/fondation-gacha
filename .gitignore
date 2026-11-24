@@ -51,3 +51,4 @@ node_modules/
 
 # WordPress download cache (migration)
 /data/wp-cache
+.env.vercel
