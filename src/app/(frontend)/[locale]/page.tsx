@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { EventRow, PostCard } from '@/components/content/PostCards'
 import { CmsImage } from '@/components/media/CmsImage'
-import { Counter, ImageReveal, Magnetic, Marquee, Reveal, SplitText, Stagger, StaggerItem } from '@/components/motion'
+import { Counter, ImageReveal, Magnetic, Reveal, SplitText, Stagger, StaggerItem } from '@/components/motion'
 import { NdopDraw } from '@/components/ndop/NdopDraw'
 import { NdopBand, NdopPattern } from '@/components/ndop/NdopPattern'
 import { ArrowLink, Button } from '@/components/ui/Button'
@@ -373,15 +373,19 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* ── Partners: logo tiles drifting slowly (pauses on hover) ── */}
       {partners.docs.length > 0 && (
-        <section aria-labelledby="partners" className="bg-canvas py-20 sm:py-24">
+        <section aria-labelledby="partners" className="bg-canvas py-14 sm:py-16">
           <Container>
             <SectionHeading id="partners" eyebrow={t('partnersEyebrow')} title={t('partnersTitle')} intro={t('partnersIntro')} size="sm" />
           </Container>
-          <Marquee duration={partners.docs.length * 9} className="mt-12">
-            {partners.docs.map((p) => (
-              <PartnerTile key={p.id} partner={p} />
-            ))}
-          </Marquee>
+          <Container>
+            <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-6 sm:gap-x-10">
+              {partners.docs.map((p) => (
+                <li key={p.id}>
+                  <PartnerTile partner={p} />
+                </li>
+              ))}
+            </ul>
+          </Container>
         </section>
       )}
 
