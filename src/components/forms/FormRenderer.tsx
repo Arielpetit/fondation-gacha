@@ -76,7 +76,7 @@ export function FormRenderer({
   }
 
   const input = cn(
-    'w-full rounded-sm border bg-transparent px-4 py-3 text-base outline-none transition-colors',
+    'w-full rounded-xl border bg-transparent px-4 py-3 text-base outline-none transition-colors',
     dark
       ? 'border-ivory/25 placeholder:text-ivory/40 focus:border-raffia'
       : 'border-ink/15 bg-paper placeholder:text-ink/35 focus:border-accent',
@@ -91,7 +91,7 @@ export function FormRenderer({
             role="status"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className={cn('rounded-sm p-8', dark ? 'bg-ivory/10' : 'bg-forest/10 text-forest dark:bg-[#8fc0a5]/12 dark:text-[#a9d3bb]')}
+            className={cn('rounded-2xl p-8', dark ? 'bg-ivory/10' : 'bg-forest/10 text-forest dark:bg-[#8fc0a5]/12 dark:text-[#a9d3bb]')}
           >
             <p className="font-display text-display-sm font-light">✓</p>
             <p className="mt-3 text-lead">{form.confirmation}</p>

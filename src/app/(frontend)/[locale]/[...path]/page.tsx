@@ -19,8 +19,8 @@ import {
   VisitPrices,
 } from '@/components/content/sections'
 import { PageHero, type Crumb } from '@/components/layout/PageHero'
-import { CmsImage } from '@/components/media/CmsImage'
-import { Reveal, Stagger, StaggerItem } from '@/components/motion'
+import { Stagger, StaggerItem } from '@/components/motion'
+import { HelpCard, ReadingLayout, SectionNav } from '@/components/layout/ReadingLayout'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/ui/Button'
 import { ArrowUpRight } from '@/components/ui/icons'
@@ -109,7 +109,7 @@ async function virtualPage(path: string, locale: Locale): Promise<Virtual | null
             <Stagger className="grid gap-4 sm:grid-cols-2">
               {item.children!.map((c, i) => (
                 <StaggerItem key={c.href}>
-                  <Link href={c.href} className="group relative isolate flex aspect-[16/10] flex-col justify-end overflow-hidden rounded-sm bg-indigo-deep p-6 text-ivory sm:p-8">
+                  <Link href={c.href} className="group relative isolate flex aspect-[16/10] flex-col justify-end overflow-hidden rounded-2xl bg-indigo-deep p-6 text-ivory sm:p-8">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={HUB_IMAGES[c.href] ?? '/images/sg/site-aerial.webp'}
@@ -371,25 +371,23 @@ export default async function CatchAllPage({ params }: { params: Params }) {
       {EXTRA_FIRST.has(path) && extra}
       {showBody && (
         <Section tone="ivory" spacing="md">
-          <Container className="grid gap-12 lg:grid-cols-12">
-            {portrait && typeof portrait === 'object' && (
-              <Reveal className="lg:col-span-4">
-                <div className="relative aspect-[3/4] overflow-hidden rounded-sm lg:sticky lg:top-28">
-                  <CmsImage media={portrait} sizes="(min-width: 1024px) 30vw, 100vw" />
-                </div>
-              </Reveal>
+          <ReadingLayout
+            aside={
+              <>
+                <SectionNav locale={locale} current={`/${path}`} />
+                <HelpCard locale={locale} />
+              </>
+            }
+          >
+            <RichText data={page.content as never} locale={locale} />
+            {path === 'maison-gacha' && (
+              <div className="mt-12">
+                <Button href="https://maisongacha.fr/" external arrow>
+                  maisongacha.fr
+                </Button>
+              </div>
             )}
-            <div className={portrait ? 'min-w-0 lg:col-span-7 lg:col-start-6' : 'min-w-0 lg:col-span-8 lg:col-start-3'}>
-              <RichText data={page.content as never} locale={locale} />
-              {path === 'maison-gacha' && (
-                <div className="mt-12">
-                  <Button href="https://maisongacha.fr/" external arrow>
-                    maisongacha.fr
-                  </Button>
-                </div>
-              )}
-            </div>
-          </Container>
+          </ReadingLayout>
         </Section>
       )}
       {!EXTRA_FIRST.has(path) && extra}

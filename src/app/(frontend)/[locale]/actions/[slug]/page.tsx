@@ -7,6 +7,7 @@ import { ResidentsList } from '@/components/content/sections'
 import { PageHero } from '@/components/layout/PageHero'
 import { CmsImage } from '@/components/media/CmsImage'
 import { Reveal, Stagger, StaggerItem } from '@/components/motion'
+import { HelpCard, ReadingLayout, SectionNav } from '@/components/layout/ReadingLayout'
 import { RichText } from '@/components/RichText'
 import { ArrowLink } from '@/components/ui/Button'
 import { Container, Section, SectionHeading } from '@/components/ui/Section'
@@ -71,26 +72,33 @@ export default async function ActionPage({ params }: { params: Params }) {
       />
 
       <Section tone="ivory" spacing="md">
-        <Container className="grid gap-12 lg:grid-cols-12">
-          <div className="min-w-0 lg:col-span-7">
-            <RichText data={action.content as never} locale={locale} />
-          </div>
-          {action.highlights && action.highlights.length > 0 && (
-            <aside className="lg:col-span-4 lg:col-start-9">
-              <div className="rounded-sm bg-indigo-ndop p-8 text-ivory lg:sticky lg:top-28">
-                <p className="eyebrow text-raffia">{t('highlights')}</p>
-                <ul className="mt-6 space-y-4">
-                  {action.highlights.map((h) => (
-                    <li key={h.id} className="flex gap-3 text-ivory/85">
-                      <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-raffia" />
-                      {h.text}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </aside>
-          )}
-        </Container>
+        <ReadingLayout
+          aside={
+            <>
+              {action.highlights && action.highlights.length > 0 && (
+                <div className="rounded-3xl bg-indigo-ndop p-7 text-ivory dark:bg-indigo-soft">
+                  <p className="eyebrow text-raffia">{t('highlights')}</p>
+                  <ul className="mt-5 space-y-3.5">
+                    {action.highlights.map((h) => (
+                      <li key={h.id} className="flex gap-3 text-ivory/85">
+                        <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-raffia" />
+                        {h.text}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <SectionNav
+                locale={locale}
+                current={`/actions/${action.slug}`}
+                links={all.docs.map((a) => ({ label: a.title, href: `/actions/${a.slug}` }))}
+              />
+              <HelpCard locale={locale} />
+            </>
+          }
+        >
+          <RichText data={action.content as never} locale={locale} />
+        </ReadingLayout>
       </Section>
 
       {residents && residents.docs.length > 0 && <ResidentsList residents={residents.docs} />}
@@ -117,7 +125,7 @@ export default async function ActionPage({ params }: { params: Params }) {
             {others.map((a) => (
               <Reveal key={a.id} className="w-[70vw] shrink-0 snap-start sm:w-[40vw] lg:w-[22rem]">
                 <Link href={`/actions/${a.slug}`} className="group block">
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-indigo-deep">
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-indigo-deep">
                     <CmsImage media={a.cover} sizes="360px" className="transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105" />
                   </div>
                   <p className="mt-4 font-display text-xl group-hover:underline group-hover:underline-offset-4">{a.title}</p>

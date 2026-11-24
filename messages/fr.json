@@ -58,7 +58,9 @@
     "notFoundTitle": "Page introuvable",
     "notFoundText": "Cette page n’existe pas ou a été déplacée lors de la refonte du site.",
     "notFoundCta": "Retour à l’accueil",
-    "frenchOnly": "Cet article n’est disponible qu’en français."
+    "frenchOnly": "Cet article n’est disponible qu’en français.",
+    "helpTitle": "Une question ?",
+    "helpText": "La Fondation vous répond, en général sous deux jours ouvrés."
   },
   "home": {
     "tagline": "La reconnaissance de l’autre et de ses valeurs",
@@ -93,13 +95,20 @@
     "heritageTitle": "Le Ndop, étoffe des cours royales",
     "heritageText": "La collection de Ly et Frédéric Dumas, les ateliers de perlage et la collecte des chants traditionnels font vivre le patrimoine des Grassfields, de Bangoulap à São Paulo.",
     "heritageCta": "Le patrimoine à la Fondation",
-    "partnersEyebrow": "Ils nous accompagnent",
+    "partnersEyebrow": "Partenaires",
     "supportEyebrow": "Soutenir",
     "supportTitle": "Chaque don fait grandir un talent",
     "supportText": "Un don, une adhésion, un séjour ou quelques semaines de bénévolat : il existe mille façons de soutenir l’éducation, la culture et la santé à Bangoulap.",
     "supportDonate": "Faire un don",
     "supportMember": "Devenir membre",
-    "comingSoon": "Nouveau site en construction"
+    "comingSoon": "Nouveau site en construction",
+    "statActions": "domaines d’action",
+    "statRoomsShort": "chambres et suites",
+    "statAltitudeShort": "d’altitude",
+    "heroAlt": "Cases patrimoniales de la Fondation, drapées d’une étoffe Ndop",
+    "fieldsMore": "Découvrir",
+    "partnersIntro": "Institutions, musées, universités et associations qui accompagnent la Fondation.",
+    "partnersTitle": "Ils nous accompagnent"
   },
   "news": {
     "title": "Actualités & agenda",

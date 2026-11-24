@@ -106,11 +106,11 @@ export async function PartnersGrid({ partners }: { partners: Partner[] }) {
             return (
               <StaggerItem key={p.id}>
                 {p.url ? (
-                  <a href={p.url} target="_blank" rel="noopener noreferrer" className="block h-full rounded-sm border border-line bg-canvas p-6 transition-colors hover:border-ink">
+                  <a href={p.url} target="_blank" rel="noopener noreferrer" className="block h-full rounded-2xl border border-line bg-canvas p-6 transition-colors hover:border-ink">
                     {body}
                   </a>
                 ) : (
-                  <div className="h-full rounded-sm border border-line bg-canvas p-6">{body}</div>
+                  <div className="h-full rounded-2xl border border-line bg-canvas p-6">{body}</div>
                 )}
               </StaggerItem>
             )
@@ -170,7 +170,7 @@ export async function RoomsSection({ rooms, settings }: { rooms: Room[]; setting
           ))}
         </div>
         {villa && (
-          <Reveal className="mt-14 flex flex-col gap-6 rounded-sm bg-indigo-ndop p-8 text-ivory sm:flex-row sm:items-center sm:justify-between">
+          <Reveal className="mt-14 flex flex-col gap-6 rounded-2xl bg-indigo-ndop p-8 text-ivory sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="eyebrow text-raffia">{t('contacts')}</p>
               <p className="mt-2 font-display text-2xl">{villa.service}</p>
@@ -248,13 +248,13 @@ export async function RestaurantSection({ settings }: { settings: Setting }) {
             src="/images/sg/jacaranda-restaurant.webp"
             alt="Le restaurant Le Jacaranda"
             sizes="(min-width: 1024px) 30vw, 60vw"
-            className="col-span-3 aspect-[3/4] rounded-sm"
+            className="col-span-3 aspect-[3/4] rounded-2xl"
           />
           <ImageReveal
             src="/images/sg/villa-terrace.webp"
             alt="La terrasse de la Villa Boutanga"
             sizes="20vw"
-            className="col-span-2 mt-16 aspect-[3/4] rounded-sm"
+            className="col-span-2 mt-16 aspect-[3/4] rounded-2xl"
             delay={0.15}
           />
         </div>
@@ -288,7 +288,7 @@ export async function ContactsSection({ settings }: { settings: Setting }) {
         </div>
         <Stagger className="grid gap-4 sm:grid-cols-2 lg:col-span-8">
           {(settings.contacts ?? []).map((c) => (
-            <StaggerItem key={c.id} className="rounded-sm border border-line bg-canvas p-6">
+            <StaggerItem key={c.id} className="rounded-2xl border border-line bg-canvas p-6">
               <p className="font-display text-xl">{c.service}</p>
               {c.person && <p className="mt-1 text-sm text-muted">{c.person}</p>}
               <ul className="mt-4 space-y-2 text-sm">
@@ -399,7 +399,7 @@ export async function DonationSection({ settings }: { settings: Setting }) {
         </div>
         <div className="lg:col-span-6 lg:col-start-7">
           {bank?.iban && (
-            <div className="rounded-sm border border-ivory/15 bg-indigo-ndop/60 p-6 backdrop-blur sm:p-8">
+            <div className="rounded-2xl border border-ivory/15 bg-indigo-ndop/60 p-6 backdrop-blur sm:p-8">
               {bank.holder && <p className="mb-2 text-sm text-ivory/65">{t('accountHolder')} : {bank.holder}</p>}
               <CopyField label="IBAN" value={bank.iban} copy={tc('copy')} copied={tc('copied')} />
               {bank.bic && <CopyField label="BIC" value={bank.bic} copy={tc('copy')} copied={tc('copied')} />}
@@ -434,7 +434,7 @@ function FileRow({ title, meta, href }: { title: string; meta?: string; href?: s
   const inner = (
     <>
       <span className="flex min-w-0 items-center gap-4">
-        <span className="flex size-12 shrink-0 items-center justify-center rounded-sm bg-terracotta/10 text-xs font-semibold text-accent-strong">PDF</span>
+        <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-terracotta/10 text-xs font-semibold text-accent-strong">PDF</span>
         <span className="min-w-0">
           <span className="block font-display text-xl">{title}</span>
           {meta && <span className="block text-sm text-muted">{meta}</span>}

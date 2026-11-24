@@ -34,7 +34,7 @@ export function PostCard({
   if (compact) {
     return (
       <article className={cn('group relative grid grid-cols-[7rem_1fr] gap-5 sm:grid-cols-[10rem_1fr]', className)}>
-        <div className="relative aspect-square overflow-hidden rounded-sm bg-sand">
+        <div className="relative aspect-square overflow-hidden rounded-2xl bg-sand">
           <Image
             src={mediaSrc(cover, 'thumb') ?? FALLBACK}
             alt={cover?.alt ?? ''}

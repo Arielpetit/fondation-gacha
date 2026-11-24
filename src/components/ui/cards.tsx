@@ -32,7 +32,7 @@ export function ActivityCard({
     <Link
       href={href}
       className={cn(
-        'group relative isolate flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-sm bg-indigo-deep p-6 text-ivory sm:p-8',
+        'group relative isolate flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-2xl bg-indigo-deep p-6 text-ivory sm:p-8',
         className,
       )}
     >
@@ -88,7 +88,7 @@ export function NewsCard({
 
   return (
     <article className={cn('group relative flex flex-col', className)}>
-      <div className={cn('relative overflow-hidden rounded-sm bg-sand', featured ? 'aspect-[16/10]' : 'aspect-[4/3]')}>
+      <div className={cn('relative overflow-hidden rounded-2xl bg-sand', featured ? 'aspect-[16/10]' : 'aspect-[4/3]')}>
         <Image
           src={image.src}
           alt={image.alt}
@@ -152,7 +152,7 @@ export function EventCard({
         className,
       )}
     >
-      <div className="flex w-16 flex-col items-center rounded-sm bg-indigo-ndop py-3 text-ivory sm:w-20 dark:bg-indigo-soft">
+      <div className="flex w-16 flex-col items-center rounded-xl bg-indigo-ndop py-3 text-ivory sm:w-20 dark:bg-indigo-soft">
         <span className="font-display text-3xl leading-none sm:text-4xl">{day}</span>
         <span className="eyebrow mt-1.5 text-[0.65rem] text-raffia">{month}</span>
       </div>
@@ -202,7 +202,7 @@ export function RoomCard({
   className?: string
 }) {
   return (
-    <article className={cn('group flex flex-col overflow-hidden rounded-sm bg-paper', className)}>
+    <article className={cn('group flex flex-col overflow-hidden rounded-2xl bg-paper', className)}>
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image src={image.src} alt={image.alt} fill sizes="(min-width: 1024px) 33vw, 100vw" className={imageHover} />
       </div>
@@ -282,7 +282,7 @@ export function TierCard({
   return (
     <article
       className={cn(
-        'flex flex-col rounded-sm border p-8 transition-transform duration-500 ease-out-expo hover:-translate-y-1',
+        'flex flex-col rounded-2xl border p-8 transition-transform duration-500 ease-out-expo hover:-translate-y-1',
         highlighted ? 'grain border-transparent bg-indigo-ndop text-ivory' : 'border-line bg-paper',
         className,
       )}

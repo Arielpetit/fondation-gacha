@@ -49,10 +49,18 @@ const toGalleryImage = (n: Node): GalleryImage => {
   }
 }
 
+/** Headings and paragraphs with only spaces or line breaks (left over from the old site). */
+const isBlank = (n: Node): boolean => {
+  if (n.type !== 'heading' && n.type !== 'paragraph') return false
+  const kids = n.children ?? []
+  return kids.every((k) => k.type === 'linebreak' || (k.type === 'text' && !String(k.text ?? '').replace(/[\s\u00a0]/g, '')))
+}
+
 /** Groups consecutive images into one "gallery" node so they render as a grid instead of a tall stack. */
 function withGalleries(data: SerializedEditorState): SerializedEditorState {
   const out: Node[] = []
   for (const node of data.root.children as unknown as Node[]) {
+    if (isBlank(node)) continue
     const prev = out[out.length - 1]
     if (isImageUpload(node)) {
       if (prev?.type === 'gallery') (prev.images as GalleryImage[]).push(toGalleryImage(node))
@@ -83,7 +91,7 @@ const makeConverters = (locale: 'fr' | 'en'): JSXConvertersFunction => ({ defaul
     }
     return (
       <figure className="rt-figure">
-        <CmsImage media={media} fill={false} sizes="(min-width: 1024px) 760px, 100vw" className="h-auto w-full rounded-sm" />
+        <CmsImage media={media} fill={false} sizes="(min-width: 1024px) 760px, 100vw" className="h-auto w-full rounded-2xl" />
         {media.caption && <figcaption>{media.caption}</figcaption>}
       </figure>
     )
@@ -104,7 +112,7 @@ const makeConverters = (locale: 'fr' | 'en'): JSXConvertersFunction => ({ defaul
       const isAudio = /libsyn|spotify/.test(src)
       return (
         <figure className="rt-figure">
-          <div className={cn('relative overflow-hidden rounded-sm bg-indigo-deep', isAudio ? 'h-40' : 'aspect-video')}>
+          <div className={cn('relative overflow-hidden rounded-2xl bg-indigo-deep', isAudio ? 'h-40' : 'aspect-video')}>
             <iframe
               src={src}
               title={fields.caption || 'Vidéo'}

@@ -88,14 +88,14 @@ export function SiteHeader({ items }: { items: NavItem[] }) {
         transition={{ duration: 0.5, ease: EASE }}
         onMouseLeave={scheduleClose}
       >
-        <div className="container-site flex h-[var(--header-h)] items-center justify-between gap-6">
+        <div className="container-site flex h-[var(--header-h)] items-center justify-between gap-4 2xl:gap-6">
           <Link href="/" className="relative z-10 shrink-0">
             <Logo />
           </Link>
 
           <DesktopNav items={items} open={open} onOpen={openMenu} />
 
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             <ThemeToggleNav />
             <LocaleSwitch className="hidden sm:inline-flex" />
             <Link
@@ -148,20 +148,28 @@ function DesktopNav({
   onOpen: (key: string | null) => void
 }) {
   const pathname = usePathname()
+  // Soft pill that glides under the hovered or focused link.
+  const [pill, setPill] = useState({ x: 0, w: 0, on: false })
+  const moveTo = (el: HTMLElement) => setPill({ x: el.offsetLeft, w: el.offsetWidth, on: true })
 
   return (
     <nav aria-label="Navigation principale" className="hidden xl:block">
-      <ul className="flex items-center gap-1">
+      <ul className="relative flex items-center gap-0.5 2xl:gap-1" onMouseLeave={() => setPill((p) => ({ ...p, on: false }))}>
+        <span
+          aria-hidden
+          className="pointer-events-none absolute top-0 left-0 h-10 rounded-full bg-current/10 transition-[transform,width,opacity] duration-500 ease-out-expo"
+          style={{ transform: `translateX(${pill.x}px)`, width: pill.w, opacity: pill.on ? 1 : 0 }}
+        />
         {items.map((item) => {
           const active = pathname === item.href || pathname.startsWith(item.href + '/')
           const label = item.label
           const hasChildren = item.children.length > 0
           const base =
-            'relative inline-flex h-10 items-center rounded-full px-3 text-[0.9rem] whitespace-nowrap transition-colors hover:bg-current/8'
+            'relative inline-flex h-10 items-center rounded-full px-[0.45rem] text-[0.85rem] whitespace-nowrap 2xl:px-3 2xl:text-[0.9rem]'
           const indicator = (
             <span
               className={cn(
-                'absolute inset-x-3 bottom-1.5 h-px origin-left bg-current transition-transform duration-500 ease-out-expo',
+                'absolute inset-x-[0.45rem] bottom-1.5 h-px 2xl:inset-x-3 origin-left bg-current transition-transform duration-500 ease-out-expo',
                 active || open === item.id ? 'scale-x-100' : 'scale-x-0',
               )}
               aria-hidden
@@ -169,7 +177,15 @@ function DesktopNav({
           )
 
           return (
-            <li key={item.id} onMouseEnter={() => onOpen(hasChildren ? item.id : null)}>
+            <li
+              key={item.id}
+              onMouseEnter={(e) => {
+                onOpen(hasChildren ? item.id : null)
+                moveTo(e.currentTarget)
+              }}
+              onFocus={(e) => moveTo(e.currentTarget)}
+              onBlur={() => setPill((p) => ({ ...p, on: false }))}
+            >
               {hasChildren ? (
                 <button
                   type="button"
@@ -254,7 +270,7 @@ function MegaPanel({
                   >
                     <Link
                       href={child.href}
-                      className="group block rounded-sm border-b border-line py-3.5 transition-colors hover:border-ink"
+                      className="group block border-b border-line py-3.5 transition-colors hover:border-ink"
                     >
                       <span className="flex items-center justify-between gap-3 font-medium">
                         {child.label}
@@ -270,7 +286,7 @@ function MegaPanel({
               {item.feature && (
                 <Link
                   href={item.feature.href}
-                  className="group relative isolate col-span-4 flex min-h-56 flex-col justify-end overflow-hidden rounded-sm p-6 text-ivory"
+                  className="group relative isolate col-span-4 flex min-h-56 flex-col justify-end overflow-hidden rounded-2xl p-6 text-ivory"
                 >
                   <Image
                     src={item.feature.image}

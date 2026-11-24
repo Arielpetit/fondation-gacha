@@ -13,8 +13,8 @@ import config from '@payload-config'
 import { navigation } from '@/lib/site'
 
 const LABELS = {
-  fr: { foundation: 'La Fondation', actions: 'Nos actions', news: 'Actualités', stay: 'Séjourner', support: 'Soutenir', resources: 'Ressources', maison: 'Maison Gacha' },
-  en: { foundation: 'The Foundation', actions: 'Our work', news: 'News', stay: 'Stay', support: 'Support us', resources: 'Resources', maison: 'Maison Gacha' },
+  fr: { foundation: 'La Fondation', actions: 'Nos actions', news: 'Actualités', stay: 'Séjourner', support: 'Soutenir', resources: 'Ressources', maison: 'Maison Gacha', contact: 'Contact' },
+  en: { foundation: 'The Foundation', actions: 'Our work', news: 'News', stay: 'Stay', support: 'Support us', resources: 'Resources', maison: 'Maison Gacha', contact: 'Contact' },
 } as const
 
 const payload = await getPayload({ config })

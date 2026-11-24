@@ -8,7 +8,7 @@ export type L10n = Record<Locale, string>
 
 export type NavChild = { href: string; label: L10n; description?: L10n }
 export type NavItem = {
-  key: 'foundation' | 'actions' | 'news' | 'stay' | 'support' | 'resources' | 'maison'
+  key: 'foundation' | 'actions' | 'news' | 'stay' | 'support' | 'resources' | 'maison' | 'contact'
   href: string
   children?: NavChild[]
   feature?: { image: string; alt: L10n; title: L10n; text: L10n; href: string }
@@ -90,6 +90,7 @@ export const navigation: NavItem[] = [
     ],
   },
   { key: 'maison', href: '/maison-gacha' },
+  { key: 'contact', href: '/contact' },
 ]
 
 export const contact = {

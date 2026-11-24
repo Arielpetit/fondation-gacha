@@ -58,7 +58,9 @@
     "notFoundTitle": "Page not found",
     "notFoundText": "This page does not exist or moved when the website was redesigned.",
     "notFoundCta": "Back to home",
-    "frenchOnly": "This article is only available in French. The title and summary have been translated."
+    "frenchOnly": "This article is only available in French. The title and summary have been translated.",
+    "helpTitle": "A question?",
+    "helpText": "The Foundation usually replies within two working days."
   },
   "home": {
     "tagline": "Recognising others and their values",
@@ -99,7 +101,14 @@
     "supportText": "A donation, a membership, a stay or a few weeks of volunteering: there are many ways to support education, culture and health in Bangoulap.",
     "supportDonate": "Donate",
     "supportMember": "Become a member",
-    "comingSoon": "New website under construction"
+    "comingSoon": "New website under construction",
+    "statActions": "fields of action",
+    "statRoomsShort": "rooms and suites",
+    "statAltitudeShort": "above sea level",
+    "heroAlt": "The Foundation’s heritage huts, draped with Ndop cloth",
+    "fieldsMore": "Discover",
+    "partnersIntro": "Institutions, museums, universities and associations working alongside the Foundation.",
+    "partnersTitle": "Working alongside us"
   },
   "news": {
     "title": "News & agenda",

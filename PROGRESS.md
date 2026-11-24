@@ -288,6 +288,7 @@ Still open for the Foundation:
 - Reviewing the English texts.
 - Better alt texts: many migrated images use the post title.
 - About 200 straight apostrophes remain inside migrated article bodies (most already use ’).
+- Partner logos: upload them in *Partenaires → Logo* (none came with the old site).
 
 ### Pre-launch design polish ✅
 **Goal:** a last design, UX and motion review before hosting, with a dark theme.
@@ -329,6 +330,25 @@ plus a theme-toggle test), 10 unit tests, typecheck, lint, production build. A o
 the dark theme also found 0 violations. Third-party embeds (YouTube iframes) are left out of the axe checks because
 their markup is outside our control. Lighthouse (mobile, production build): accessibility, best practices and SEO
 100 on 5 pages; performance unchanged from Phase 5 within measurement noise.
+
+### Design pass 2 — homepage, layout consistency, motion ✅
+Based on the Foundation's feedback and the motion language of the Bangangté site.
+
+- **Homepage hero** no longer fills the screen with one photo: text on the left (title, intro, buttons, three key
+  figures), and on the right an arch-shaped frame with a sharp photo of the heritage huts draped in Ndop cloth.
+  The arch rises into place, the photo settles, then two cards (latest event, Villa Boutanga price) pop in and
+  float gently, next to a terracotta seal whose ring of text turns slowly.
+- **"Huit chantiers"**: the pinned horizontal scroll is replaced by a rounded bento grid (one large card, four
+  small, one wide, two small). Hover zooms the photo, turns the arrow and reveals the short text. Four actions had
+  blurry 1200×380 banners as covers; they now use sharp photos (2000 px) from their own pages or the media library.
+- **Partners**: tiles that drift slowly and pause on hover. Each tile shows the partner's logo when one is uploaded
+  (*Partenaires → Logo* in the admin), otherwise a monogram and the name.
+- **Rounded design**: images and cards use soft 16–24 px corners everywhere instead of sharp edges.
+- **One layout for every text page** (pages, actions, news): the text column starts on the same line as the page
+  title, with a sticky sidebar on the right ("Dans cette rubrique" links, highlights or article details, and a
+  contact card). Empty headings left over from the old site are removed; section titles get a short accent line.
+- **Header**: a soft pill glides under the hovered menu item; *Contact* added to the menu; spacing adjusted so
+  the full menu fits from 1280 px.
 
 ### Phase 6 — QA & launch ⏳
 - Production database (Neon or Supabase) and media storage (Cloudflare R2, S3 or Supabase Storage).

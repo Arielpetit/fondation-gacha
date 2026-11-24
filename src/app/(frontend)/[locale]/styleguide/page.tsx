@@ -61,7 +61,7 @@ export default async function StyleguidePage({ params }: { params: Promise<{ loc
           <SectionHeading eyebrow="Couleurs" title="Indigo Ndop & terres de l’Ouest" size="sm" />
           <Stagger className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {colors.map((c) => (
-              <StaggerItem key={c.token} className={`flex aspect-[4/3] flex-col justify-end rounded-sm p-4 ${c.cls}`}>
+              <StaggerItem key={c.token} className={`flex aspect-[4/3] flex-col justify-end rounded-2xl p-4 ${c.cls}`}>
                 <span className="font-medium">{c.name}</span>
                 <span className="text-xs opacity-70">
                   {c.token} · {c.hex}
@@ -123,7 +123,7 @@ export default async function StyleguidePage({ params }: { params: Promise<{ loc
             <Tag tone="terracotta">Agenda</Tag>
             <Tag tone="forest">Environnement</Tag>
           </div>
-          <div className="mt-8 flex flex-wrap items-center gap-3 rounded-sm bg-indigo-ndop p-6">
+          <div className="mt-8 flex flex-wrap items-center gap-3 rounded-2xl bg-indigo-ndop p-6">
             <Button variant="light" arrow>
               Sur fond sombre
             </Button>
@@ -145,7 +145,7 @@ export default async function StyleguidePage({ params }: { params: Promise<{ loc
           <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-7">
             {motifs.map((m) => (
               <div key={m}>
-                <div className="aspect-square rounded-sm border border-ivory/15 text-ivory/80">
+                <div className="aspect-square rounded-2xl border border-ivory/15 text-ivory/80">
                   <NdopPattern motif={m} scale={0.8} />
                 </div>
                 <p className="mt-2 text-xs text-ivory/60">{m}</p>
@@ -172,7 +172,7 @@ export default async function StyleguidePage({ params }: { params: Promise<{ loc
               src="/images/sg/ndop-textile.webp"
               alt="Étoffes Ndop indigo et blanches"
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="aspect-[4/5] rounded-sm"
+              className="aspect-[4/5] rounded-2xl"
             />
             <div className="space-y-10">
               <SplitText
@@ -204,13 +204,13 @@ export default async function StyleguidePage({ params }: { params: Promise<{ loc
 
           <div className="relative mt-24 grid gap-6 sm:grid-cols-3">
             <Parallax speed={0.4}>
-              <ImageReveal src="/images/sg/jacaranda-restaurant.webp" alt="Restaurant Le Jacaranda" sizes="33vw" className="aspect-[3/4] rounded-sm" parallax={0} />
+              <ImageReveal src="/images/sg/jacaranda-restaurant.webp" alt="Restaurant Le Jacaranda" sizes="33vw" className="aspect-[3/4] rounded-2xl" parallax={0} />
             </Parallax>
             <Parallax speed={-0.2} className="sm:mt-24">
-              <ImageReveal src="/images/sg/residence-alice.webp" alt="Alice Ifergan Rey en résidence" sizes="33vw" className="aspect-[3/4] rounded-sm" parallax={0} delay={0.1} />
+              <ImageReveal src="/images/sg/residence-alice.webp" alt="Alice Ifergan Rey en résidence" sizes="33vw" className="aspect-[3/4] rounded-2xl" parallax={0} delay={0.1} />
             </Parallax>
             <Parallax speed={0.6}>
-              <ImageReveal src="/images/sg/villa-terrace.webp" alt="Terrasse de la Villa Boutanga" sizes="33vw" className="aspect-[3/4] rounded-sm" parallax={0} delay={0.2} />
+              <ImageReveal src="/images/sg/villa-terrace.webp" alt="Terrasse de la Villa Boutanga" sizes="33vw" className="aspect-[3/4] rounded-2xl" parallax={0} delay={0.2} />
             </Parallax>
           </div>
         </Container>

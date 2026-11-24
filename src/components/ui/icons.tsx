@@ -75,3 +75,15 @@ export const Instagram = (p: P) => (
     <circle cx="17.2" cy="6.8" r="0.8" fill="currentColor" stroke="none" />
   </svg>
 )
+export const Calendar = (p: P) => (
+  <svg {...base} {...p}>
+    <rect x="3.5" y="5" width="17" height="15" rx="3" />
+    <path d="M3.5 10h17M8 3v4M16 3v4" />
+  </svg>
+)
+export const Bed = (p: P) => (
+  <svg {...base} {...p}>
+    <path d="M3 18V6M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5" />
+    <circle cx="7" cy="11" r="1.8" />
+  </svg>
+)

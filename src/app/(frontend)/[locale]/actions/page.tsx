@@ -42,7 +42,7 @@ export default async function ActionsPage({ params }: { params: Promise<{ locale
                   direction={flip ? 'left' : 'right'}
                   className={cn('relative lg:col-span-7', flip && 'lg:order-2 lg:col-start-6')}
                 >
-                  <Link href={`/actions/${a.slug}`} className="group relative block aspect-[4/3] overflow-hidden rounded-sm bg-indigo-deep">
+                  <Link href={`/actions/${a.slug}`} className="group relative block aspect-[4/3] overflow-hidden rounded-2xl bg-indigo-deep">
                     <CmsImage
                       media={a.cover}
                       sizes="(min-width: 1024px) 55vw, 100vw"
@@ -51,7 +51,7 @@ export default async function ActionsPage({ params }: { params: Promise<{ locale
                   </Link>
                   <div
                     className={cn(
-                      'absolute -bottom-6 hidden size-28 rounded-sm bg-terracotta p-3 text-ivory/80 sm:block',
+                      'absolute -bottom-6 hidden size-28 rounded-2xl bg-terracotta p-3 text-ivory/80 sm:block',
                       flip ? '-left-6' : '-right-6',
                     )}
                     aria-hidden
