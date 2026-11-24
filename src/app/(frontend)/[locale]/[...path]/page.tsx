@@ -21,6 +21,7 @@ import {
 import { PageHero, type Crumb } from '@/components/layout/PageHero'
 import { Stagger, StaggerItem } from '@/components/motion'
 import { HelpCard, ReadingLayout } from '@/components/layout/ReadingLayout'
+import { PhotoGallery } from '@/components/media/PhotoGallery'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/ui/Button'
 import { ArrowUpRight } from '@/components/ui/icons'
@@ -43,6 +44,7 @@ import {
   getRooms,
   getSettings,
   getTeam,
+  getAlbums,
   staticSlugs,
 } from '@/lib/payload'
 import { navigation, t as l10n } from '@/lib/site'
@@ -259,6 +261,32 @@ async function virtualPage(path: string, locale: Locale): Promise<Virtual | null
                     </StaggerItem>
                   ))}
                 </Stagger>
+              </Container>
+            </Section>
+          )
+        },
+      }
+    case 'galerie':
+      return {
+        title: t('galleryTitle'),
+        eyebrow: tn('foundation'),
+        intro: t('galleryText'),
+        body: async () => {
+          const albums = await getAlbums(locale)
+          return (
+            <Section tone="ivory" spacing="md">
+              <Container>
+                <PhotoGallery
+                  albums={albums.map((a) => ({ key: a.key, title: a.title, photos: a.photos.map((x) => ({ src: x.full, alt: x.alt, width: x.width, height: x.height, caption: x.caption })) }))}
+                  labels={{
+                    all: t('galleryAll'),
+                    more: t('galleryMore'),
+                    photos: t('galleryPhotos'),
+                    ...(locale === 'en'
+                      ? { open: 'Enlarge image', close: 'Close', prev: 'Previous', next: 'Next' }
+                      : { open: 'Agrandir l’image', close: 'Fermer', prev: 'Précédente', next: 'Suivante' }),
+                  }}
+                />
               </Container>
             </Section>
           )

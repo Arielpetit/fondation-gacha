@@ -2,8 +2,8 @@ import { getLocale, getTranslations } from 'next-intl/server'
 
 import { NdopBand } from '@/components/ndop/NdopPattern'
 import { NdopDraw } from '@/components/ndop/NdopDraw'
-import { Facebook, Mail, MapPin, Phone, Clock, ArrowUpRight } from '@/components/ui/icons'
-import { Logo } from '@/components/ui/Logo'
+import { ArrowUpRight, Clock, Facebook, Instagram, Mail, MapPin, Phone, Youtube } from '@/components/ui/icons'
+import { FoundationLogo } from '@/components/ui/Logo'
 import { NewsletterForm } from '@/components/ui/NewsletterForm'
 import { Link } from '@/i18n/navigation'
 import type { ResolvedNavItem } from '@/lib/navigation'
@@ -76,18 +76,26 @@ export async function SiteFooter({ items }: { items: ResolvedNavItem[] }) {
 
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 xl:grid-cols-12">
           <div className="col-span-2 sm:col-span-4 xl:col-span-4">
-            <Logo />
+            <FoundationLogo className="w-36 text-ivory" />
+            <span className="sr-only">Fondation Jean-Félicien Gacha</span>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-ivory/60">{tr('about')}</p>
             <div className="mt-6 flex gap-2">
-              <a
-                href={contact.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex size-10 items-center justify-center rounded-full border border-ivory/20 transition-colors hover:bg-ivory hover:text-indigo-deep"
-              >
-                <Facebook className="size-4" />
-                <span className="sr-only">Facebook</span>
-              </a>
+              {[
+                { href: contact.facebook, label: 'Facebook', Icon: Facebook },
+                { href: contact.instagram, label: 'Instagram', Icon: Instagram },
+                { href: contact.youtube, label: 'YouTube', Icon: Youtube },
+              ].map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex size-10 items-center justify-center rounded-full border border-ivory/20 transition-colors hover:bg-ivory hover:text-indigo-deep"
+                >
+                  <Icon className="size-4" />
+                  <span className="sr-only">{label}</span>
+                </a>
+              ))}
             </div>
           </div>
           {columns.map((col) => (

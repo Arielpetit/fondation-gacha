@@ -190,7 +190,15 @@
     "roomsIntro": "Nightly rates from 1 January 2024. Breakfast is served at Le Jacaranda restaurant.",
     "bookCta": "Request a booking",
     "restaurantIntro": "Villa Boutanga’s restaurant welcomes you inside or on the terrace, facing the hills of Bangoulap.",
-    "bookTable": "Book a table"
+    "bookTable": "Book a table",
+    "roomPhotoSimple": "Room with a double bed",
+    "roomPhotoSuite": "Suite with a large bed",
+    "roomPhotoDouble": "Room with two single beds",
+    "galleryTitle": "Photo gallery",
+    "galleryText": "The Foundation, its work, Villa Boutanga and events in Bangoulap, in pictures.",
+    "galleryAll": "All",
+    "galleryMore": "Show more photos",
+    "galleryPhotos": "photos"
   },
   "forms": {
     "submit": "Send",

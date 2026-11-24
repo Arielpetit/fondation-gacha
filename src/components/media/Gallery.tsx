@@ -18,7 +18,16 @@ const EASE = [0.16, 1, 0.3, 1] as const
 /** Large landscape photos fill the text column; portrait or small ones keep their size (never upscaled). */
 const fillsColumn = (img: GalleryImage) => img.width >= img.height && img.width >= 800
 
-export function Gallery({ images, labels }: { images: GalleryImage[]; labels: { open: string; close: string; prev: string; next: string } }) {
+export function Gallery({
+  images,
+  labels,
+  dense,
+}: {
+  images: GalleryImage[]
+  labels: { open: string; close: string; prev: string; next: string }
+  /** Four columns on large screens (photo gallery page). */
+  dense?: boolean
+}) {
   const [index, setIndex] = useState<number | null>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
   const returnFocus = useRef<HTMLElement | null>(null)
@@ -51,7 +60,7 @@ export function Gallery({ images, labels }: { images: GalleryImage[]; labels: { 
   }, [index, close, go])
 
   const single = images.length === 1
-  const cols = images.length === 2 || images.length === 4 ? 'sm:grid-cols-2' : 'sm:grid-cols-3'
+  const cols = dense ? 'sm:grid-cols-3 lg:grid-cols-4' : images.length === 2 || images.length === 4 ? 'sm:grid-cols-2' : 'sm:grid-cols-3'
   const current = index === null ? null : images[index]
 
   return (

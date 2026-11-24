@@ -87,3 +87,9 @@ export const Bed = (p: P) => (
     <circle cx="7" cy="11" r="1.8" />
   </svg>
 )
+export const Youtube = (p: P) => (
+  <svg {...base} {...p}>
+    <rect x="2.5" y="5.5" width="19" height="13" rx="4" />
+    <path d="m10 9.5 5 2.5-5 2.5z" fill="currentColor" />
+  </svg>
+)

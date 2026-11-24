@@ -8,6 +8,7 @@ import { CopyField } from '@/components/content/CopyField'
 import { CmsImage } from '@/components/media/CmsImage'
 import { ImageReveal, Reveal, Stagger, StaggerItem } from '@/components/motion'
 import { Gallery, type GalleryImage } from '@/components/media/Gallery'
+import { VillaLogo } from '@/components/ui/Logo'
 import { NdopPattern } from '@/components/ndop/NdopPattern'
 import { Button, buttonClasses } from '@/components/ui/Button'
 import { TierCard } from '@/components/ui/cards'
@@ -16,7 +17,15 @@ import { Container, Section, SectionHeading } from '@/components/ui/Section'
 import { cn } from '@/lib/cn'
 import { formatDate, formatPrice, splitPhones, telHref } from '@/lib/format'
 import { mediaSrc } from '@/lib/payload'
-import type { Partner, Press as PressItem, Report, Resident, Room, Setting, Team as TeamMember } from '@/payload-types'
+import type {
+  Partner,
+  Press as PressItem,
+  Report,
+  Resident,
+  Room,
+  Setting,
+  Team as TeamMember,
+} from '@/payload-types'
 
 const initials = (name: string) =>
   name
@@ -33,7 +42,11 @@ export async function TeamGrid({ team }: { team: TeamMember[] }) {
   const groups = [
     { key: 'board', title: t('board'), people: team.filter((m) => m.group === 'board') },
     { key: 'staff', title: t('team'), people: team.filter((m) => m.group === 'staff') },
-    { key: 'volunteer', title: t('volunteers'), people: team.filter((m) => m.group === 'volunteer') },
+    {
+      key: 'volunteer',
+      title: t('volunteers'),
+      people: team.filter((m) => m.group === 'volunteer'),
+    },
   ].filter((g) => g.people.length)
 
   return (
@@ -42,16 +55,24 @@ export async function TeamGrid({ team }: { team: TeamMember[] }) {
         {groups.map((g) => (
           <div key={g.key}>
             <SectionHeading title={g.title} size="sm" />
-            <Stagger className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
+            <Stagger className="mt-8 grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
               {g.people.map((m) => (
-                <StaggerItem key={m.id} className="flex items-center gap-4">
-                  <span className="relative flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-full bg-indigo-ndop font-display text-lg text-ivory">
-                    {m.photo ? <CmsImage media={m.photo} sizes="64px" /> : initials(m.name)}
+                <StaggerItem key={m.id} className="group">
+                  <span className="relative block aspect-[4/5] overflow-hidden rounded-2xl bg-indigo-ndop dark:bg-indigo-soft">
+                    {m.photo ? (
+                      <CmsImage
+                        media={m.photo}
+                        sizes="(min-width: 1024px) 240px, 45vw"
+                        className="transition-transform duration-700 ease-out-expo group-hover:scale-105"
+                      />
+                    ) : (
+                      <span className="absolute inset-0 grid place-items-center font-display text-4xl text-raffia">
+                        {initials(m.name)}
+                      </span>
+                    )}
                   </span>
-                  <span className="min-w-0">
-                    <span className="block font-medium">{m.name}</span>
-                    {m.role && <span className="block text-sm text-muted">{m.role}</span>}
-                  </span>
+                  <span className="mt-3 block font-medium leading-snug">{m.name}</span>
+                  {m.role && <span className="block text-sm text-muted">{m.role}</span>}
                 </StaggerItem>
               ))}
             </Stagger>
@@ -71,7 +92,11 @@ export async function ResidentsList({ residents }: { residents: Resident[] }) {
         <SectionHeading dark title={t('residents')} size="sm" />
         <Stagger as="ul" className="mt-10 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
           {residents.map((r) => (
-            <StaggerItem as="li" key={r.id} className="flex items-baseline justify-between gap-4 border-b border-ivory/15 py-4">
+            <StaggerItem
+              as="li"
+              key={r.id}
+              className="flex items-baseline justify-between gap-4 border-b border-ivory/15 py-4"
+            >
               <span>
                 <span className="font-display text-xl">{r.name}</span>
                 {r.discipline && <span className="ml-2 text-sm text-ivory/55">{r.discipline}</span>}
@@ -100,13 +125,20 @@ export async function PartnersGrid({ partners }: { partners: Partner[] }) {
                   <h3 className="font-display text-2xl font-light">{p.name}</h3>
                   {p.url && <ArrowUpRight className="size-5 shrink-0 text-muted" />}
                 </div>
-                {p.description && <p className="mt-3 text-sm leading-relaxed text-muted">{p.description}</p>}
+                {p.description && (
+                  <p className="mt-3 text-sm leading-relaxed text-muted">{p.description}</p>
+                )}
               </>
             )
             return (
               <StaggerItem key={p.id}>
                 {p.url ? (
-                  <a href={p.url} target="_blank" rel="noopener noreferrer" className="block h-full rounded-2xl border border-line bg-canvas p-6 transition-colors hover:border-ink">
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block h-full rounded-2xl border border-line bg-canvas p-6 transition-colors hover:border-ink"
+                  >
                     {body}
                   </a>
                 ) : (
@@ -122,6 +154,13 @@ export async function PartnersGrid({ partners }: { partners: Partner[] }) {
 }
 
 // ── Villa Boutanga rooms ────────────────────────────────────────────────────
+/** Room photos (cropped from the Villa's 2024 price poster: the only room pictures available). */
+const ROOM_PHOTOS = [
+  { src: '/images/sg/room-simple.webp', alt: 'roomPhotoSimple' },
+  { src: '/images/sg/room-suite.webp', alt: 'roomPhotoSuite' },
+  { src: '/images/sg/room-double.webp', alt: 'roomPhotoDouble' },
+] as const
+
 export async function RoomsSection({ rooms, settings }: { rooms: Room[]; settings: Setting }) {
   const t = await getTranslations('pages')
   const tc = await getTranslations('common')
@@ -136,16 +175,43 @@ export async function RoomsSection({ rooms, settings }: { rooms: Room[]; setting
     <Section tone="sand" spacing="md" id="chambres">
       <Container>
         <SectionHeading title={t('rooms')} intro={t('roomsIntro')} size="sm" />
+        <div className="mt-10">
+          <Gallery
+            images={ROOM_PHOTOS.map((r) => ({
+              src: r.src,
+              alt: t(r.alt),
+              caption: t(r.alt),
+              width: 802,
+              height: 860,
+            }))}
+            labels={
+              locale === 'en'
+                ? { open: 'Enlarge image', close: 'Close', prev: 'Previous', next: 'Next' }
+                : {
+                    open: 'Agrandir l’image',
+                    close: 'Fermer',
+                    prev: 'Précédente',
+                    next: 'Suivante',
+                  }
+            }
+          />
+        </div>
         <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
           {groups.map((g) => (
             <div key={g.key}>
               <p className="eyebrow text-accent">{g.title}</p>
               <Stagger as="ul" className="mt-5 border-t border-line">
                 {g.items.map((r) => (
-                  <StaggerItem as="li" key={r.id} className="group grid grid-cols-[1fr_auto] gap-x-6 gap-y-1 border-b border-line py-5">
+                  <StaggerItem
+                    as="li"
+                    key={r.id}
+                    className="group grid grid-cols-[1fr_auto] gap-x-6 gap-y-1 border-b border-line py-5"
+                  >
                     <h3 className="font-display text-xl leading-snug">{r.name}</h3>
                     <p className="row-span-2 text-right">
-                      <span className="font-display text-2xl tabular-nums">{formatPrice(r.price, locale)}</span>
+                      <span className="font-display text-2xl tabular-nums">
+                        {formatPrice(r.price, locale)}
+                      </span>
                       <span className="ml-1 text-sm text-muted">FCFA</span>
                       <span className="block text-xs text-muted">{tc('perNight')}</span>
                     </p>
@@ -181,7 +247,11 @@ export async function RoomsSection({ rooms, settings }: { rooms: Room[]; setting
                 {t('bookCta')}
               </a>
               {splitPhones(villa.phones)[0] && (
-                <Button href={telHref(splitPhones(villa.phones)[0])} external variant="outline-light">
+                <Button
+                  href={telHref(splitPhones(villa.phones)[0])}
+                  external
+                  variant="outline-light"
+                >
                   {splitPhones(villa.phones)[0]}
                 </Button>
               )}
@@ -202,7 +272,11 @@ export async function VillaIntro({ text, images }: { text?: string; images: Gall
       <Container className="grid gap-12 lg:grid-cols-12">
         {text && (
           <Reveal className="lg:col-span-4">
-            <p className="font-display text-xl leading-relaxed font-light text-pretty sm:text-2xl">{text}</p>
+            <VillaLogo className="mb-8 w-28 text-[#7a4a32] dark:text-raffia" />
+            <span className="sr-only">Villa Boutanga</span>
+            <p className="font-display text-xl leading-relaxed font-light text-pretty sm:text-2xl">
+              {text}
+            </p>
           </Reveal>
         )}
         <Reveal className="prose-gacha lg:col-span-8">
@@ -210,8 +284,18 @@ export async function VillaIntro({ text, images }: { text?: string; images: Gall
             images={images}
             labels={
               locale === 'en'
-                ? { open: 'Enlarge image', close: 'Close', prev: 'Previous image', next: 'Next image' }
-                : { open: 'Agrandir l’image', close: 'Fermer', prev: 'Image précédente', next: 'Image suivante' }
+                ? {
+                    open: 'Enlarge image',
+                    close: 'Close',
+                    prev: 'Previous image',
+                    next: 'Next image',
+                  }
+                : {
+                    open: 'Agrandir l’image',
+                    close: 'Fermer',
+                    prev: 'Image précédente',
+                    next: 'Image suivante',
+                  }
             }
           />
         </Reveal>
@@ -228,11 +312,20 @@ export async function RestaurantSection({ settings }: { settings: Setting }) {
     <Section tone="deep" spacing="md" id="restaurant" className="relative overflow-hidden">
       <Container className="relative grid items-center gap-12 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <SectionHeading dark eyebrow="Villa Boutanga" title={t('restaurant')} intro={t('restaurantIntro')} size="sm" />
+          <SectionHeading
+            dark
+            eyebrow="Villa Boutanga"
+            title={t('restaurant')}
+            intro={t('restaurantIntro')}
+            size="sm"
+          />
           {hours.length > 0 && (
             <dl className="mt-8 border-t border-ivory/15">
               {hours.map((h) => (
-                <div key={h.id} className="flex items-baseline justify-between gap-6 border-b border-ivory/15 py-4">
+                <div
+                  key={h.id}
+                  className="flex items-baseline justify-between gap-6 border-b border-ivory/15 py-4"
+                >
                   <dt className="text-ivory/80">{h.label}</dt>
                   <dd className="font-display text-xl tabular-nums">{h.hours}</dd>
                 </div>
@@ -294,7 +387,10 @@ export async function ContactsSection({ settings }: { settings: Setting }) {
               <ul className="mt-4 space-y-2 text-sm">
                 {splitPhones(c.phones).map((p) => (
                   <li key={p}>
-                    <a href={telHref(p)} className="inline-flex items-center gap-2 hover:text-accent">
+                    <a
+                      href={telHref(p)}
+                      className="inline-flex items-center gap-2 hover:text-accent"
+                    >
                       <Phone className="size-4 text-muted" />
                       {p}
                     </a>
@@ -302,7 +398,10 @@ export async function ContactsSection({ settings }: { settings: Setting }) {
                 ))}
                 {c.email && (
                   <li>
-                    <a href={`mailto:${c.email}`} className="inline-flex items-center gap-2 break-all hover:text-accent">
+                    <a
+                      href={`mailto:${c.email}`}
+                      className="inline-flex items-center gap-2 break-all hover:text-accent"
+                    >
                       <Mail className="size-4 shrink-0 text-muted" />
                       {c.email}
                     </a>
@@ -332,7 +431,10 @@ export async function VisitPrices({ settings }: { settings: Setting }) {
         </div>
         <ul className="lg:col-span-6 lg:col-start-7">
           {prices.map((p) => (
-            <li key={p.id} className="flex items-baseline justify-between gap-6 border-b border-ivory/15 py-4">
+            <li
+              key={p.id}
+              className="flex items-baseline justify-between gap-6 border-b border-ivory/15 py-4"
+            >
               <span className="text-ivory/85">{p.label}</span>
               <span className="shrink-0 font-display text-xl">
                 {p.price ? `${formatPrice(p.price, locale)} FCFA` : tc('free')}
@@ -368,7 +470,14 @@ export async function MembershipSection({ settings }: { settings: Setting }) {
                 highlighted={Boolean(tier.highlighted)}
                 perks={tier.highlighted ? perks : perks.slice(0, 2)}
                 cta={
-                  <a href="#adherer" className={buttonClasses(tier.highlighted ? 'light' : 'outline', 'md', 'w-full')}>
+                  <a
+                    href="#adherer"
+                    className={buttonClasses(
+                      tier.highlighted ? 'light' : 'outline',
+                      'md',
+                      'w-full',
+                    )}
+                  >
                     {t('join')}
                   </a>
                 }
@@ -400,9 +509,15 @@ export async function DonationSection({ settings }: { settings: Setting }) {
         <div className="lg:col-span-6 lg:col-start-7">
           {bank?.iban && (
             <div className="rounded-2xl border border-ivory/15 bg-indigo-ndop/60 p-6 backdrop-blur sm:p-8">
-              {bank.holder && <p className="mb-2 text-sm text-ivory/65">{t('accountHolder')} : {bank.holder}</p>}
+              {bank.holder && (
+                <p className="mb-2 text-sm text-ivory/65">
+                  {t('accountHolder')} : {bank.holder}
+                </p>
+              )}
               <CopyField label="IBAN" value={bank.iban} copy={tc('copy')} copied={tc('copied')} />
-              {bank.bic && <CopyField label="BIC" value={bank.bic} copy={tc('copy')} copied={tc('copied')} />}
+              {bank.bic && (
+                <CopyField label="BIC" value={bank.bic} copy={tc('copy')} copied={tc('copied')} />
+              )}
             </div>
           )}
           <div className="mt-8 flex flex-wrap gap-3">
@@ -418,7 +533,10 @@ export async function DonationSection({ settings }: { settings: Setting }) {
           {contact && (
             <p className="mt-8 text-sm text-ivory/65">
               {t('donateQuestions')} {contact.person} ·{' '}
-              <a href={`mailto:${contact.email}`} className="underline underline-offset-4 hover:text-ivory">
+              <a
+                href={`mailto:${contact.email}`}
+                className="underline underline-offset-4 hover:text-ivory"
+              >
                 {contact.email}
               </a>
             </p>
@@ -434,13 +552,17 @@ function FileRow({ title, meta, href }: { title: string; meta?: string; href?: s
   const inner = (
     <>
       <span className="flex min-w-0 items-center gap-4">
-        <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-terracotta/10 text-xs font-semibold text-accent-strong">PDF</span>
+        <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-terracotta/10 text-xs font-semibold text-accent-strong">
+          PDF
+        </span>
         <span className="min-w-0">
           <span className="block font-display text-xl">{title}</span>
           {meta && <span className="block text-sm text-muted">{meta}</span>}
         </span>
       </span>
-      {href && <ArrowUpRight className="size-5 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />}
+      {href && (
+        <ArrowUpRight className="size-5 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      )}
     </>
   )
   const cls = 'group flex items-center justify-between gap-6 border-b border-line py-5'
@@ -461,7 +583,12 @@ export async function ReportsList({ reports }: { reports: Report[] }) {
         <SectionHeading title={t('reports')} size="sm" />
         <div className="mt-8 border-t border-line">
           {reports.map((r) => (
-            <FileRow key={r.id} title={r.title} meta={String(r.year)} href={mediaSrc(r.file) ?? r.url} />
+            <FileRow
+              key={r.id}
+              title={r.title}
+              meta={String(r.year)}
+              href={mediaSrc(r.file) ?? r.url}
+            />
           ))}
         </div>
       </Container>
@@ -481,7 +608,12 @@ export async function PressList({ items }: { items: PressItem[] }) {
             <FileRow
               key={p.id}
               title={p.title}
-              meta={[p.outlet, p.date ? formatDate(p.date, locale, { month: 'long', year: 'numeric' }) : null].filter(Boolean).join(' · ')}
+              meta={[
+                p.outlet,
+                p.date ? formatDate(p.date, locale, { month: 'long', year: 'numeric' }) : null,
+              ]
+                .filter(Boolean)
+                .join(' · ')}
               href={mediaSrc(p.file) ?? p.url}
             />
           ))}

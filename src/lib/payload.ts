@@ -342,3 +342,57 @@ export async function staticSlugs() {
     posts: posts.docs.map((d) => d.slug),
   }
 }
+
+export type AlbumPhoto = { id: number; src: string; full: string; alt: string; width: number; height: number; caption?: string | null }
+export type Album = { key: string; title: string; photos: AlbumPhoto[] }
+
+/**
+ * Photo albums for the gallery page: every image used in a page, an action or a news article, grouped by where it
+ * appears (logos, posters and tiny images left out), duplicates removed.
+ */
+export const getAlbums = cache(async (locale: Locale): Promise<Album[]> => {
+  const p = await payload()
+  const seen = new Set<number>()
+  const toPhoto = (m: Media): AlbumPhoto | null => {
+    if (!m.mimeType?.startsWith('image/') || (m.width ?? 0) < 700 || (m.height ?? 0) < 450) return null
+    if (/logo|capture|screenshot|affiche|programme|tarifs|flyer|assets-|sans-titre/i.test(m.filename ?? '')) return null
+    const ratio = (m.width ?? 1) / (m.height ?? 1)
+    if (ratio > 3 || ratio < 0.4) return null
+    const src = mediaSrc(m, 'card')
+    if (!src || seen.has(m.id)) return null
+    seen.add(m.id)
+    return { id: m.id, src, full: mediaSrc(m, 'wide') ?? src, alt: m.alt ?? '', width: m.width ?? 1200, height: m.height ?? 800, caption: m.caption }
+  }
+  const collect = (doc: unknown, out: Media[]) => {
+    const walk = (n: unknown) => {
+      if (!n || typeof n !== 'object') return
+      const o = n as { type?: string; value?: unknown }
+      if (o.type === 'upload' && o.value && typeof o.value === 'object') out.push(o.value as Media)
+      for (const v of Object.values(n)) if (v && typeof v === 'object') walk(v)
+    }
+    walk(doc)
+  }
+  const fromDocs = (docs: { content?: unknown; cover?: unknown }[]) => {
+    const media: Media[] = []
+    for (const d of docs) {
+      if (d.cover && typeof d.cover === 'object') media.push(d.cover as Media)
+      collect(d.content, media)
+    }
+    return media.map(toPhoto).filter((x): x is AlbumPhoto => Boolean(x))
+  }
+
+  const [pages, activities, posts] = await Promise.all([
+    p.find({ collection: 'pages', ...base(locale), limit: 100, depth: 2, pagination: false }),
+    p.find({ collection: 'activities', ...base(locale), limit: 20, depth: 2, sort: 'order' }),
+    p.find({ collection: 'posts', ...base(locale), limit: 300, depth: 2, sort: '-publishedAt', pagination: false }),
+  ])
+  const byPath = (re: RegExp) => pages.docs.filter((d) => re.test(String((d as { path?: string }).path)))
+
+  const albums: Album[] = [
+    { key: 'fondation', title: locale === 'en' ? 'The Foundation' : 'La Fondation', photos: fromDocs(byPath(/^fondation/)) },
+    ...activities.docs.map((a) => ({ key: String(a.slug), title: String(a.title), photos: fromDocs([a]) })),
+    { key: 'sejour', title: locale === 'en' ? 'Villa Boutanga & Le Jacaranda' : 'Villa Boutanga & Le Jacaranda', photos: fromDocs(byPath(/^sejourner|^visiter/)) },
+    { key: 'actus', title: locale === 'en' ? 'Events & news' : 'Événements & actualités', photos: fromDocs(posts.docs) },
+  ]
+  return albums.filter((a) => a.photos.length)
+})

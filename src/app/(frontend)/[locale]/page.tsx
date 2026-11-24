@@ -9,6 +9,7 @@ import { NdopBand, NdopPattern } from '@/components/ndop/NdopPattern'
 import { ArrowLink, Button } from '@/components/ui/Button'
 import { Quote } from '@/components/ui/cards'
 import { HeroSeal } from '@/components/ui/HeroSeal'
+import { VillaLogo } from '@/components/ui/Logo'
 import { PartnerTile } from '@/components/ui/PartnerTile'
 import { ArrowUpRight, Bed, Calendar, Users } from '@/components/ui/icons'
 import { Container, Eyebrow, Section, SectionHeading } from '@/components/ui/Section'
@@ -317,6 +318,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </div>
           </div>
           <div className="lg:col-span-4 lg:col-start-9">
+            <VillaLogo className="mb-7 w-20 text-[#7a4a32] dark:text-raffia" />
             <SectionHeading id="villa" eyebrow={t('villaEyebrow')} title={t('villaTitle')} />
             <Reveal className="mt-6 text-lead text-muted">{t('villaText')}</Reveal>
             {Number.isFinite(minPrice) && (

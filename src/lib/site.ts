@@ -22,6 +22,7 @@ export const navigation: NavItem[] = [
       { href: '/fondation', label: { fr: 'Présentation', en: 'About us' }, description: { fr: 'Le mot de la présidente, valeurs et missions', en: "The president's word, values and mission" } },
       { href: '/fondation/infrastructures', label: { fr: 'Infrastructures', en: 'Facilities' }, description: { fr: 'Centre des Cultures JLD, auditorium, bibliothèque', en: 'JLD Culture Centre, auditorium, library' } },
       { href: '/fondation/equipe', label: { fr: 'Équipe & bénévoles', en: 'Team & volunteers' }, description: { fr: 'Celles et ceux qui font vivre la Fondation', en: 'The people behind the Foundation' } },
+      { href: '/galerie', label: { fr: 'Galerie photos', en: 'Photo gallery' }, description: { fr: 'La Fondation et Bangoulap en images', en: 'The Foundation and Bangoulap in pictures' } },
       { href: '/maison-gacha', label: { fr: 'Maison Gacha', en: 'Maison Gacha' }, description: { fr: 'Le Cameroun créatif à Paris', en: 'Creative Cameroon in Paris' } },
       { href: '/ressources/presse', label: { fr: 'Presse', en: 'Press' }, description: { fr: 'Articles et reportages', en: 'Articles and reports' } },
       { href: '/ressources/bilans', label: { fr: 'Bilans d’activités', en: 'Activity reports' }, description: { fr: 'Rapports annuels à télécharger', en: 'Annual reports to download' } },
@@ -101,6 +102,8 @@ export const contact = {
   phone: '+237 243 10 82 30',
   villaPhone: '+237 695 85 60 95',
   facebook: 'https://www.facebook.com/FondationJFG/',
+  instagram: 'https://www.instagram.com/espaceculturelgacha/',
+  youtube: 'https://www.youtube.com/channel/UC2OvxaKY-QHGlND_0ohOCRg',
   maisonGacha: 'https://maisongacha.fr/',
 }
 

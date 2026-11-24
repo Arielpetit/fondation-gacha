@@ -82,20 +82,28 @@ html[data-theme='dark'] .btn--style-primary {
 html[data-theme='dark'] .gacha-logo {
   color: var(--gacha-raffia);
 }
-.gacha-logo__eyebrow {
-  margin: 14px 0 0;
-  font-size: 11px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  opacity: 0.7;
+.gacha-logo__img,
+.gacha-icon {
+  display: block;
+  background: currentColor;
+  mask: url('/images/brand/fondation-ivory.png') center / contain no-repeat;
+  -webkit-mask: url('/images/brand/fondation-ivory.png') center / contain no-repeat;
 }
-.gacha-logo__name {
-  margin: 4px 0 0;
-  font-family: var(--font-serif);
-  font-size: 26px;
-  line-height: 1.1;
-  color: var(--theme-text);
+.gacha-logo__img {
+  width: 180px;
+  aspect-ratio: 414 / 314;
 }
+.gacha-icon {
+  width: 34px;
+  aspect-ratio: 408 / 192;
+  color: var(--gacha-indigo);
+  mask-image: url('/images/brand/fondation-mark-ivory.png');
+  -webkit-mask-image: url('/images/brand/fondation-mark-ivory.png');
+}
+html[data-theme='dark'] .gacha-icon {
+  color: var(--gacha-raffia);
+}
+
 .gacha-welcome {
   margin-bottom: var(--base);
   text-align: center;

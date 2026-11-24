@@ -190,7 +190,15 @@
     "roomsIntro": "Tarifs par nuit au 1er janvier 2024. Petit-déjeuner servi au restaurant Le Jacaranda.",
     "bookCta": "Demander une réservation",
     "restaurantIntro": "Le restaurant de la Villa Boutanga vous accueille en salle ou en terrasse, face aux collines de Bangoulap.",
-    "bookTable": "Réserver une table"
+    "bookTable": "Réserver une table",
+    "roomPhotoSimple": "Chambre avec lit double",
+    "roomPhotoSuite": "Suite avec grand lit",
+    "roomPhotoDouble": "Chambre à deux lits simples",
+    "galleryTitle": "Galerie photos",
+    "galleryText": "La Fondation, ses actions, la Villa Boutanga et les événements de Bangoulap en images.",
+    "galleryAll": "Toutes",
+    "galleryMore": "Voir plus de photos",
+    "galleryPhotos": "photos"
   },
   "forms": {
     "submit": "Envoyer",

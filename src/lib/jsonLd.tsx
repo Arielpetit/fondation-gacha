@@ -21,7 +21,7 @@ export function organizationLd(settings: Setting | null, locale: string) {
     name: 'Fondation Jean-Félicien Gacha',
     alternateName: locale === 'en' ? 'Jean-Félicien Gacha Foundation' : 'ONG Fondation Jean-Félicien Gacha',
     url: base,
-    logo: `${base}/icon.svg`,
+    logo: `${base}/images/brand/fondation-indigo.png`,
     foundingDate: '2002',
     founder: { '@type': 'Person', name: 'Ly Dumas' },
     slogan: 'La reconnaissance de l’autre et de ses valeurs',

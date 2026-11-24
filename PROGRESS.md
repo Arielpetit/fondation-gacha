@@ -392,6 +392,19 @@ Based on the Foundation's feedback and the motion language of the Bangangté sit
 - Fixed a bug found by the production build: the old `/ressources` hub depended on the removed menu entry.
 - Admin access: open `/admin`. While no account exists, the first one created there becomes administrator.
 
+### Design pass 6 — real logos, people, rooms, gallery, socials ✅
+- **Real logos**: the Foundation's house logo (from the old theme) in header, footer, hero seal, admin login/sidebar,
+  favicon and structured data; the Villa Boutanga logo (extracted from the 2024 price poster) on the homepage Villa
+  section and the Villa page. Both are drawn through a CSS mask so they follow the theme colour.
+- **Team portraits** from the old team page (14 people + president) as portrait cards; Pierre Tchomobe and William
+  Kuihane have no photo yet (monogram).
+- **Room photos**: the Villa page shows the three room photos (cropped from the price poster, the only room
+  pictures available). Better originals should be uploaded.
+- **Photo gallery** `/galerie` (under La Fondation): albums (Foundation, each action, Villa & Jacaranda, events),
+  filter chips, lightbox, “show more”; built from every photo already in pages and news.
+- **Socials** in the footer: Facebook, Instagram (`espaceculturelgacha`, from the old content) and the YouTube channel.
+- Audit: all 836 old-site images were already in the media library.
+
 ### Phase 6 — QA & launch ⏳
 - Production database (Neon or Supabase) and media storage (Cloudflare R2, S3 or Supabase Storage).
 - Payload migrations for production (`payload migrate:create`), migrate local content to production.

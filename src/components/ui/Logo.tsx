@@ -1,22 +1,49 @@
 import { cn } from '@/lib/cn'
 
 /**
- * Wordmark: Ndop "moon" emblem + foundation name.
- * Placeholder until the foundation supplies a vector logo.
+ * The Foundation's own logos, drawn through a CSS mask so they take the current text colour
+ * (ivory over the dark header, indigo once it turns light, cream in dark mode).
  */
+export function BrandImage({ src, ratio, className }: { src: string; ratio: string; className?: string }) {
+  return (
+    <span
+      aria-hidden
+      className={cn('block shrink-0 bg-current', className)}
+      style={{
+        aspectRatio: ratio,
+        maskImage: `url(${src})`,
+        WebkitMaskImage: `url(${src})`,
+        maskSize: 'contain',
+        WebkitMaskSize: 'contain',
+        maskRepeat: 'no-repeat',
+        WebkitMaskRepeat: 'no-repeat',
+        maskPosition: 'center',
+        WebkitMaskPosition: 'center',
+      }}
+    />
+  )
+}
+
+/** House mark from the Foundation's logo. */
+export const FoundationMark = ({ className }: { className?: string }) => (
+  <BrandImage src="/images/brand/fondation-mark-ivory.png" ratio="408 / 192" className={className} />
+)
+
+/** Full Foundation logo ("Fondation" / house / "Jean-Felicien Gacha"). */
+export const FoundationLogo = ({ className }: { className?: string }) => (
+  <BrandImage src="/images/brand/fondation-ivory.png" ratio="414 / 314" className={className} />
+)
+
+/** Villa Boutanga logo. */
+export const VillaLogo = ({ className }: { className?: string }) => (
+  <BrandImage src="/images/brand/villa-boutanga-ivory.png" ratio="701 / 654" className={className} />
+)
+
+/** Header wordmark: the Foundation's house mark + its name. */
 export function Logo({ className, compact = false }: { className?: string; compact?: boolean }) {
   return (
-    <span className={cn('inline-flex items-center gap-2.5', className)}>
-      <svg viewBox="0 0 40 40" className="size-8 shrink-0" fill="none" stroke="currentColor" aria-hidden>
-        <circle cx="20" cy="20" r="18.5" strokeWidth="1.5" />
-        <circle cx="20" cy="20" r="12" strokeWidth="1" strokeDasharray="1.5 3" />
-        <path
-          d="M20 20 11 11M20 20l9-9M20 20l-9 9M20 20l9 9M20 20H8M20 20h12"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-        <circle cx="20" cy="20" r="3.5" fill="currentColor" stroke="none" />
-      </svg>
+    <span className={cn('inline-flex items-center gap-3', className)}>
+      <FoundationMark className="w-11" />
       {!compact && (
         <span className="flex flex-col leading-none">
           <span className="eyebrow text-[0.6rem] opacity-70">Fondation</span>
