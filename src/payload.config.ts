@@ -63,8 +63,9 @@ export default buildConfig({
       titleSuffix: ' — Fondation Gacha',
     },
     components: {
-      beforeDashboard: ['@/components/admin/Dashboard#Dashboard'],
-      beforeLogin: ['@/components/admin/BeforeLogin#BeforeLogin'],
+      beforeLogin: ['@/components/admin/LoginPanel#LoginPanel'],
+      beforeNavLinks: ['@/components/admin/NavBrand#NavBrand'],
+      views: { dashboard: { Component: '@/components/admin/DashboardView#DashboardView' } },
       graphics: {
         Logo: '@/components/admin/Logo#Logo',
         Icon: '@/components/admin/Icon#Icon',

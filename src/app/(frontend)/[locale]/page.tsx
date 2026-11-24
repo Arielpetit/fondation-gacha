@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { EventRow, PostCard } from '@/components/content/PostCards'
 import { CmsImage } from '@/components/media/CmsImage'
-import { Counter, ImageReveal, Magnetic, Reveal, SplitText, Stagger, StaggerItem } from '@/components/motion'
+import { Counter, ImageReveal, Magnetic, Marquee, Reveal, SplitText, Stagger, StaggerItem } from '@/components/motion'
 import { NdopDraw } from '@/components/ndop/NdopDraw'
 import { NdopBand, NdopPattern } from '@/components/ndop/NdopPattern'
 import { ArrowLink, Button } from '@/components/ui/Button'
@@ -377,15 +377,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <Container>
             <SectionHeading id="partners" eyebrow={t('partnersEyebrow')} title={t('partnersTitle')} intro={t('partnersIntro')} size="sm" />
           </Container>
-          <Container>
-            <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-6 sm:gap-x-10">
-              {partners.docs.map((p) => (
-                <li key={p.id}>
-                  <PartnerTile partner={p} />
-                </li>
-              ))}
-            </ul>
-          </Container>
+          <Marquee duration={partners.docs.length * 12} className="mt-10">
+            {partners.docs.map((p) => (
+              <PartnerTile key={p.id} partner={p} />
+            ))}
+          </Marquee>
         </section>
       )}
 

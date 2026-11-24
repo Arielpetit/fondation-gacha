@@ -405,6 +405,15 @@ Based on the Foundation's feedback and the motion language of the Bangangté sit
 - **Socials** in the footer: Facebook, Instagram (`espaceculturelgacha`, from the old content) and the YouTube channel.
 - Audit: all 836 old-site images were already in the media library.
 
+### Design pass 7 — admin redesign, slow partner strip ✅
+- **Admin** is still **Payload CMS 3** (rebuilding the editor, media library, drafts, translations, live preview and
+  access control from scratch would be slower and riskier), but its screens are now custom:
+  split-screen login (Foundation logo and site photo on the left, form on the right), deep-indigo sidebar with a
+  brand block and rounded links, a new dashboard view (greeting, four key figures, latest news with thumbnails and
+  status, latest messages, and icon cards grouped by task), softer cards, tables and fields, light and dark mode.
+- **Partners**: logos drift slowly again (no cards); the Route des Chefferies logo was removed (text tile).
+- The admin database is the same Postgres as the site: once `DATABASE_URL` points to Supabase, the admin works on it.
+
 ### Phase 6 — QA & launch ⏳
 - Production database (Neon or Supabase) and media storage (Cloudflare R2, S3 or Supabase Storage).
 - Payload migrations for production (`payload migrate:create`), migrate local content to production.

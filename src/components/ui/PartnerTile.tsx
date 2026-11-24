@@ -48,7 +48,7 @@ export function PartnerTile({ partner }: { partner: Partner }) {
       </span>
     </span>
   )
-  const cls = 'group/tile block'
+  const cls = 'group/tile mx-7 block shrink-0 sm:mx-10'
   return partner.url ? (
     <a href={partner.url} target="_blank" rel="noopener noreferrer" className={cls}>
       {body}

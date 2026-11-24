@@ -61,22 +61,273 @@ html[data-theme='dark'] .btn--style-primary {
   font-weight: 600;
 }
 
-/* Login and first-user screens. */
-.template-minimal {
+/* ───────── Login: brand panel on the left, form on the right ───────── */
+.template-minimal.login {
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0;
+  background: var(--theme-bg);
+  .template-minimal__wrap {
+    width: 50%;
+    max-width: none;
+    padding: 0 clamp(2rem, 6vw, 6rem);
+    box-sizing: border-box;
+    > *:not(.gacha-login-panel) {
+      max-width: 26rem;
+      margin-inline: auto;
+    }
+  }
+  .login__brand {
+    display: none;
+  }
+}
+.gacha-login-panel {
+  position: fixed;
+  inset: 0 50% 0 0;
+  overflow: hidden;
+  color: #f7f3ec;
+  background: #121933;
+  &__bg {
+    object-fit: cover;
+  }
+  &__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgb(18 25 51 / 0.55), rgb(18 25 51 / 0.88) 70%);
+  }
+  &__body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: clamp(2rem, 4vw, 3.5rem);
+    box-sizing: border-box;
+  }
+  &__logo {
+    display: block;
+    width: 150px;
+    aspect-ratio: 414 / 314;
+    background: #f7f3ec;
+    mask: url('/images/brand/fondation-ivory.png') center / contain no-repeat;
+    -webkit-mask: url('/images/brand/fondation-ivory.png') center / contain no-repeat;
+  }
+  &__eyebrow {
+    margin: 0 0 14px;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #d9c7a3;
+  }
+  h1 {
+    margin: 0;
+    max-width: 22ch;
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.2vw, 3rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  ul {
+    margin: 26px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 10px;
+    font-size: 14.5px;
+    color: rgb(247 243 236 / 0.85);
+    li::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-right: 12px;
+      border-radius: 50%;
+      background: #d9c7a3;
+      vertical-align: middle;
+    }
+  }
+  &__foot {
+    margin: 0;
+    font-size: 12px;
+    color: rgb(247 243 236 / 0.55);
+  }
+}
+.gacha-welcome {
+  margin-bottom: 22px;
+  h2 {
+    margin: 0 0 8px;
+    font-family: var(--font-serif);
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  p {
+    margin: 0;
+    color: var(--theme-elevation-600);
+    font-size: 14px;
+  }
+}
+@media (max-width: 900px) {
+  .gacha-login-panel {
+    display: none;
+  }
+  .template-minimal.login .template-minimal__wrap {
+    width: 100%;
+  }
+}
+/* First-user screen (no panel): keep it centred. */
+.template-minimal:not(.login) {
   background:
     radial-gradient(60rem 30rem at 85% -10%, rgb(162 74 37 / 0.14), transparent 60%),
     radial-gradient(50rem 30rem at -10% 110%, rgb(30 42 85 / 0.18), transparent 60%),
     var(--theme-bg);
 }
-.template-minimal__wrap {
-  border-radius: var(--style-radius-m);
+
+/* ───────── Sidebar: deep indigo, rounded links, brand block ───────── */
+.nav {
+  --nav-bg: #121933;
+  background: var(--nav-bg);
+  color: #f7f3ec;
+  border-right: 0;
+  .nav__scroll {
+    padding-top: 0;
+  }
+  .nav-group__toggle,
+  .nav-group__label {
+    color: rgb(217 199 163 / 0.85);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .nav-group__indicator svg {
+    color: rgb(247 243 236 / 0.5);
+  }
+  .nav__link {
+    padding: 8px 12px;
+    margin-block: 1px;
+    border-radius: 10px;
+    color: rgb(247 243 236 / 0.82);
+    transition:
+      background-color 0.25s,
+      color 0.25s;
+    &:hover {
+      background: rgb(247 243 236 / 0.09);
+      color: #fff;
+    }
+    &.active,
+    &[aria-current='page'] {
+      background: rgb(217 199 163 / 0.16);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: inset 3px 0 0 #d9c7a3;
+    }
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+  .nav__log-out,
+  .nav__controls a,
+  .nav__controls button {
+    color: rgb(247 243 236 / 0.75);
+  }
+  .nav-toggler,
+  .nav__header,
+  .nav__controls {
+    color: #f7f3ec;
+  }
 }
+.gacha-navbrand {
+  padding: 58px 14px 14px;
+  a:first-child {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #f7f3ec;
+    text-decoration: none;
+  }
+  &__mark {
+    width: 40px;
+    aspect-ratio: 408 / 192;
+    background: #d9c7a3;
+    mask: url('/images/brand/fondation-mark-ivory.png') center / contain no-repeat;
+    -webkit-mask: url('/images/brand/fondation-mark-ivory.png') center / contain no-repeat;
+  }
+  &__text {
+    display: grid;
+    line-height: 1.15;
+    strong {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-weight: 400;
+    }
+    small {
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d9c7a3;
+    }
+  }
+  &__site {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgb(247 243 236 / 0.25);
+    color: rgb(247 243 236 / 0.85);
+    font-size: 12px;
+    text-decoration: none;
+    transition: background-color 0.25s;
+    &:hover {
+      background: rgb(247 243 236 / 0.1);
+    }
+  }
+}
+
+/* ───────── Main area: softer cards, tables and fields ───────── */
+body {
+  --style-radius-s: 10px;
+  --style-radius-m: 14px;
+  --style-radius-l: 20px;
+}
+html[data-theme='light'] body {
+  --theme-bg: #f6f3ed;
+  --theme-elevation-0: #ffffff;
+  --theme-elevation-50: #f3efe7;
+  --theme-elevation-100: #e8e2d6;
+}
+.table table,
+.collection-list .table {
+  border-radius: 14px;
+  overflow: hidden;
+}
+.doc-header {
+  padding-bottom: 8px;
+}
+.field-type input,
+.field-type textarea,
+.react-select .rs__control {
+  border-radius: 10px;
+}
+.app-header {
+  background: transparent;
+}
+.btn--style-primary {
+  border-radius: 999px;
+}
+.pill {
+  border-radius: 999px;
+}
+
+/* Logo on the first-user screen, and the small mark in the top bar. */
 .gacha-logo {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-bottom: calc(var(--base) * 1.25);
+  justify-content: center;
+  margin-bottom: 24px;
   color: var(--gacha-indigo);
 }
 html[data-theme='dark'] .gacha-logo {
@@ -90,11 +341,11 @@ html[data-theme='dark'] .gacha-logo {
   -webkit-mask: url('/images/brand/fondation-ivory.png') center / contain no-repeat;
 }
 .gacha-logo__img {
-  width: 180px;
+  width: 150px;
   aspect-ratio: 414 / 314;
 }
 .gacha-icon {
-  width: 34px;
+  width: 30px;
   aspect-ratio: 408 / 192;
   color: var(--gacha-indigo);
   mask-image: url('/images/brand/fondation-mark-ivory.png');
@@ -104,33 +355,12 @@ html[data-theme='dark'] .gacha-icon {
   color: var(--gacha-raffia);
 }
 
-.gacha-welcome {
-  margin-bottom: var(--base);
-  text-align: center;
-  h1 {
-    margin: 0 0 8px;
-    font-size: 24px;
-  }
-  p {
-    margin: 0;
-    color: var(--theme-elevation-600);
-    font-size: 14px;
-    line-height: 1.5;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .template-minimal__wrap {
-    animation: gacha-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-  @keyframes gacha-rise {
-    from {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
+/* Quieter links in lists and tables. */
+.table a:not(.btn),
+.collection-list a:not(.btn):not(.pill) {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 }
