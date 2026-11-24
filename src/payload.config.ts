@@ -3,7 +3,6 @@ import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import { s3Storage } from '@payloadcms/storage-s3'
 import { en } from '@payloadcms/translations/languages/en'
 import { fr } from '@payloadcms/translations/languages/fr'
 import path from 'path'
@@ -17,6 +16,7 @@ import { Partners, PressItems, Reports, Residents, Rooms, TeamMembers } from './
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Subscribers } from './collections/Subscribers'
+import { supabaseStorage } from '@/lib/supabaseStorage'
 import { Posts } from './collections/Posts'
 import { Tags, Themes } from './collections/Taxonomies'
 import { Users } from './collections/Users'
@@ -111,6 +111,8 @@ export default buildConfig({
     // Local development pushes schema changes; production uses migrations (`pnpm payload migrate`).
     push: process.env.NODE_ENV !== 'production',
     migrationDir: path.resolve(dirname, 'migrations'),
+    // The Supabase project is shared with other apps: keep this site's tables in their own schema.
+    schemaName: process.env.DATABASE_SCHEMA || undefined,
   }),
   sharp,
   // Real emails only when SMTP is configured; otherwise Payload logs them to the console (dev).
@@ -127,21 +129,8 @@ export default buildConfig({
       })
     : undefined,
   plugins: [
-    // Photos live in Supabase Storage (S3-compatible) when configured; otherwise in the local ./media folder.
-    ...(process.env.S3_BUCKET
-      ? [
-          s3Storage({
-            collections: { media: true },
-            bucket: process.env.S3_BUCKET,
-            config: {
-              endpoint: process.env.S3_ENDPOINT,
-              region: process.env.S3_REGION || 'eu-west-1',
-              forcePathStyle: true,
-              credentials: { accessKeyId: process.env.S3_ACCESS_KEY_ID || '', secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '' },
-            },
-          }),
-        ]
-      : []),
+    // Photos live in Supabase Storage when USE_SUPABASE_STORAGE=true (production); otherwise in the local ./media folder.
+    ...(process.env.USE_SUPABASE_STORAGE === 'true' ? [supabaseStorage()] : []),
     formBuilderPlugin({
       defaultToEmail: process.env.FORMS_TO_EMAIL || 'contact@fondationgacha.org',
       fields: { payment: false, state: false, country: false, upload: false, date: true },

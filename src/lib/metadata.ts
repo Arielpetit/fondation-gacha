@@ -40,7 +40,14 @@ export function buildMetadata({
       type,
       title: seo?.title || title,
       description: desc,
-      images: ogImage ? [{ url: ogImage }] : undefined,
+      // Pages without a photo of their own share the branded default image.
+      images: [{ url: ogImage ?? '/og-default.jpg', ...(ogImage ? {} : { width: 1200, height: 630, alt: 'Fondation Jean-Félicien Gacha — Bangoulap, Cameroun' }) }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo?.title || title,
+      description: desc,
+      images: [ogImage ?? '/og-default.jpg'],
     },
   }
 }

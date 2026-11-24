@@ -2,9 +2,9 @@
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.posts": {
+    "foundation.posts": {
       "name": "posts",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -77,7 +77,7 @@
         "_status": {
           "name": "_status",
           "type": "enum_posts_status",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false,
           "default": "'draft'"
@@ -195,6 +195,7 @@
           "name": "posts_cover_id_media_id_fk",
           "tableFrom": "posts",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "cover_id"
           ],
@@ -211,9 +212,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.posts_locales": {
+    "foundation.posts_locales": {
       "name": "posts_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "title": {
           "name": "title",
@@ -272,7 +273,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -347,6 +348,7 @@
           "name": "posts_locales_meta_image_id_media_id_fk",
           "tableFrom": "posts_locales",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "meta_image_id"
           ],
@@ -360,6 +362,7 @@
           "name": "posts_locales_parent_id_fk",
           "tableFrom": "posts_locales",
           "tableTo": "posts",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -376,9 +379,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.posts_rels": {
+    "foundation.posts_rels": {
       "name": "posts_rels",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -499,6 +502,7 @@
           "name": "posts_rels_parent_fk",
           "tableFrom": "posts_rels",
           "tableTo": "posts",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "parent_id"
           ],
@@ -512,6 +516,7 @@
           "name": "posts_rels_themes_fk",
           "tableFrom": "posts_rels",
           "tableTo": "themes",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "themes_id"
           ],
@@ -525,6 +530,7 @@
           "name": "posts_rels_tags_fk",
           "tableFrom": "posts_rels",
           "tableTo": "tags",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "tags_id"
           ],
@@ -541,9 +547,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._posts_v": {
+    "foundation._posts_v": {
       "name": "_posts_v",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -620,7 +626,7 @@
         "version__status": {
           "name": "version__status",
           "type": "enum__posts_v_version_status",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false,
           "default": "'draft'"
@@ -648,7 +654,7 @@
         "published_locale": {
           "name": "published_locale",
           "type": "enum__posts_v_published_locale",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false
         },
@@ -882,6 +888,7 @@
           "name": "_posts_v_parent_id_posts_id_fk",
           "tableFrom": "_posts_v",
           "tableTo": "posts",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "parent_id"
           ],
@@ -895,6 +902,7 @@
           "name": "_posts_v_version_cover_id_media_id_fk",
           "tableFrom": "_posts_v",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "version_cover_id"
           ],
@@ -911,9 +919,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._posts_v_locales": {
+    "foundation._posts_v_locales": {
       "name": "_posts_v_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "version_title": {
           "name": "version_title",
@@ -972,7 +980,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -1047,6 +1055,7 @@
           "name": "_posts_v_locales_version_meta_image_id_media_id_fk",
           "tableFrom": "_posts_v_locales",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "version_meta_image_id"
           ],
@@ -1060,6 +1069,7 @@
           "name": "_posts_v_locales_parent_id_fk",
           "tableFrom": "_posts_v_locales",
           "tableTo": "_posts_v",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -1076,9 +1086,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._posts_v_rels": {
+    "foundation._posts_v_rels": {
       "name": "_posts_v_rels",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -1199,6 +1209,7 @@
           "name": "_posts_v_rels_parent_fk",
           "tableFrom": "_posts_v_rels",
           "tableTo": "_posts_v",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "parent_id"
           ],
@@ -1212,6 +1223,7 @@
           "name": "_posts_v_rels_themes_fk",
           "tableFrom": "_posts_v_rels",
           "tableTo": "themes",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "themes_id"
           ],
@@ -1225,6 +1237,7 @@
           "name": "_posts_v_rels_tags_fk",
           "tableFrom": "_posts_v_rels",
           "tableTo": "tags",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "tags_id"
           ],
@@ -1241,9 +1254,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pages": {
+    "foundation.pages": {
       "name": "pages",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -1298,7 +1311,7 @@
         "_status": {
           "name": "_status",
           "type": "enum_pages_status",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false,
           "default": "'draft'"
@@ -1416,6 +1429,7 @@
           "name": "pages_hero_image_id_media_id_fk",
           "tableFrom": "pages",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "hero_image_id"
           ],
@@ -1432,9 +1446,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pages_locales": {
+    "foundation.pages_locales": {
       "name": "pages_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "title": {
           "name": "title",
@@ -1487,7 +1501,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -1562,6 +1576,7 @@
           "name": "pages_locales_meta_image_id_media_id_fk",
           "tableFrom": "pages_locales",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "meta_image_id"
           ],
@@ -1575,6 +1590,7 @@
           "name": "pages_locales_parent_id_fk",
           "tableFrom": "pages_locales",
           "tableTo": "pages",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -1591,9 +1607,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._pages_v": {
+    "foundation._pages_v": {
       "name": "_pages_v",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -1652,7 +1668,7 @@
         "version__status": {
           "name": "version__status",
           "type": "enum__pages_v_version_status",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false,
           "default": "'draft'"
@@ -1680,7 +1696,7 @@
         "published_locale": {
           "name": "published_locale",
           "type": "enum__pages_v_published_locale",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false
         },
@@ -1914,6 +1930,7 @@
           "name": "_pages_v_parent_id_pages_id_fk",
           "tableFrom": "_pages_v",
           "tableTo": "pages",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "parent_id"
           ],
@@ -1927,6 +1944,7 @@
           "name": "_pages_v_version_hero_image_id_media_id_fk",
           "tableFrom": "_pages_v",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "version_hero_image_id"
           ],
@@ -1943,9 +1961,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._pages_v_locales": {
+    "foundation._pages_v_locales": {
       "name": "_pages_v_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "version_title": {
           "name": "version_title",
@@ -1998,7 +2016,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -2073,6 +2091,7 @@
           "name": "_pages_v_locales_version_meta_image_id_media_id_fk",
           "tableFrom": "_pages_v_locales",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "version_meta_image_id"
           ],
@@ -2086,6 +2105,7 @@
           "name": "_pages_v_locales_parent_id_fk",
           "tableFrom": "_pages_v_locales",
           "tableTo": "_pages_v",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -2102,9 +2122,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.activities_highlights": {
+    "foundation.activities_highlights": {
       "name": "activities_highlights",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -2162,6 +2182,7 @@
           "name": "activities_highlights_parent_id_fk",
           "tableFrom": "activities_highlights",
           "tableTo": "activities",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -2178,9 +2199,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.activities_highlights_locales": {
+    "foundation.activities_highlights_locales": {
       "name": "activities_highlights_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "text": {
           "name": "text",
@@ -2197,7 +2218,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -2251,6 +2272,7 @@
           "name": "activities_highlights_locales_parent_id_fk",
           "tableFrom": "activities_highlights_locales",
           "tableTo": "activities_highlights",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -2267,9 +2289,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.activities": {
+    "foundation.activities": {
       "name": "activities",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -2299,7 +2321,7 @@
         "motif": {
           "name": "motif",
           "type": "enum_activities_motif",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false,
           "default": "'dots'"
@@ -2333,7 +2355,7 @@
         "_status": {
           "name": "_status",
           "type": "enum_activities_status",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false,
           "default": "'draft'"
@@ -2436,6 +2458,7 @@
           "name": "activities_cover_id_media_id_fk",
           "tableFrom": "activities",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "cover_id"
           ],
@@ -2452,9 +2475,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.activities_locales": {
+    "foundation.activities_locales": {
       "name": "activities_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "title": {
           "name": "title",
@@ -2501,7 +2524,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -2576,6 +2599,7 @@
           "name": "activities_locales_meta_image_id_media_id_fk",
           "tableFrom": "activities_locales",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "meta_image_id"
           ],
@@ -2589,6 +2613,7 @@
           "name": "activities_locales_parent_id_fk",
           "tableFrom": "activities_locales",
           "tableTo": "activities",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -2605,9 +2630,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._activities_v_version_highlights": {
+    "foundation._activities_v_version_highlights": {
       "name": "_activities_v_version_highlights",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -2671,6 +2696,7 @@
           "name": "_activities_v_version_highlights_parent_id_fk",
           "tableFrom": "_activities_v_version_highlights",
           "tableTo": "_activities_v",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -2687,9 +2713,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._activities_v_version_highlights_locales": {
+    "foundation._activities_v_version_highlights_locales": {
       "name": "_activities_v_version_highlights_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "text": {
           "name": "text",
@@ -2706,7 +2732,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -2760,6 +2786,7 @@
           "name": "_activities_v_version_highlights_locales_parent_id_fk",
           "tableFrom": "_activities_v_version_highlights_locales",
           "tableTo": "_activities_v_version_highlights",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -2776,9 +2803,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._activities_v": {
+    "foundation._activities_v": {
       "name": "_activities_v",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -2814,7 +2841,7 @@
         "version_motif": {
           "name": "version_motif",
           "type": "enum__activities_v_version_motif",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false,
           "default": "'dots'"
@@ -2846,7 +2873,7 @@
         "version__status": {
           "name": "version__status",
           "type": "enum__activities_v_version_status",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false,
           "default": "'draft'"
@@ -2874,7 +2901,7 @@
         "published_locale": {
           "name": "published_locale",
           "type": "enum__activities_v_published_locale",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false
         },
@@ -3072,6 +3099,7 @@
           "name": "_activities_v_parent_id_activities_id_fk",
           "tableFrom": "_activities_v",
           "tableTo": "activities",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "parent_id"
           ],
@@ -3085,6 +3113,7 @@
           "name": "_activities_v_version_cover_id_media_id_fk",
           "tableFrom": "_activities_v",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "version_cover_id"
           ],
@@ -3101,9 +3130,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._activities_v_locales": {
+    "foundation._activities_v_locales": {
       "name": "_activities_v_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "version_title": {
           "name": "version_title",
@@ -3150,7 +3179,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -3225,6 +3254,7 @@
           "name": "_activities_v_locales_version_meta_image_id_media_id_fk",
           "tableFrom": "_activities_v_locales",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "version_meta_image_id"
           ],
@@ -3238,6 +3268,7 @@
           "name": "_activities_v_locales_parent_id_fk",
           "tableFrom": "_activities_v_locales",
           "tableTo": "_activities_v",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -3254,9 +3285,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.media": {
+    "foundation.media": {
       "name": "media",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -3618,9 +3649,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.media_locales": {
+    "foundation.media_locales": {
       "name": "media_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "alt": {
           "name": "alt",
@@ -3643,7 +3674,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -3697,6 +3728,7 @@
           "name": "media_locales_parent_id_fk",
           "tableFrom": "media_locales",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -3713,9 +3745,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.themes": {
+    "foundation.themes": {
       "name": "themes",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -3732,7 +3764,7 @@
         "tone": {
           "name": "tone",
           "type": "enum_themes_tone",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false,
           "default": "'terracotta'"
@@ -3806,9 +3838,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.themes_locales": {
+    "foundation.themes_locales": {
       "name": "themes_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "title": {
           "name": "title",
@@ -3825,7 +3857,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -3879,6 +3911,7 @@
           "name": "themes_locales_parent_id_fk",
           "tableFrom": "themes_locales",
           "tableTo": "themes",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -3895,9 +3928,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.tags": {
+    "foundation.tags": {
       "name": "tags",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -4007,9 +4040,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.team": {
+    "foundation.team": {
       "name": "team",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -4026,7 +4059,7 @@
         "group": {
           "name": "group",
           "type": "enum_team_group",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true,
           "default": "'staff'"
@@ -4111,6 +4144,7 @@
           "name": "team_photo_id_media_id_fk",
           "tableFrom": "team",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "photo_id"
           ],
@@ -4127,9 +4161,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.team_locales": {
+    "foundation.team_locales": {
       "name": "team_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "role": {
           "name": "role",
@@ -4146,7 +4180,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -4200,6 +4234,7 @@
           "name": "team_locales_parent_id_fk",
           "tableFrom": "team_locales",
           "tableTo": "team",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -4216,9 +4251,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.residents": {
+    "foundation.residents": {
       "name": "residents",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -4332,6 +4367,7 @@
           "name": "residents_photo_id_media_id_fk",
           "tableFrom": "residents",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "photo_id"
           ],
@@ -4345,6 +4381,7 @@
           "name": "residents_post_id_posts_id_fk",
           "tableFrom": "residents",
           "tableTo": "posts",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "post_id"
           ],
@@ -4361,9 +4398,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.residents_locales": {
+    "foundation.residents_locales": {
       "name": "residents_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "discipline": {
           "name": "discipline",
@@ -4380,7 +4417,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -4434,6 +4471,7 @@
           "name": "residents_locales_parent_id_fk",
           "tableFrom": "residents_locales",
           "tableTo": "residents",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -4450,9 +4488,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.partners": {
+    "foundation.partners": {
       "name": "partners",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -4469,7 +4507,7 @@
         "kind": {
           "name": "kind",
           "type": "enum_partners_kind",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false,
           "default": "'institutional'"
@@ -4560,6 +4598,7 @@
           "name": "partners_logo_id_media_id_fk",
           "tableFrom": "partners",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "logo_id"
           ],
@@ -4576,9 +4615,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.partners_locales": {
+    "foundation.partners_locales": {
       "name": "partners_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "description": {
           "name": "description",
@@ -4595,7 +4634,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -4649,6 +4688,7 @@
           "name": "partners_locales_parent_id_fk",
           "tableFrom": "partners_locales",
           "tableTo": "partners",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -4665,9 +4705,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.rooms_price_variants": {
+    "foundation.rooms_price_variants": {
       "name": "rooms_price_variants",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -4731,6 +4771,7 @@
           "name": "rooms_price_variants_parent_id_fk",
           "tableFrom": "rooms_price_variants",
           "tableTo": "rooms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -4747,9 +4788,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.rooms_price_variants_locales": {
+    "foundation.rooms_price_variants_locales": {
       "name": "rooms_price_variants_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "label": {
           "name": "label",
@@ -4766,7 +4807,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -4820,6 +4861,7 @@
           "name": "rooms_price_variants_locales_parent_id_fk",
           "tableFrom": "rooms_price_variants_locales",
           "tableTo": "rooms_price_variants",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -4836,9 +4878,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.rooms": {
+    "foundation.rooms": {
       "name": "rooms",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -4919,9 +4961,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.rooms_locales": {
+    "foundation.rooms_locales": {
       "name": "rooms_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "name": {
           "name": "name",
@@ -4944,7 +4986,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -4998,6 +5040,7 @@
           "name": "rooms_locales_parent_id_fk",
           "tableFrom": "rooms_locales",
           "tableTo": "rooms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -5014,9 +5057,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.rooms_rels": {
+    "foundation.rooms_rels": {
       "name": "rooms_rels",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -5116,6 +5159,7 @@
           "name": "rooms_rels_parent_fk",
           "tableFrom": "rooms_rels",
           "tableTo": "rooms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "parent_id"
           ],
@@ -5129,6 +5173,7 @@
           "name": "rooms_rels_media_fk",
           "tableFrom": "rooms_rels",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "media_id"
           ],
@@ -5145,9 +5190,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.press": {
+    "foundation.press": {
       "name": "press",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -5252,6 +5297,7 @@
           "name": "press_file_id_media_id_fk",
           "tableFrom": "press",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "file_id"
           ],
@@ -5268,9 +5314,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.reports": {
+    "foundation.reports": {
       "name": "reports",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -5363,6 +5409,7 @@
           "name": "reports_file_id_media_id_fk",
           "tableFrom": "reports",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "file_id"
           ],
@@ -5379,9 +5426,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.reports_locales": {
+    "foundation.reports_locales": {
       "name": "reports_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "title": {
           "name": "title",
@@ -5398,7 +5445,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -5452,6 +5499,7 @@
           "name": "reports_locales_parent_id_fk",
           "tableFrom": "reports_locales",
           "tableTo": "reports",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -5468,9 +5516,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.subscribers": {
+    "foundation.subscribers": {
       "name": "subscribers",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -5487,7 +5535,7 @@
         "locale": {
           "name": "locale",
           "type": "enum_subscribers_locale",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false,
           "default": "'fr'"
@@ -5567,9 +5615,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.users_roles": {
+    "foundation.users_roles": {
       "name": "users_roles",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "order": {
           "name": "order",
@@ -5586,7 +5634,7 @@
         "value": {
           "name": "value",
           "type": "enum_users_roles",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false
         },
@@ -5634,6 +5682,7 @@
           "name": "users_roles_parent_fk",
           "tableFrom": "users_roles",
           "tableTo": "users",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "parent_id"
           ],
@@ -5650,9 +5699,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.users_sessions": {
+    "foundation.users_sessions": {
       "name": "users_sessions",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -5722,6 +5771,7 @@
           "name": "users_sessions_parent_id_fk",
           "tableFrom": "users_sessions",
           "tableTo": "users",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -5738,9 +5788,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.users": {
+    "foundation.users": {
       "name": "users",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -5872,9 +5922,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_checkbox": {
+    "foundation.forms_blocks_checkbox": {
       "name": "forms_blocks_checkbox",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -5983,6 +6033,7 @@
           "name": "forms_blocks_checkbox_parent_id_fk",
           "tableFrom": "forms_blocks_checkbox",
           "tableTo": "forms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -5999,9 +6050,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_checkbox_locales": {
+    "foundation.forms_blocks_checkbox_locales": {
       "name": "forms_blocks_checkbox_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "label": {
           "name": "label",
@@ -6018,7 +6069,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -6072,6 +6123,7 @@
           "name": "forms_blocks_checkbox_locales_parent_id_fk",
           "tableFrom": "forms_blocks_checkbox_locales",
           "tableTo": "forms_blocks_checkbox",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -6088,9 +6140,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_email": {
+    "foundation.forms_blocks_email": {
       "name": "forms_blocks_email",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -6193,6 +6245,7 @@
           "name": "forms_blocks_email_parent_id_fk",
           "tableFrom": "forms_blocks_email",
           "tableTo": "forms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -6209,9 +6262,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_email_locales": {
+    "foundation.forms_blocks_email_locales": {
       "name": "forms_blocks_email_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "label": {
           "name": "label",
@@ -6228,7 +6281,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -6282,6 +6335,7 @@
           "name": "forms_blocks_email_locales_parent_id_fk",
           "tableFrom": "forms_blocks_email_locales",
           "tableTo": "forms_blocks_email",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -6298,9 +6352,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_message": {
+    "foundation.forms_blocks_message": {
       "name": "forms_blocks_message",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -6385,6 +6439,7 @@
           "name": "forms_blocks_message_parent_id_fk",
           "tableFrom": "forms_blocks_message",
           "tableTo": "forms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -6401,9 +6456,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_message_locales": {
+    "foundation.forms_blocks_message_locales": {
       "name": "forms_blocks_message_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "message": {
           "name": "message",
@@ -6420,7 +6475,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -6474,6 +6529,7 @@
           "name": "forms_blocks_message_locales_parent_id_fk",
           "tableFrom": "forms_blocks_message_locales",
           "tableTo": "forms_blocks_message",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -6490,9 +6546,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_number": {
+    "foundation.forms_blocks_number": {
       "name": "forms_blocks_number",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -6601,6 +6657,7 @@
           "name": "forms_blocks_number_parent_id_fk",
           "tableFrom": "forms_blocks_number",
           "tableTo": "forms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -6617,9 +6674,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_number_locales": {
+    "foundation.forms_blocks_number_locales": {
       "name": "forms_blocks_number_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "label": {
           "name": "label",
@@ -6636,7 +6693,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -6690,6 +6747,7 @@
           "name": "forms_blocks_number_locales_parent_id_fk",
           "tableFrom": "forms_blocks_number_locales",
           "tableTo": "forms_blocks_number",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -6706,9 +6764,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_select_options": {
+    "foundation.forms_blocks_select_options": {
       "name": "forms_blocks_select_options",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -6772,6 +6830,7 @@
           "name": "forms_blocks_select_options_parent_id_fk",
           "tableFrom": "forms_blocks_select_options",
           "tableTo": "forms_blocks_select",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -6788,9 +6847,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_select_options_locales": {
+    "foundation.forms_blocks_select_options_locales": {
       "name": "forms_blocks_select_options_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "label": {
           "name": "label",
@@ -6807,7 +6866,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -6861,6 +6920,7 @@
           "name": "forms_blocks_select_options_locales_parent_id_fk",
           "tableFrom": "forms_blocks_select_options_locales",
           "tableTo": "forms_blocks_select_options",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -6877,9 +6937,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_select": {
+    "foundation.forms_blocks_select": {
       "name": "forms_blocks_select",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -6988,6 +7048,7 @@
           "name": "forms_blocks_select_parent_id_fk",
           "tableFrom": "forms_blocks_select",
           "tableTo": "forms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -7004,9 +7065,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_select_locales": {
+    "foundation.forms_blocks_select_locales": {
       "name": "forms_blocks_select_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "label": {
           "name": "label",
@@ -7029,7 +7090,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -7083,6 +7144,7 @@
           "name": "forms_blocks_select_locales_parent_id_fk",
           "tableFrom": "forms_blocks_select_locales",
           "tableTo": "forms_blocks_select",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -7099,9 +7161,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_text": {
+    "foundation.forms_blocks_text": {
       "name": "forms_blocks_text",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -7204,6 +7266,7 @@
           "name": "forms_blocks_text_parent_id_fk",
           "tableFrom": "forms_blocks_text",
           "tableTo": "forms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -7220,9 +7283,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_text_locales": {
+    "foundation.forms_blocks_text_locales": {
       "name": "forms_blocks_text_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "label": {
           "name": "label",
@@ -7245,7 +7308,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -7299,6 +7362,7 @@
           "name": "forms_blocks_text_locales_parent_id_fk",
           "tableFrom": "forms_blocks_text_locales",
           "tableTo": "forms_blocks_text",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -7315,9 +7379,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_textarea": {
+    "foundation.forms_blocks_textarea": {
       "name": "forms_blocks_textarea",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -7420,6 +7484,7 @@
           "name": "forms_blocks_textarea_parent_id_fk",
           "tableFrom": "forms_blocks_textarea",
           "tableTo": "forms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -7436,9 +7501,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_textarea_locales": {
+    "foundation.forms_blocks_textarea_locales": {
       "name": "forms_blocks_textarea_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "label": {
           "name": "label",
@@ -7461,7 +7526,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -7515,6 +7580,7 @@
           "name": "forms_blocks_textarea_locales_parent_id_fk",
           "tableFrom": "forms_blocks_textarea_locales",
           "tableTo": "forms_blocks_textarea",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -7531,9 +7597,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_date": {
+    "foundation.forms_blocks_date": {
       "name": "forms_blocks_date",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -7642,6 +7708,7 @@
           "name": "forms_blocks_date_parent_id_fk",
           "tableFrom": "forms_blocks_date",
           "tableTo": "forms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -7658,9 +7725,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_blocks_date_locales": {
+    "foundation.forms_blocks_date_locales": {
       "name": "forms_blocks_date_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "label": {
           "name": "label",
@@ -7677,7 +7744,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -7731,6 +7798,7 @@
           "name": "forms_blocks_date_locales_parent_id_fk",
           "tableFrom": "forms_blocks_date_locales",
           "tableTo": "forms_blocks_date",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -7747,9 +7815,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_emails": {
+    "foundation.forms_emails": {
       "name": "forms_emails",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -7837,6 +7905,7 @@
           "name": "forms_emails_parent_id_fk",
           "tableFrom": "forms_emails",
           "tableTo": "forms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -7853,9 +7922,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_emails_locales": {
+    "foundation.forms_emails_locales": {
       "name": "forms_emails_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "subject": {
           "name": "subject",
@@ -7879,7 +7948,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -7933,6 +8002,7 @@
           "name": "forms_emails_locales_parent_id_fk",
           "tableFrom": "forms_emails_locales",
           "tableTo": "forms_emails",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -7949,9 +8019,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms": {
+    "foundation.forms": {
       "name": "forms",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -7968,7 +8038,7 @@
         "confirmation_type": {
           "name": "confirmation_type",
           "type": "enum_forms_confirmation_type",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false,
           "default": "'message'"
@@ -8054,9 +8124,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.forms_locales": {
+    "foundation.forms_locales": {
       "name": "forms_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "submit_button_label": {
           "name": "submit_button_label",
@@ -8079,7 +8149,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -8133,6 +8203,7 @@
           "name": "forms_locales_parent_id_fk",
           "tableFrom": "forms_locales",
           "tableTo": "forms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -8149,9 +8220,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.form_submissions_submission_data": {
+    "foundation.form_submissions_submission_data": {
       "name": "form_submissions_submission_data",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -8221,6 +8292,7 @@
           "name": "form_submissions_submission_data_parent_id_fk",
           "tableFrom": "form_submissions_submission_data",
           "tableTo": "form_submissions",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -8237,9 +8309,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.form_submissions": {
+    "foundation.form_submissions": {
       "name": "form_submissions",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -8320,6 +8392,7 @@
           "name": "form_submissions_form_id_forms_id_fk",
           "tableFrom": "form_submissions",
           "tableTo": "forms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "form_id"
           ],
@@ -8336,9 +8409,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.redirects": {
+    "foundation.redirects": {
       "name": "redirects",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -8355,7 +8428,7 @@
         "to_type": {
           "name": "to_type",
           "type": "enum_redirects_to_type",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": false,
           "default": "'reference'"
@@ -8435,9 +8508,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.redirects_rels": {
+    "foundation.redirects_rels": {
       "name": "redirects_rels",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -8579,6 +8652,7 @@
           "name": "redirects_rels_parent_fk",
           "tableFrom": "redirects_rels",
           "tableTo": "redirects",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "parent_id"
           ],
@@ -8592,6 +8666,7 @@
           "name": "redirects_rels_posts_fk",
           "tableFrom": "redirects_rels",
           "tableTo": "posts",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "posts_id"
           ],
@@ -8605,6 +8680,7 @@
           "name": "redirects_rels_pages_fk",
           "tableFrom": "redirects_rels",
           "tableTo": "pages",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "pages_id"
           ],
@@ -8618,6 +8694,7 @@
           "name": "redirects_rels_activities_fk",
           "tableFrom": "redirects_rels",
           "tableTo": "activities",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "activities_id"
           ],
@@ -8634,9 +8711,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.payload_kv": {
+    "foundation.payload_kv": {
       "name": "payload_kv",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -8681,9 +8758,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.payload_locked_documents": {
+    "foundation.payload_locked_documents": {
       "name": "payload_locked_documents",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -8766,9 +8843,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.payload_locked_documents_rels": {
+    "foundation.payload_locked_documents_rels": {
       "name": "payload_locked_documents_rels",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -9204,6 +9281,7 @@
           "name": "payload_locked_documents_rels_parent_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "payload_locked_documents",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "parent_id"
           ],
@@ -9217,6 +9295,7 @@
           "name": "payload_locked_documents_rels_posts_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "posts",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "posts_id"
           ],
@@ -9230,6 +9309,7 @@
           "name": "payload_locked_documents_rels_pages_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "pages",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "pages_id"
           ],
@@ -9243,6 +9323,7 @@
           "name": "payload_locked_documents_rels_activities_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "activities",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "activities_id"
           ],
@@ -9256,6 +9337,7 @@
           "name": "payload_locked_documents_rels_media_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "media_id"
           ],
@@ -9269,6 +9351,7 @@
           "name": "payload_locked_documents_rels_themes_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "themes",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "themes_id"
           ],
@@ -9282,6 +9365,7 @@
           "name": "payload_locked_documents_rels_tags_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "tags",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "tags_id"
           ],
@@ -9295,6 +9379,7 @@
           "name": "payload_locked_documents_rels_team_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "team",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "team_id"
           ],
@@ -9308,6 +9393,7 @@
           "name": "payload_locked_documents_rels_residents_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "residents",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "residents_id"
           ],
@@ -9321,6 +9407,7 @@
           "name": "payload_locked_documents_rels_partners_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "partners",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "partners_id"
           ],
@@ -9334,6 +9421,7 @@
           "name": "payload_locked_documents_rels_rooms_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "rooms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "rooms_id"
           ],
@@ -9347,6 +9435,7 @@
           "name": "payload_locked_documents_rels_press_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "press",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "press_id"
           ],
@@ -9360,6 +9449,7 @@
           "name": "payload_locked_documents_rels_reports_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "reports",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "reports_id"
           ],
@@ -9373,6 +9463,7 @@
           "name": "payload_locked_documents_rels_subscribers_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "subscribers",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "subscribers_id"
           ],
@@ -9386,6 +9477,7 @@
           "name": "payload_locked_documents_rels_users_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "users",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "users_id"
           ],
@@ -9399,6 +9491,7 @@
           "name": "payload_locked_documents_rels_forms_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "forms",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "forms_id"
           ],
@@ -9412,6 +9505,7 @@
           "name": "payload_locked_documents_rels_form_submissions_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "form_submissions",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "form_submissions_id"
           ],
@@ -9425,6 +9519,7 @@
           "name": "payload_locked_documents_rels_redirects_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "redirects",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "redirects_id"
           ],
@@ -9441,9 +9536,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.payload_preferences": {
+    "foundation.payload_preferences": {
       "name": "payload_preferences",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -9532,9 +9627,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.payload_preferences_rels": {
+    "foundation.payload_preferences_rels": {
       "name": "payload_preferences_rels",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -9634,6 +9729,7 @@
           "name": "payload_preferences_rels_parent_fk",
           "tableFrom": "payload_preferences_rels",
           "tableTo": "payload_preferences",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "parent_id"
           ],
@@ -9647,6 +9743,7 @@
           "name": "payload_preferences_rels_users_fk",
           "tableFrom": "payload_preferences_rels",
           "tableTo": "users",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "users_id"
           ],
@@ -9663,9 +9760,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.payload_migrations": {
+    "foundation.payload_migrations": {
       "name": "payload_migrations",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -9739,9 +9836,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.settings_contacts": {
+    "foundation.settings_contacts": {
       "name": "settings_contacts",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -9817,6 +9914,7 @@
           "name": "settings_contacts_parent_id_fk",
           "tableFrom": "settings_contacts",
           "tableTo": "settings",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -9833,9 +9931,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.settings_contacts_locales": {
+    "foundation.settings_contacts_locales": {
       "name": "settings_contacts_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "service": {
           "name": "service",
@@ -9852,7 +9950,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -9906,6 +10004,7 @@
           "name": "settings_contacts_locales_parent_id_fk",
           "tableFrom": "settings_contacts_locales",
           "tableTo": "settings_contacts",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -9922,9 +10021,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.settings_visit_prices": {
+    "foundation.settings_visit_prices": {
       "name": "settings_visit_prices",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -9988,6 +10087,7 @@
           "name": "settings_visit_prices_parent_id_fk",
           "tableFrom": "settings_visit_prices",
           "tableTo": "settings",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -10004,9 +10104,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.settings_visit_prices_locales": {
+    "foundation.settings_visit_prices_locales": {
       "name": "settings_visit_prices_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "label": {
           "name": "label",
@@ -10023,7 +10123,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -10077,6 +10177,7 @@
           "name": "settings_visit_prices_locales_parent_id_fk",
           "tableFrom": "settings_visit_prices_locales",
           "tableTo": "settings_visit_prices",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -10093,9 +10194,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.settings_restaurant_hours": {
+    "foundation.settings_restaurant_hours": {
       "name": "settings_restaurant_hours",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -10153,6 +10254,7 @@
           "name": "settings_restaurant_hours_parent_id_fk",
           "tableFrom": "settings_restaurant_hours",
           "tableTo": "settings",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -10169,9 +10271,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.settings_restaurant_hours_locales": {
+    "foundation.settings_restaurant_hours_locales": {
       "name": "settings_restaurant_hours_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "label": {
           "name": "label",
@@ -10194,7 +10296,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -10248,6 +10350,7 @@
           "name": "settings_restaurant_hours_locales_parent_id_fk",
           "tableFrom": "settings_restaurant_hours_locales",
           "tableTo": "settings_restaurant_hours",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -10264,9 +10367,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.settings_membership_tiers": {
+    "foundation.settings_membership_tiers": {
       "name": "settings_membership_tiers",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -10336,6 +10439,7 @@
           "name": "settings_membership_tiers_parent_id_fk",
           "tableFrom": "settings_membership_tiers",
           "tableTo": "settings",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -10352,9 +10456,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.settings_membership_tiers_locales": {
+    "foundation.settings_membership_tiers_locales": {
       "name": "settings_membership_tiers_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "name": {
           "name": "name",
@@ -10377,7 +10481,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -10431,6 +10535,7 @@
           "name": "settings_membership_tiers_locales_parent_id_fk",
           "tableFrom": "settings_membership_tiers_locales",
           "tableTo": "settings_membership_tiers",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -10447,9 +10552,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.settings_membership_perks": {
+    "foundation.settings_membership_perks": {
       "name": "settings_membership_perks",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -10507,6 +10612,7 @@
           "name": "settings_membership_perks_parent_id_fk",
           "tableFrom": "settings_membership_perks",
           "tableTo": "settings",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -10523,9 +10629,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.settings_membership_perks_locales": {
+    "foundation.settings_membership_perks_locales": {
       "name": "settings_membership_perks_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "text": {
           "name": "text",
@@ -10542,7 +10648,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -10596,6 +10702,7 @@
           "name": "settings_membership_perks_locales_parent_id_fk",
           "tableFrom": "settings_membership_perks_locales",
           "tableTo": "settings_membership_perks",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -10612,9 +10719,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.settings": {
+    "foundation.settings": {
       "name": "settings",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -10691,9 +10798,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.settings_locales": {
+    "foundation.settings_locales": {
       "name": "settings_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "address": {
           "name": "address",
@@ -10728,7 +10835,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -10782,6 +10889,7 @@
           "name": "settings_locales_parent_id_fk",
           "tableFrom": "settings_locales",
           "tableTo": "settings",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -10798,9 +10906,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.navigation_items_children": {
+    "foundation.navigation_items_children": {
       "name": "navigation_items_children",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -10864,6 +10972,7 @@
           "name": "navigation_items_children_parent_id_fk",
           "tableFrom": "navigation_items_children",
           "tableTo": "navigation_items",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -10880,9 +10989,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.navigation_items_children_locales": {
+    "foundation.navigation_items_children_locales": {
       "name": "navigation_items_children_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "label": {
           "name": "label",
@@ -10905,7 +11014,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -10959,6 +11068,7 @@
           "name": "navigation_items_children_locales_parent_id_fk",
           "tableFrom": "navigation_items_children_locales",
           "tableTo": "navigation_items_children",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -10975,9 +11085,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.navigation_items": {
+    "foundation.navigation_items": {
       "name": "navigation_items",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "_order": {
           "name": "_order",
@@ -11075,6 +11185,7 @@
           "name": "navigation_items_feature_image_id_media_id_fk",
           "tableFrom": "navigation_items",
           "tableTo": "media",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "feature_image_id"
           ],
@@ -11088,6 +11199,7 @@
           "name": "navigation_items_parent_id_fk",
           "tableFrom": "navigation_items",
           "tableTo": "navigation",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -11104,9 +11216,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.navigation_items_locales": {
+    "foundation.navigation_items_locales": {
       "name": "navigation_items_locales",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "label": {
           "name": "label",
@@ -11135,7 +11247,7 @@
         "_locale": {
           "name": "_locale",
           "type": "_locales",
-          "typeSchema": "public",
+          "typeSchema": "foundation",
           "primaryKey": false,
           "notNull": true
         },
@@ -11189,6 +11301,7 @@
           "name": "navigation_items_locales_parent_id_fk",
           "tableFrom": "navigation_items_locales",
           "tableTo": "navigation_items",
+          "schemaTo": "foundation",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -11205,9 +11318,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.navigation": {
+    "foundation.navigation": {
       "name": "navigation",
-      "schema": "",
+      "schema": "foundation",
       "columns": {
         "id": {
           "name": "id",
@@ -11238,65 +11351,65 @@
     }
   },
   "enums": {
-    "public._locales": {
+    "foundation._locales": {
       "name": "_locales",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "fr",
         "en"
       ]
     },
-    "public.enum_posts_status": {
+    "foundation.enum_posts_status": {
       "name": "enum_posts_status",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "draft",
         "published"
       ]
     },
-    "public.enum__posts_v_version_status": {
+    "foundation.enum__posts_v_version_status": {
       "name": "enum__posts_v_version_status",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "draft",
         "published"
       ]
     },
-    "public.enum__posts_v_published_locale": {
+    "foundation.enum__posts_v_published_locale": {
       "name": "enum__posts_v_published_locale",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "fr",
         "en"
       ]
     },
-    "public.enum_pages_status": {
+    "foundation.enum_pages_status": {
       "name": "enum_pages_status",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "draft",
         "published"
       ]
     },
-    "public.enum__pages_v_version_status": {
+    "foundation.enum__pages_v_version_status": {
       "name": "enum__pages_v_version_status",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "draft",
         "published"
       ]
     },
-    "public.enum__pages_v_published_locale": {
+    "foundation.enum__pages_v_published_locale": {
       "name": "enum__pages_v_published_locale",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "fr",
         "en"
       ]
     },
-    "public.enum_activities_motif": {
+    "foundation.enum_activities_motif": {
       "name": "enum_activities_motif",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "dots",
         "zigzag",
@@ -11307,17 +11420,17 @@
         "ladder"
       ]
     },
-    "public.enum_activities_status": {
+    "foundation.enum_activities_status": {
       "name": "enum_activities_status",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "draft",
         "published"
       ]
     },
-    "public.enum__activities_v_version_motif": {
+    "foundation.enum__activities_v_version_motif": {
       "name": "enum__activities_v_version_motif",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "dots",
         "zigzag",
@@ -11328,43 +11441,43 @@
         "ladder"
       ]
     },
-    "public.enum__activities_v_version_status": {
+    "foundation.enum__activities_v_version_status": {
       "name": "enum__activities_v_version_status",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "draft",
         "published"
       ]
     },
-    "public.enum__activities_v_published_locale": {
+    "foundation.enum__activities_v_published_locale": {
       "name": "enum__activities_v_published_locale",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "fr",
         "en"
       ]
     },
-    "public.enum_themes_tone": {
+    "foundation.enum_themes_tone": {
       "name": "enum_themes_tone",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "terracotta",
         "indigo",
         "forest"
       ]
     },
-    "public.enum_team_group": {
+    "foundation.enum_team_group": {
       "name": "enum_team_group",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "board",
         "staff",
         "volunteer"
       ]
     },
-    "public.enum_partners_kind": {
+    "foundation.enum_partners_kind": {
       "name": "enum_partners_kind",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "institutional",
         "cultural",
@@ -11373,40 +11486,42 @@
         "sponsor"
       ]
     },
-    "public.enum_subscribers_locale": {
+    "foundation.enum_subscribers_locale": {
       "name": "enum_subscribers_locale",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "fr",
         "en"
       ]
     },
-    "public.enum_users_roles": {
+    "foundation.enum_users_roles": {
       "name": "enum_users_roles",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "admin",
         "editor"
       ]
     },
-    "public.enum_forms_confirmation_type": {
+    "foundation.enum_forms_confirmation_type": {
       "name": "enum_forms_confirmation_type",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "message",
         "redirect"
       ]
     },
-    "public.enum_redirects_to_type": {
+    "foundation.enum_redirects_to_type": {
       "name": "enum_redirects_to_type",
-      "schema": "public",
+      "schema": "foundation",
       "values": [
         "reference",
         "custom"
       ]
     }
   },
-  "schemas": {},
+  "schemas": {
+    "foundation": "foundation"
+  },
   "sequences": {},
   "roles": {},
   "policies": {},
@@ -11416,6 +11531,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "adf6b4c7-a1ef-4822-bfc4-a700fb918109",
+  "id": "ec41de72-050c-4370-bc89-67f4c7701838",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }
