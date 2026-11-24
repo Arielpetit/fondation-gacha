@@ -46,9 +46,9 @@ export function Section({
 }) {
   const pad = {
     none: '',
-    sm: 'py-12 sm:py-16',
-    md: 'py-16 sm:py-24',
-    lg: 'py-20 sm:py-28 lg:py-36',
+    sm: 'py-10 sm:py-14',
+    md: 'py-14 sm:py-20',
+    lg: 'py-16 sm:py-24 lg:py-28',
   }[spacing]
 
   return (

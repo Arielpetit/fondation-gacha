@@ -21,6 +21,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
     formats: ['image/avif', 'image/webp'],
+    // Next 16 serves quality 75 by default; 85 keeps photos crisp (the default 75 is coerced to 85).
+    qualities: [85],
     localPatterns: [
       { pathname: '/api/media/file/**' },
       { pathname: '/images/**' },

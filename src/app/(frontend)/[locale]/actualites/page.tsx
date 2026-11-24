@@ -92,7 +92,7 @@ export default async function NewsPage({
           <div className="flex flex-col gap-5 border-b border-line pb-8">
             <div className="flex items-center gap-3">
               <span className="eyebrow w-20 shrink-0 text-muted">{t('theme')}</span>
-              <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none]">
+              <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pr-10 pb-1 [scrollbar-width:none] [mask-image:linear-gradient(to_right,black_calc(100%-3rem),transparent)]">
                 <Chip href={hrefWith(search, { theme: undefined })} active={!search.theme}>
                   {t('allThemes')}
                 </Chip>
@@ -105,7 +105,7 @@ export default async function NewsPage({
             </div>
             <div className="flex items-center gap-3">
               <span className="eyebrow w-20 shrink-0 text-muted">{t('year')}</span>
-              <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none]">
+              <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pr-10 pb-1 [scrollbar-width:none] [mask-image:linear-gradient(to_right,black_calc(100%-3rem),transparent)]">
                 <Chip href={hrefWith(search, { year: undefined })} active={!year}>
                   {t('allYears')}
                 </Chip>

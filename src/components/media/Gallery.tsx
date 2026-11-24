@@ -15,6 +15,9 @@ const EASE = [0.16, 1, 0.3, 1] as const
  * Image grid (or a single image) that opens a full-screen lightbox.
  * Keyboard: ←/→ to browse, Esc to close. Touch: swipe left/right.
  */
+/** Large landscape photos fill the text column; portrait or small ones keep their size (never upscaled). */
+const fillsColumn = (img: GalleryImage) => img.width >= img.height && img.width >= 800
+
 export function Gallery({ images, labels }: { images: GalleryImage[]; labels: { open: string; close: string; prev: string; next: string } }) {
   const [index, setIndex] = useState<number | null>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
@@ -58,7 +61,7 @@ export function Gallery({ images, labels }: { images: GalleryImage[]; labels: { 
           <button
             type="button"
             onClick={(e) => open(0, e.currentTarget)}
-            className="group block w-fit max-w-full cursor-zoom-in overflow-hidden rounded-2xl"
+            className={cn('group block max-w-full cursor-zoom-in overflow-hidden rounded-2xl', fillsColumn(images[0]) ? 'w-full' : 'w-fit')}
             aria-label={`${labels.open}${images[0].alt ? ` : ${images[0].alt}` : ''}`}
           >
             <Image
@@ -66,8 +69,11 @@ export function Gallery({ images, labels }: { images: GalleryImage[]; labels: { 
               alt={images[0].alt}
               width={images[0].width}
               height={images[0].height}
-              sizes="(min-width: 1024px) 760px, 100vw"
-              className="block h-auto max-h-[75vh] w-auto max-w-full transition-transform duration-700 ease-out-expo group-hover:scale-[1.02]"
+              sizes="(min-width: 1024px) 900px, 100vw"
+              className={cn(
+                'block h-auto max-w-full transition-transform duration-700 ease-out-expo group-hover:scale-[1.02]',
+                fillsColumn(images[0]) ? 'w-full' : 'max-h-[75vh] w-auto',
+              )}
             />
           </button>
           {images[0].caption && <figcaption>{images[0].caption}</figcaption>}
@@ -86,7 +92,7 @@ export function Gallery({ images, labels }: { images: GalleryImage[]; labels: { 
                 src={img.src}
                 alt=""
                 fill
-                sizes="(min-width: 1024px) 260px, 50vw"
+                sizes="(min-width: 1024px) 440px, 50vw"
                 className="object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105"
               />
             </button>

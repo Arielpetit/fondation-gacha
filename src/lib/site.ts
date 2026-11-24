@@ -8,7 +8,7 @@ export type L10n = Record<Locale, string>
 
 export type NavChild = { href: string; label: L10n; description?: L10n }
 export type NavItem = {
-  key: 'foundation' | 'actions' | 'news' | 'stay' | 'support' | 'resources' | 'maison' | 'contact'
+  key: 'foundation' | 'actions' | 'news' | 'stay' | 'support'
   href: string
   children?: NavChild[]
   feature?: { image: string; alt: L10n; title: L10n; text: L10n; href: string }
@@ -22,6 +22,10 @@ export const navigation: NavItem[] = [
       { href: '/fondation', label: { fr: 'Présentation', en: 'About us' }, description: { fr: 'Le mot de la présidente, valeurs et missions', en: "The president's word, values and mission" } },
       { href: '/fondation/infrastructures', label: { fr: 'Infrastructures', en: 'Facilities' }, description: { fr: 'Centre des Cultures JLD, auditorium, bibliothèque', en: 'JLD Culture Centre, auditorium, library' } },
       { href: '/fondation/equipe', label: { fr: 'Équipe & bénévoles', en: 'Team & volunteers' }, description: { fr: 'Celles et ceux qui font vivre la Fondation', en: 'The people behind the Foundation' } },
+      { href: '/maison-gacha', label: { fr: 'Maison Gacha', en: 'Maison Gacha' }, description: { fr: 'Le Cameroun créatif à Paris', en: 'Creative Cameroon in Paris' } },
+      { href: '/ressources/presse', label: { fr: 'Presse', en: 'Press' }, description: { fr: 'Articles et reportages', en: 'Articles and reports' } },
+      { href: '/ressources/bilans', label: { fr: 'Bilans d’activités', en: 'Activity reports' }, description: { fr: 'Rapports annuels à télécharger', en: 'Annual reports to download' } },
+      { href: '/ressources/publications', label: { fr: 'Publications', en: 'Publications' }, description: { fr: 'Livres et catalogues', en: 'Books and catalogues' } },
     ],
     feature: {
       image: '/images/sg/site-aerial.webp',
@@ -80,17 +84,6 @@ export const navigation: NavItem[] = [
       { href: '/soutenir/benevolat', label: { fr: 'Bénévolat', en: 'Volunteering' } },
     ],
   },
-  {
-    key: 'resources',
-    href: '/ressources',
-    children: [
-      { href: '/ressources/presse', label: { fr: 'Presse', en: 'Press' } },
-      { href: '/ressources/bilans', label: { fr: 'Bilans d’activités', en: 'Activity reports' } },
-      { href: '/ressources/publications', label: { fr: 'Publications', en: 'Publications' } },
-    ],
-  },
-  { key: 'maison', href: '/maison-gacha' },
-  { key: 'contact', href: '/contact' },
 ]
 
 export const contact = {

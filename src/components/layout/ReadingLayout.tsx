@@ -17,10 +17,10 @@ import { contact } from '@/lib/site'
  */
 export function ReadingLayout({ children, aside }: { children: ReactNode; aside?: ReactNode }) {
   return (
-    <Container className="grid gap-14 lg:grid-cols-12 lg:gap-10">
-      <div className="min-w-0 lg:col-span-7">{children}</div>
+    <Container className="grid gap-12 lg:grid-cols-12 lg:gap-12">
+      <div className="min-w-0 lg:col-span-8">{children}</div>
       {aside && (
-        <aside className="lg:col-span-4 lg:col-start-9">
+        <aside className="lg:col-span-4">
           <div className="flex flex-col gap-6 lg:sticky lg:top-28">{aside}</div>
         </aside>
       )}

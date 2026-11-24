@@ -350,6 +350,20 @@ Based on the Foundation's feedback and the motion language of the Bangangté sit
 - **Header**: a soft pill glides under the hovered menu item; *Contact* added to the menu; spacing adjusted so
   the full menu fits from 1280 px.
 
+### Design pass 3 — lighter, calmer, sharper ✅
+- **Menu: 5 entries** (La Fondation, Nos actions, Actualités, Séjourner, Soutenir). *La Fondation* now also
+  holds Maison Gacha, Presse, Bilans d’activités and Publications; *Contact* is a discreet link next to the
+  language switch (and a button in the mobile menu). Run `pnpm seed:nav` to reset the menu to this structure.
+- **Slimmer header** (64 px) and **compact page headers**: title on the left, the photo on the right in a rounded
+  frame that opens on load, instead of a tall, darkened full-width photo.
+- **Smaller type and cards**: display sizes, lead text, section spacing and the homepage cards were all reduced.
+- **Full width**: text pages use 8 of 12 columns plus the sidebar; large landscape photos fill the text column,
+  small ones are never enlarged.
+- **Sharper images**: Next.js image quality raised from 75 to 85 for every photo.
+- **New photo** on the homepage: a wide panorama of ochre buildings in the Bangoulap hills (the source is only
+  828×552, so it was enlarged 2× with sharpening; a higher-resolution original would look better).
+- News filters scroll sideways with a faded edge instead of being cut off.
+
 ### Phase 6 — QA & launch ⏳
 - Production database (Neon or Supabase) and media storage (Cloudflare R2, S3 or Supabase Storage).
 - Payload migrations for production (`payload migrate:create`), migrate local content to production.

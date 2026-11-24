@@ -94,7 +94,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   <div key={s.label}>
                     <dt className="sr-only">{s.label}</dt>
                     <dd>
-                      <Counter value={s.value} suffix={s.suffix} locale={locale} className="font-display text-[1.7rem] font-light whitespace-nowrap sm:text-4xl" />
+                      <Counter value={s.value} suffix={s.suffix} locale={locale} className="font-display text-[1.6rem] font-light whitespace-nowrap sm:text-3xl" />
                       <span className="mt-1 block text-xs leading-snug text-ivory/60 sm:text-sm">{s.label}</span>
                     </dd>
                   </div>
@@ -103,7 +103,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </Reveal>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[28rem] lg:col-span-5 lg:mr-0">
+          <div className="relative mx-auto w-full max-w-[25rem] lg:col-span-5 lg:mr-0">
             {/* Arch frame woven with a Ndop motif, the photo inside rises into place. */}
             <div className="hero-arch relative rounded-t-full rounded-b-[2rem] bg-raffia/15 p-3 ring-1 ring-ivory/10">
               <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-t-full rounded-b-[2rem] text-raffia/25" aria-hidden>
@@ -115,7 +115,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   alt={t('heroAlt')}
                   fill
                   priority
-                  sizes="(min-width: 1024px) 28rem, 90vw"
+                  sizes="(min-width: 1024px) 25rem, 90vw"
                   className="object-cover"
                 />
               </div>
@@ -203,7 +203,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             intro={t('actionsIntro')}
             action={<ArrowLink href="/actions">{tc('allActions')}</ArrowLink>}
           />
-          <Stagger className="mt-12 grid auto-rows-[17rem] gap-4 sm:grid-cols-2 sm:auto-rows-[18rem] lg:grid-cols-4 lg:gap-5">
+          <Stagger className="mt-12 grid auto-rows-[14rem] gap-4 sm:grid-cols-2 sm:auto-rows-[15rem] lg:grid-cols-4">
             {activities.docs.map((a, i) => {
               const layout = i === 0 ? 'sm:col-span-2 sm:row-span-2' : i === 5 ? 'sm:col-span-2' : ''
               return (
@@ -227,7 +227,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     >
                       <ArrowUpRight className="size-4" />
                     </span>
-                    <h3 className={i === 0 ? 'font-display text-display-sm font-light text-balance lg:text-[2.5rem] lg:leading-tight' : 'font-display text-2xl leading-tight font-light text-balance'}>
+                    <h3 className={i === 0 ? 'font-display text-display-sm font-light text-balance lg:text-[2rem] lg:leading-tight' : 'font-display text-xl leading-tight font-light text-balance'}>
                       {a.title}
                     </h3>
                     <p
@@ -246,6 +246,25 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </Stagger>
         </Container>
       </Section>
+
+      {/* ── Panorama: the hills of Bangoulap ── */}
+      <section aria-label={t('panoramaAlt')} className="bg-paper pb-16 sm:pb-24">
+        <Container>
+          <div className="relative">
+            <ImageReveal
+              src="/images/sg/bangoulap-hills.webp"
+              alt={t('panoramaAlt')}
+              sizes="(min-width: 1440px) 1350px, 100vw"
+              className="aspect-[4/3] rounded-3xl sm:aspect-[16/9] lg:aspect-[21/9]"
+              parallax={0.08}
+            />
+            <Reveal className="absolute bottom-4 left-4 max-w-sm rounded-2xl bg-ivory/90 p-5 text-indigo-ndop shadow-[0_24px_48px_-24px_rgb(0_0_0/0.6)] backdrop-blur-md sm:bottom-8 sm:left-8">
+              <p className="eyebrow text-[0.65rem] text-terracotta">{t('panoramaEyebrow')}</p>
+              <p className="mt-2 font-display text-xl leading-snug">{t('panoramaText')}</p>
+            </Reveal>
+          </div>
+        </Container>
+      </section>
 
       {/* ── News & agenda ───────────────────────────────────────────── */}
       <Section tone="ivory" labelledBy="news">

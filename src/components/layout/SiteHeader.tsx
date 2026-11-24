@@ -96,6 +96,7 @@ export function SiteHeader({ items }: { items: NavItem[] }) {
           <DesktopNav items={items} open={open} onOpen={openMenu} />
 
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+            <ContactLink />
             <ThemeToggleNav />
             <LocaleSwitch className="hidden sm:inline-flex" />
             <Link
@@ -133,6 +134,21 @@ function ThemeToggleNav({ className }: { className?: string }) {
   return <ThemeToggle className={className} labels={{ toDark: tr('toDark'), toLight: tr('toLight') }} />
 }
 
+/** Discreet "Contact" link next to the language switch (desktop). */
+function ContactLink() {
+  const tr = useTranslations('nav')
+  const pathname = usePathname()
+  return (
+    <Link
+      href="/contact"
+      aria-current={pathname === '/contact' ? 'page' : undefined}
+      className="hidden h-9 items-center rounded-full px-3 text-[0.85rem] opacity-80 transition-[opacity,background-color] duration-300 hover:bg-current/10 hover:opacity-100 aria-[current=page]:opacity-100 xl:inline-flex"
+    >
+      {tr('contact')}
+    </Link>
+  )
+}
+
 function DonateLabel() {
   const tr = useTranslations('nav')
   return <>{tr('donate')}</>
@@ -154,10 +170,10 @@ function DesktopNav({
 
   return (
     <nav aria-label="Navigation principale" className="hidden xl:block">
-      <ul className="relative flex items-center gap-0.5 2xl:gap-1" onMouseLeave={() => setPill((p) => ({ ...p, on: false }))}>
+      <ul className="relative flex items-center gap-0.5" onMouseLeave={() => setPill((p) => ({ ...p, on: false }))}>
         <span
           aria-hidden
-          className="pointer-events-none absolute top-0 left-0 h-10 rounded-full bg-current/10 transition-[transform,width,opacity] duration-500 ease-out-expo"
+          className="pointer-events-none absolute top-0 left-0 h-9 rounded-full bg-current/10 transition-[transform,width,opacity] duration-500 ease-out-expo"
           style={{ transform: `translateX(${pill.x}px)`, width: pill.w, opacity: pill.on ? 1 : 0 }}
         />
         {items.map((item) => {
@@ -165,11 +181,11 @@ function DesktopNav({
           const label = item.label
           const hasChildren = item.children.length > 0
           const base =
-            'relative inline-flex h-10 items-center rounded-full px-[0.45rem] text-[0.85rem] whitespace-nowrap 2xl:px-3 2xl:text-[0.9rem]'
+            'relative inline-flex h-9 items-center rounded-full px-3.5 text-[0.875rem] whitespace-nowrap'
           const indicator = (
             <span
               className={cn(
-                'absolute inset-x-[0.45rem] bottom-1.5 h-px 2xl:inset-x-3 origin-left bg-current transition-transform duration-500 ease-out-expo',
+                'absolute inset-x-3.5 bottom-1 h-px origin-left bg-current transition-transform duration-500 ease-out-expo',
                 active || open === item.id ? 'scale-x-100' : 'scale-x-0',
               )}
               aria-hidden
@@ -416,6 +432,9 @@ function MobileDrawer({ items, open, onClose }: { items: NavItem[]; open: boolea
             >
               <Link href="/soutenir/don" className={buttonClasses('primary', 'lg', 'w-full')}>
                 {tr('donate')}
+              </Link>
+              <Link href="/contact" className={buttonClasses('outline-light', 'lg', 'w-full')}>
+                {tr('contact')}
               </Link>
               <div className="flex items-center justify-between gap-2 text-sm text-ivory/70">
                 <a href={`mailto:${contact.email}`} className="min-w-0 truncate hover:text-ivory">
