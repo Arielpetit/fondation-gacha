@@ -13,6 +13,7 @@ export const Activities: CollectionConfig = {
   labels: { singular: 'Action', plural: 'Nos actions' },
   admin: {
     group: 'Contenu',
+    hidden: true, // fixed structure of the site: not edited by the team
     useAsTitle: 'title',
     defaultColumns: ['title', 'order', '_status'],
     preview: (doc, { locale }) => previewUrl('activities', doc as { slug?: string; path?: string }, locale),

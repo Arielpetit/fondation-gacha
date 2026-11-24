@@ -11,13 +11,12 @@ export const metadata = { title: 'Tableau de bord' }
 export default async function Dashboard() {
   const { payload, user } = await requireAdmin()
   const weekAgo = new Date(Date.now() - 7 * 24 * 3600 * 1000).toISOString() // eslint-disable-line react-hooks/purity
-  const [posts, drafts, subs, week, media, pages] = await Promise.all([
+  const [posts, drafts, subs, week, media] = await Promise.all([
     payload.find({ collection: 'posts', sort: '-updatedAt', limit: 6, depth: 1, draft: true, select: { title: true, updatedAt: true, _status: true, cover: true } }),
     payload.count({ collection: 'posts', where: { _status: { equals: 'draft' } } }),
     payload.count({ collection: 'subscribers' }),
     payload.count({ collection: 'form-submissions', where: { createdAt: { greater_than: weekAgo } } }),
     payload.count({ collection: 'media' }),
-    payload.count({ collection: 'pages' }),
   ])
   const messages = await payload.find({ collection: 'form-submissions', sort: '-createdAt', limit: 5, depth: 1 })
   const hour = Number(new Intl.DateTimeFormat('fr-FR', { hour: 'numeric', hour12: false, timeZone: 'Africa/Douala' }).format(new Date()))
@@ -33,15 +32,15 @@ export default async function Dashboard() {
 
   return (
     <>
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-ndop to-indigo-deep p-8 text-ivory sm:p-10">
+      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-ndop to-indigo-deep p-5 text-ivory sm:rounded-3xl sm:p-10">
         <div className="pointer-events-none absolute -top-24 -right-16 size-72 rounded-full bg-terracotta/30 blur-[90px]" />
         <p className="eyebrow relative text-[0.65rem] text-raffia">{today}</p>
-        <h1 className="relative mt-3 font-display text-[2.6rem] leading-none font-light tracking-tight">
+        <h1 className="relative mt-2 font-display text-[1.9rem] leading-none font-light tracking-tight sm:mt-3 sm:text-[2.6rem]">
           {hour >= 18 || hour < 5 ? 'Bonsoir' : 'Bonjour'}
           {first ? `, ${first}` : ''}
         </h1>
-        <p className="relative mt-3 max-w-lg text-ivory/70">Voici l’essentiel pour faire vivre le site de la Fondation.</p>
-        <div className="relative mt-7 flex flex-wrap gap-3">
+        <p className="relative mt-2 max-w-lg text-sm text-ivory/70 sm:mt-3 sm:text-base">Voici l’essentiel pour faire vivre le site de la Fondation.</p>
+        <div className="relative mt-5 flex flex-wrap gap-2 sm:mt-7 sm:gap-3">
           <Link href="/admin/posts/new" className={btn('ghost', 'border-ivory bg-ivory text-indigo-ndop hover:bg-white')}>
             <Icon name="plus" className="size-4" /> Nouvelle actualité
           </Link>
@@ -51,22 +50,22 @@ export default async function Dashboard() {
         </div>
       </section>
 
-      <section className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Chiffres clés">
+      <section className="mt-4 grid grid-cols-2 gap-3 sm:mt-5 sm:gap-4 lg:grid-cols-4" aria-label="Chiffres clés">
         {stats.map((s) => (
-          <Link key={s.label} href={s.href} className="group rounded-3xl border border-line bg-paper p-6 transition-[transform,box-shadow] duration-500 ease-out-expo hover:-translate-y-1 hover:shadow-[0_24px_40px_-30px_rgb(0_0_0/0.5)]">
-            <span className={`grid size-11 place-items-center rounded-2xl ${s.tone}`}>
+          <Link key={s.label} href={s.href} className="group rounded-2xl border border-line bg-paper p-4 transition sm:rounded-3xl sm:p-6-[transform,box-shadow] duration-500 ease-out-expo hover:-translate-y-1 hover:shadow-[0_24px_40px_-30px_rgb(0_0_0/0.5)]">
+            <span className={`grid size-9 place-items-center rounded-xl sm:size-11 sm:rounded-2xl ${s.tone}`}>
               <Icon name={s.icon} className="size-5" />
             </span>
-            <p className="mt-5 font-display text-[2.6rem] leading-none font-light">{s.v}</p>
-            <p className="mt-2 text-sm text-muted">{s.label}</p>
+            <p className="mt-3 font-display text-[1.9rem] leading-none font-light sm:mt-5 sm:text-[2.6rem]">{s.v}</p>
+            <p className="mt-1.5 text-xs text-muted sm:mt-2 sm:text-sm">{s.label}</p>
           </Link>
         ))}
       </section>
 
-      <div className="mt-5 grid gap-5 lg:grid-cols-5">
+      <div className="mt-3 grid gap-3 sm:mt-5 sm:gap-5 lg:grid-cols-5">
         <Card className="lg:col-span-3">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-display text-2xl font-light">Dernières actualités</h2>
+            <h2 className="font-display text-xl font-light sm:text-2xl">Dernières actualités</h2>
             <Link href="/admin/posts" className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink">
               Tout voir <Icon name="arrow" className="size-4" />
             </Link>
@@ -93,7 +92,7 @@ export default async function Dashboard() {
 
         <Card className="lg:col-span-2">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-display text-2xl font-light">Derniers messages</h2>
+            <h2 className="font-display text-xl font-light sm:text-2xl">Derniers messages</h2>
             <Link href="/admin/form-submissions" className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink">
               Tout voir <Icon name="arrow" className="size-4" />
             </Link>
@@ -122,7 +121,6 @@ export default async function Dashboard() {
             </ul>
           )}
           <p className="mt-5 flex gap-5 border-t border-line pt-4 text-sm text-muted">
-            <span><b className="font-display text-lg font-light text-ink">{pages.totalDocs}</b> pages</span>
             <span><b className="font-display text-lg font-light text-ink">{media.totalDocs}</b> fichiers</span>
           </p>
         </Card>

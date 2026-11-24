@@ -25,8 +25,6 @@ export const NAV: { title: string; items: { href: string; label: string; icon: I
     title: 'Publier',
     items: [
       { href: '/admin/posts', label: 'Actualités', icon: 'news', slug: 'posts' },
-      { href: '/admin/pages', label: 'Pages', icon: 'page', slug: 'pages' },
-      { href: '/admin/activities', label: 'Nos actions', icon: 'action', slug: 'activities' },
       { href: '/admin/media', label: 'Médiathèque', icon: 'media', slug: 'media' },
       { href: '/admin/themes', label: 'Thèmes', icon: 'tag', slug: 'themes' },
     ],
@@ -61,8 +59,6 @@ export const NAV: { title: string; items: { href: string; label: string; icon: I
 
 export const RESOURCES: Record<string, Resource> = {
   posts: { slug: 'posts', kind: 'collection', label: 'Actualités', singular: 'actualité', icon: 'news', description: 'Articles, événements et agenda.', columns: ['title', 'publishedAt', 'themes'], sort: '-publishedAt' },
-  pages: { slug: 'pages', kind: 'collection', label: 'Pages', singular: 'page', icon: 'page', description: 'Textes des pages du site.', columns: ['title', 'path'], sort: 'path' },
-  activities: { slug: 'activities', kind: 'collection', label: 'Nos actions', singular: 'action', icon: 'action', description: 'Les huit domaines d’action.', columns: ['title', 'order'], sort: 'order' },
   themes: { slug: 'themes', kind: 'collection', label: 'Thèmes', singular: 'thème', icon: 'tag', description: 'Catégories des actualités.', columns: ['title', 'slug'], sort: 'title' },
   team: { slug: 'team', kind: 'collection', label: 'Équipe et bénévoles', singular: 'personne', icon: 'team', description: 'Portraits, rôles et groupes.', columns: ['name', 'role', 'group'], sort: 'order' },
   partners: { slug: 'partners', kind: 'collection', label: 'Partenaires', singular: 'partenaire', icon: 'handshake', description: 'Logos et sites web.', columns: ['name', 'kind', 'url'], sort: 'order' },

@@ -7,15 +7,15 @@ import { Icon, type AnyIcon } from './Icon'
 
 export function PageHeader({ title, description, children, back }: { title: string; description?: string; children?: ReactNode; back?: { href: string; label: string } }) {
   return (
-    <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+    <div className="mb-5 flex flex-wrap items-end justify-between gap-3 sm:mb-8 sm:gap-4">
       <div>
         {back && (
           <Link href={back.href} className="mb-3 inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-ink">
             <Icon name="back" className="size-4" /> {back.label}
           </Link>
         )}
-        <h1 className="font-display text-[2.1rem] leading-tight font-light tracking-tight">{title}</h1>
-        {description && <p className="mt-1.5 max-w-2xl text-sm text-muted">{description}</p>}
+        <h1 className="font-display text-[1.6rem] leading-tight font-light tracking-tight sm:text-[2.1rem]">{title}</h1>
+        {description && <p className="mt-1 max-w-2xl text-[0.8rem] text-muted sm:mt-1.5 sm:text-sm">{description}</p>}
       </div>
       {children && <div className="flex flex-wrap items-center gap-2">{children}</div>}
     </div>
@@ -32,7 +32,7 @@ export const btn = (kind: 'primary' | 'ghost' | 'danger' = 'ghost', extra = '') 
   )
 
 export function Card({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn('rounded-3xl border border-line bg-paper p-6', className)}>{children}</div>
+  return <div className={cn('rounded-2xl border border-line bg-paper p-4 sm:rounded-3xl sm:p-6', className)}>{children}</div>
 }
 
 export function Badge({ tone = 'neutral', children }: { tone?: 'ok' | 'draft' | 'neutral'; children: ReactNode }) {

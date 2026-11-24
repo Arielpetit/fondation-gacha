@@ -17,7 +17,7 @@ import type { FormProps } from './loadForm'
 
 const RichEditor = dynamic(() => import('./RichEditor').then((m) => m.RichEditor), { ssr: false, loading: () => <div className="h-72 animate-pulse rounded-2xl bg-sand" /> })
 
-const inputCls = 'w-full rounded-xl border border-line bg-paper px-4 py-2.5 text-[0.95rem] outline-none transition-colors placeholder:text-muted/60 focus:border-accent disabled:opacity-60'
+const inputCls = 'w-full rounded-xl border border-line bg-paper px-3.5 py-2 text-[0.9rem] sm:px-4 sm:py-2.5 sm:text-[0.95rem] outline-none transition-colors placeholder:text-muted/60 focus:border-accent disabled:opacity-60'
 
 type Ctx = { locale: string; media: FormProps['media']; options: FormProps['options']; setMedia: (m: { id: number; url: string; alt?: string; filename?: string }) => void }
 
@@ -245,11 +245,11 @@ export function ResourceForm(props: FormProps) {
   }
 
   return (
-    <div className="grid items-start gap-6 lg:grid-cols-[1fr_20rem]">
-      <div className="space-y-6">
+    <div className="grid items-start gap-4 sm:gap-6 lg:grid-cols-[1fr_20rem]">
+      <div className="space-y-4 sm:space-y-6">
         {sections.map((s) => (
           <Card key={s || 'main'}>
-            {s && <h2 className="mb-5 font-display text-xl font-light">{s}</h2>}
+            {s && <h2 className="mb-4 font-display text-lg font-light sm:mb-5 sm:text-xl">{s}</h2>}
             <Fields fields={main.filter((f) => (f.section ?? '') === s)} values={values} onChange={setValues} ctx={ctx} />
           </Card>
         ))}

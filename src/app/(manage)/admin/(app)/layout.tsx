@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const { payload, user } = await requireAdmin()
-  const slugs = ['posts', 'pages', 'activities', 'media', 'themes', 'team', 'partners', 'residents', 'rooms', 'press', 'reports', 'form-submissions', 'subscribers', 'users'] as const
+  const slugs = ['posts', 'media', 'themes', 'team', 'partners', 'residents', 'rooms', 'press', 'reports', 'form-submissions', 'subscribers', 'users'] as const
   const entries = await Promise.all(slugs.map(async (s) => [s, (await payload.count({ collection: s })).totalDocs] as const))
   const roles = (user.roles ?? []) as string[]
   return (

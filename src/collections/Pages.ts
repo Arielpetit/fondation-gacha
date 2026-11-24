@@ -16,6 +16,7 @@ export const Pages: CollectionConfig = {
   labels: { singular: 'Page', plural: 'Pages' },
   admin: {
     group: 'Contenu',
+    hidden: true, // fixed structure of the site: not edited by the team
     useAsTitle: 'title',
     defaultColumns: ['title', 'path', '_status', 'updatedAt'],
     preview: (doc, { locale }) => previewUrl('pages', doc as { slug?: string; path?: string }, locale),

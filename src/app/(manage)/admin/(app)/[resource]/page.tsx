@@ -99,14 +99,14 @@ export default async function ResourcePage({ params, searchParams }: { params: P
           )}
         </Empty>
       ) : (
-        <div className="overflow-hidden rounded-3xl border border-line bg-paper">
-          <table className="w-full text-left text-sm">
+        <div className="overflow-x-auto rounded-2xl border border-line bg-paper sm:rounded-3xl">
+          <table className="w-full text-left text-[0.8rem] sm:text-sm">
             <thead className="border-b border-line text-[0.7rem] tracking-widest text-muted uppercase">
               <tr>
                 {cols.map((c) => (
-                  <th key={c} className="px-5 py-3.5 font-medium">{defs.get(c)?.label ?? (c === 'createdAt' ? 'Date' : c === 'form' ? 'Formulaire' : c)}</th>
+                  <th key={c} className="px-3 py-3 font-medium sm:px-5 sm:py-3.5">{defs.get(c)?.label ?? (c === 'createdAt' ? 'Date' : c === 'form' ? 'Formulaire' : c)}</th>
                 ))}
-                {sc.drafts && <th className="px-5 py-3.5 font-medium">Statut</th>}
+                {sc.drafts && <th className="px-3 py-3 font-medium sm:px-5 sm:py-3.5">Statut</th>}
                 <th className="w-10" />
               </tr>
             </thead>
@@ -114,10 +114,10 @@ export default async function ResourcePage({ params, searchParams }: { params: P
               {res.docs.map((d: any) => (
                 <tr key={d.id} className="group border-b border-line/70 transition-colors last:border-0 hover:bg-sand/60">
                   {cols.map((c, i) => (
-                    <td key={c} className="px-5 py-3 align-middle">
+                    <td key={c} className="px-3 py-2.5 align-middle sm:px-5 sm:py-3">
                       {i === 0 ? (
                         <Link href={`/admin/${resource}/${d.id}`} className="flex items-center gap-3 font-medium">
-                          {img(d) && <Image src={img(d)} alt="" width={40} height={40} className="size-10 shrink-0 rounded-lg object-cover" unoptimized />}
+                          {img(d) && <Image src={img(d)} alt="" width={40} height={40} className="size-8 shrink-0 rounded-lg object-cover sm:size-10" unoptimized />}
                           <span className="min-w-0 group-hover:underline">{cell(defs.get(c), c, d[c])}</span>
                         </Link>
                       ) : (
@@ -125,7 +125,7 @@ export default async function ResourcePage({ params, searchParams }: { params: P
                       )}
                     </td>
                   ))}
-                  {sc.drafts && <td className="px-5 py-3"><Badge tone={d._status === 'draft' ? 'draft' : 'ok'}>{d._status === 'draft' ? 'Brouillon' : 'Publié'}</Badge></td>}
+                  {sc.drafts && <td className="px-3 py-2.5 sm:px-5 sm:py-3"><Badge tone={d._status === 'draft' ? 'draft' : 'ok'}>{d._status === 'draft' ? 'Brouillon' : 'Publié'}</Badge></td>}
                   <td className="pr-4 text-right">
                     <Link href={`/admin/${resource}/${d.id}`} aria-label="Ouvrir" className="text-muted opacity-0 transition-opacity group-hover:opacity-100">
                       <Icon name="arrow" className="size-4" />

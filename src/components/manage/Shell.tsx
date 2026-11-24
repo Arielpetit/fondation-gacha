@@ -39,12 +39,12 @@ export function Shell({ children, counts, user }: { children: ReactNode; counts:
   return (
     <div className="min-h-screen lg:pl-64">
       <Sidebar counts={counts} open={open} onClose={() => setOpen(false)} />
-      <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-line bg-canvas/85 px-4 backdrop-blur-md sm:px-8">
-        <button type="button" onClick={() => setOpen(true)} className="grid size-10 place-items-center rounded-xl border border-line lg:hidden" aria-label="Ouvrir le menu">
+      <header className="sticky top-0 z-20 flex h-14 items-center gap-2 border-b sm:h-16 sm:gap-3 border-line bg-canvas/85 px-3 backdrop-blur-md sm:px-8">
+        <button type="button" onClick={() => setOpen(true)} className="grid size-9 place-items-center rounded-xl border border-line lg:hidden" aria-label="Ouvrir le menu">
           <Icon name="burger" />
         </button>
         <div className="flex-1" />
-        <button type="button" onClick={toggleTheme} className="grid size-10 place-items-center rounded-full border border-line text-ink/80 transition-colors hover:bg-sand" aria-label={dark ? 'Thème clair' : 'Thème sombre'}>
+        <button type="button" onClick={toggleTheme} className="grid size-9 place-items-center rounded-full border border-line text-ink/80 sm:size-10 transition-colors hover:bg-sand" aria-label={dark ? 'Thème clair' : 'Thème sombre'}>
           <Icon name={dark ? 'sun' : 'moon'} />
         </button>
         <div className="flex items-center gap-3 rounded-full border border-line py-1 pr-1 pl-4">
@@ -58,7 +58,7 @@ export function Shell({ children, counts, user }: { children: ReactNode; counts:
           </button>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-[1200px] px-4 py-8 sm:px-8">{children}</main>
+      <main className="mx-auto w-full max-w-[1200px] px-3 py-5 sm:px-8 sm:py-8">{children}</main>
     </div>
   )
 }
