@@ -33,6 +33,7 @@ test.describe('Accessibility (axe, WCAG 2.1 AA)', () => {
       const results = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
         .exclude('nextjs-portal') // Next.js dev overlay
+        .exclude('iframe') // third-party embeds (YouTube): their markup is outside our control
         .analyze()
       const summary = results.violations.map((v) => `${v.id} (${v.nodes.length}): ${v.nodes[0]?.target.join(' ')}`)
       expect(summary).toEqual([])
@@ -48,6 +49,7 @@ test.describe('Accessibility (axe, WCAG 2.1 AA)', () => {
       const results = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
         .exclude('nextjs-portal')
+        .exclude('iframe')
         .analyze()
       expect(results.violations.map((v) => `${v.id} (${v.nodes.length}): ${v.nodes[0]?.target.join(' ')}`)).toEqual([])
     })

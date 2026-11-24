@@ -1,6 +1,6 @@
 # Fondation Jean-Félicien Gacha — redesign progress & handover
 
-_Last updated: 23 November 2026 (after Phase 5)_
+_Last updated: 24 November 2026 (after the pre-launch design polish)_
 
 This document describes the rebuild of **fondationgacha.org**: why it is being rebuilt, what has been done
 phase by phase, how the project is organised, and what remains. It is meant to let anyone pick the work up.
@@ -287,6 +287,36 @@ Still open for the Foundation:
 - Translating older news summaries and full article bodies (the tooling is ready).
 - Reviewing the English texts.
 - Better alt texts: many migrated images use the post title.
+
+### Pre-launch design polish ✅
+**Goal:** a last design, UX and motion review before hosting, with a dark theme.
+
+**Dark theme.** Light/dark switch in the header and in the mobile menu; the first visit follows the system
+setting, the choice is then remembered. A small script in `<head>` applies the theme before the first paint
+(no flash). Surfaces and text use theme-aware tokens (`canvas`, `paper`, `sand`, `ink`, `muted`, `line`,
+`accent`); brand colours (indigo, ivory, terracotta, raffia) stay the same in both themes. The dark palette
+("Ndop at night": deep indigo surfaces, warm cream text, a lighter terracotta for text accents) keeps WCAG AA
+contrast.
+
+**Images.** Consecutive images in an article or page become a gallery (grid) with a lightbox: keyboard (Esc,
+arrows), swipe on phones, focus returns to the image. News articles have a plain title header and show the cover
+(often an event poster) in full, only when the article has no images of its own; a reading-progress bar sits at
+the top of the page.
+
+**Villa Boutanga.** Rebuilt page: intro text with photo gallery, a price list grouped into rooms and suites
+(capacity, price variants), a restaurant block (opening hours editable in *Paramètres du site → Horaires du
+restaurant*) and the booking form, linked from every "Réserver" button.
+
+**Motion and details.** Short fade-up on every page change (pure CSS, off with reduced motion); heavier hero
+titles; footer columns fixed at 1024 px; partner strip, buttons, tags, cards and forms adapted to the dark theme;
+no horizontal scroll at 360 / 768 / 1024 / 1440 px (the Actions list no longer widens the page on phones
+while its images slide in).
+
+Checks: **44 e2e tests** (axe WCAG 2.1 AA: 0 violations on 15 pages in the light theme and 6 in the dark theme,
+plus a theme-toggle test), 10 unit tests, typecheck, lint, production build. A one-off axe pass on 9 more pages in
+the dark theme also found 0 violations. Third-party embeds (YouTube iframes) are left out of the axe checks because
+their markup is outside our control. Lighthouse (mobile, production build): accessibility, best practices and SEO
+100 on 5 pages; performance unchanged from Phase 5 within measurement noise.
 
 ### Phase 6 — QA & launch ⏳
 - Production database (Neon or Supabase) and media storage (Cloudflare R2, S3 or Supabase Storage).

@@ -31,7 +31,8 @@ export default async function ActionsPage({ params }: { params: Promise<{ locale
     <>
       <PageHero eyebrow={t('title')} title={t('title')} intro={t('intro')} imageSrc="/images/sg/atelier-perlage.webp" />
 
-      <Section tone="ivory" spacing="lg">
+      {/* overflow-x-clip: images sliding in from the side must not widen the page on phones. */}
+      <Section tone="ivory" spacing="lg" className="overflow-x-clip">
         <Container className="flex flex-col gap-24 lg:gap-32">
           {activities.docs.map((a, i) => {
             const flip = i % 2 === 1
