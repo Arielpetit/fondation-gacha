@@ -288,7 +288,8 @@ Still open for the Foundation:
 - Reviewing the English texts.
 - Better alt texts: many migrated images use the post title.
 - About 200 straight apostrophes remain inside migrated article bodies (most already use ’).
-- Partner logos: upload them in *Partenaires → Logo* (none came with the old site).
+- Partner logos still missing for Les Amis du Chœur Madrigal du Cameroun, Afro-Polis and IAM Intense Art Magazine;
+  please check the 8 logos found are the current official ones.
 
 ### Pre-launch design polish ✅
 **Goal:** a last design, UX and motion review before hosting, with a dark theme.
@@ -363,6 +364,21 @@ Based on the Foundation's feedback and the motion language of the Bangangté sit
 - **New photo** on the homepage: a wide panorama of ochre buildings in the Bangoulap hills (the source is only
   828×552, so it was enlarged 2× with sharpening; a higher-resolution original would look better).
 - News filters scroll sideways with a faded edge instead of being cut off.
+
+### Design pass 4 — hero, partner logos, plain page headers ✅
+- **Homepage hero** is shorter (no longer full-screen) and closer to the Bangangté site: aerial photo of the
+  Foundation site and Le Jacaranda in a frame woven with a Ndop zigzag, two floating cards and the turning seal.
+  The heritage-hut photo moved to the mission section.
+- **Real partner logos** for 8 of the 11 partners, uploaded to the media library and linked in *Partenaires → Logo*:
+  MINEFOP (minefop.gov.cm), AGIR abcd (agirabcd.org, white text recoloured navy), Institut français du Cameroun
+  (old site), La Route des Chefferies (routedeschefferies.com), Université des Montagnes (udm.aed-cm.org),
+  ICOM (Wikimedia Commons), Musée du quai Branly – Jacques Chirac (quaibranly.fr), Dexeus Mujer (dexeus.com).
+  No logo found yet for Les Amis du Chœur Madrigal du Cameroun, Afro-Polis and IAM Intense Art Magazine; they
+  keep a monogram tile. Logos show in colour on white tiles (also in dark mode).
+- **Page headers have no photo any more**: breadcrumb, title and intro on indigo; photos stay in the page body.
+- **"Dans cette rubrique" box removed** from the sidebar (the menu already lists those pages).
+- **Soutenir dropdown** now has a featured photo like the other menus.
+- Gallery tiles use a 4:3 crop so small photos are not enlarged into tall, blurry cells.
 
 ### Phase 6 — QA & launch ⏳
 - Production database (Neon or Supabase) and media storage (Cloudflare R2, S3 or Supabase Storage).

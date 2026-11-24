@@ -20,7 +20,7 @@ import {
 } from '@/components/content/sections'
 import { PageHero, type Crumb } from '@/components/layout/PageHero'
 import { Stagger, StaggerItem } from '@/components/motion'
-import { HelpCard, ReadingLayout, SectionNav } from '@/components/layout/ReadingLayout'
+import { HelpCard, ReadingLayout } from '@/components/layout/ReadingLayout'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/ui/Button'
 import { ArrowUpRight } from '@/components/ui/icons'
@@ -374,7 +374,6 @@ export default async function CatchAllPage({ params }: { params: Params }) {
           <ReadingLayout
             aside={
               <>
-                <SectionNav locale={locale} current={`/${path}`} />
                 <HelpCard locale={locale} />
               </>
             }

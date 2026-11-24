@@ -85,7 +85,7 @@ export function Gallery({ images, labels }: { images: GalleryImage[]; labels: { 
               key={img.src + i}
               type="button"
               onClick={(e) => open(i, e.currentTarget)}
-              className="group relative aspect-[4/5] cursor-zoom-in overflow-hidden rounded-2xl bg-sand"
+              className="group relative aspect-[4/3] cursor-zoom-in overflow-hidden rounded-2xl bg-sand"
               aria-label={`${labels.open}${img.alt ? ` : ${img.alt}` : ''} (${i + 1}/${images.length})`}
             >
               <Image

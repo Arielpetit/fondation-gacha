@@ -83,6 +83,13 @@ export const navigation: NavItem[] = [
       { href: '/soutenir/partenaires', label: { fr: 'Partenaires', en: 'Partners' } },
       { href: '/soutenir/benevolat', label: { fr: 'Bénévolat', en: 'Volunteering' } },
     ],
+    feature: {
+      image: '/images/sg/school-donation.webp',
+      alt: { fr: 'Remise de matériel scolaire à une école de la région', en: 'School supplies handed over to a local school' },
+      title: { fr: 'Chaque don compte', en: 'Every gift counts' },
+      text: { fr: 'Éducation, formation, culture et santé à Bangoulap.', en: 'Education, training, culture and health in Bangoulap.' },
+      href: '/soutenir/don',
+    },
   },
 ]
 

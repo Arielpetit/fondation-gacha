@@ -7,7 +7,7 @@ import { ResidentsList } from '@/components/content/sections'
 import { PageHero } from '@/components/layout/PageHero'
 import { CmsImage } from '@/components/media/CmsImage'
 import { Reveal, Stagger, StaggerItem } from '@/components/motion'
-import { HelpCard, ReadingLayout, SectionNav } from '@/components/layout/ReadingLayout'
+import { HelpCard, ReadingLayout } from '@/components/layout/ReadingLayout'
 import { RichText } from '@/components/RichText'
 import { ArrowLink } from '@/components/ui/Button'
 import { Container, Section, SectionHeading } from '@/components/ui/Section'
@@ -88,11 +88,6 @@ export default async function ActionPage({ params }: { params: Params }) {
                   </ul>
                 </div>
               )}
-              <SectionNav
-                locale={locale}
-                current={`/actions/${action.slug}`}
-                links={all.docs.map((a) => ({ label: a.title, href: `/actions/${a.slug}` }))}
-              />
               <HelpCard locale={locale} />
             </>
           }

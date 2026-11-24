@@ -6,9 +6,7 @@ import { ArrowRight, Mail, Phone } from '@/components/ui/icons'
 import { Container } from '@/components/ui/Section'
 import { Link } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
-import { cn } from '@/lib/cn'
 import { telHref } from '@/lib/format'
-import { getNavigation } from '@/lib/navigation'
 import { contact } from '@/lib/site'
 
 /**
@@ -25,48 +23,6 @@ export function ReadingLayout({ children, aside }: { children: ReactNode; aside?
         </aside>
       )}
     </Container>
-  )
-}
-
-/** "In this section": the other pages of the same menu entry, current one highlighted. */
-export async function SectionNav({ locale, current, links }: { locale: Locale; current: string; links?: { label: string; href: string }[] }) {
-  const t = await getTranslations('common')
-  let items = links
-  if (!items) {
-    const nav = await getNavigation(locale)
-    const parent = nav.find((n) => n.children.some((c) => c.href === current) || n.href === current)
-    items = parent?.children ?? []
-  }
-  if (items.length < 2) return null
-  return (
-    <nav aria-label={t('inThisSection')} className="rounded-3xl border border-line bg-paper p-6">
-      <p className="eyebrow text-accent">{t('inThisSection')}</p>
-      <ul className="mt-4 flex flex-col">
-        {items.map((l) => {
-          const active = l.href === current
-          return (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                aria-current={active ? 'page' : undefined}
-                className={cn(
-                  'group flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-[0.95rem] transition-colors duration-300',
-                  active ? 'bg-sand font-medium text-ink' : 'text-muted hover:bg-sand/60 hover:text-ink',
-                )}
-              >
-                {l.label}
-                <ArrowRight
-                  className={cn(
-                    'size-4 shrink-0 transition-all duration-500 ease-out-expo',
-                    active ? 'text-accent' : '-translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100',
-                  )}
-                />
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
-    </nav>
   )
 }
 

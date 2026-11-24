@@ -105,13 +105,14 @@
     "statActions": "domaines d’action",
     "statRoomsShort": "chambres et suites",
     "statAltitudeShort": "d’altitude",
-    "heroAlt": "Cases patrimoniales de la Fondation, drapées d’une étoffe Ndop",
+    "heroAlt": "Vue aérienne du site de la Fondation et du restaurant Le Jacaranda, dans les collines de Bangoulap",
     "fieldsMore": "Découvrir",
     "partnersIntro": "Institutions, musées, universités et associations qui accompagnent la Fondation.",
     "partnersTitle": "Ils nous accompagnent",
     "panoramaAlt": "Bâtiments ocre au milieu des arbres sur les collines de Bangoulap",
     "panoramaEyebrow": "Bangoulap · Ouest-Cameroun",
-    "panoramaText": "À 1 500 m d’altitude, au cœur des collines des Grassfields."
+    "panoramaText": "À 1 500 m d’altitude, au cœur des collines des Grassfields.",
+    "missionAlt": "Cases patrimoniales de la Fondation, drapées d’une étoffe Ndop"
   },
   "news": {
     "title": "Actualités & agenda",

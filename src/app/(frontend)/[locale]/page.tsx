@@ -57,7 +57,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           className="pointer-events-none absolute -top-40 right-[-10%] -z-10 size-[42rem] rounded-full bg-terracotta/25 blur-[120px]"
           aria-hidden
         />
-        <Container className="grid items-center gap-16 pt-32 pb-20 sm:pt-36 lg:min-h-[100svh] lg:grid-cols-12 lg:gap-10 lg:pt-28 lg:pb-16">
+        <Container className="grid items-center gap-14 pt-[calc(var(--header-h)+3rem)] pb-16 sm:pb-20 lg:grid-cols-12 lg:gap-10 lg:pt-[calc(var(--header-h)+3.5rem)]">
           <div className="lg:col-span-7">
             <Reveal immediate delay={0.1}>
               <Eyebrow dark>Bangoulap · Ouest-Cameroun</Eyebrow>
@@ -103,19 +103,19 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </Reveal>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[25rem] lg:col-span-5 lg:mr-0">
-            {/* Arch frame woven with a Ndop motif, the photo inside rises into place. */}
-            <div className="hero-arch relative rounded-t-full rounded-b-[2rem] bg-raffia/15 p-3 ring-1 ring-ivory/10">
-              <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-t-full rounded-b-[2rem] text-raffia/25" aria-hidden>
-                <NdopPattern motif="dots" scale={0.7} />
+          <div className="relative mx-auto w-full max-w-[27rem] lg:col-span-5 lg:mr-0">
+            {/* Photo in a frame woven with a Ndop zigzag; it opens on load, then the cards pop in. */}
+            <div className="hero-frame-wrap relative rounded-[2rem] p-3 text-raffia/40 ring-1 ring-ivory/10">
+              <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[2rem]" aria-hidden>
+                <NdopPattern motif="zigzag" scale={0.55} />
               </div>
-              <div className="hero-arch-photo relative aspect-[4/5] overflow-hidden rounded-t-full rounded-b-[1.5rem]">
+              <div className="hero-arch-photo relative aspect-[5/4] overflow-hidden rounded-[1.4rem] lg:aspect-square">
                 <Image
-                  src="/images/sg/cases-ndop.webp"
+                  src="/images/sg/site-aerial.webp"
                   alt={t('heroAlt')}
                   fill
                   priority
-                  sizes="(min-width: 1024px) 25rem, 90vw"
+                  sizes="(min-width: 1024px) 27rem, 90vw"
                   className="object-cover"
                 />
               </div>
@@ -124,7 +124,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             {events[0] && (
               <Link
                 href={`/actualites/${events[0].slug}`}
-                className="hero-float hero-float-1 group absolute -bottom-8 -left-4 flex max-w-[17rem] items-start gap-3 rounded-2xl bg-ivory p-4 text-indigo-ndop shadow-[0_24px_48px_-18px_rgb(0_0_0/0.6)] transition-transform duration-500 ease-out-expo hover:-translate-y-1 sm:-left-12"
+                className="hero-float hero-float-1 group absolute -bottom-6 -left-4 flex max-w-[16rem] items-start gap-3 rounded-2xl bg-ivory p-4 text-indigo-ndop shadow-[0_24px_48px_-18px_rgb(0_0_0/0.6)] transition-transform duration-500 ease-out-expo hover:-translate-y-1 sm:-left-12"
               >
                 <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-indigo-ndop text-raffia" aria-hidden>
                   <Calendar className="size-5" />
@@ -140,7 +140,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             )}
             <Link
               href="/sejourner/villa-boutanga"
-              className="hero-float hero-float-2 absolute top-[12%] -right-2 flex items-center gap-3 rounded-2xl bg-ivory px-4 py-3 text-indigo-ndop shadow-[0_24px_48px_-18px_rgb(0_0_0/0.6)] transition-transform duration-500 ease-out-expo hover:-translate-y-1 "
+              className="hero-float hero-float-2 absolute -top-5 -right-2 flex sm:-right-6 items-center gap-3 rounded-2xl bg-ivory px-4 py-3 text-indigo-ndop shadow-[0_24px_48px_-18px_rgb(0_0_0/0.6)] transition-transform duration-500 ease-out-expo hover:-translate-y-1 "
             >
               <span className="grid size-9 place-items-center rounded-xl bg-terracotta text-ivory" aria-hidden>
                 <Bed className="size-5" />
@@ -169,8 +169,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </div>
           <div className="relative lg:col-span-5 lg:col-start-8">
             <ImageReveal
-              src="/images/sg/site-aerial.webp"
-              alt="Le site de la Fondation à Bangoulap"
+              src="/images/sg/cases-ndop.webp"
+              alt={t('missionAlt')}
               sizes="(min-width: 1024px) 40vw, 100vw"
               className="aspect-[4/5] rounded-2xl"
             />

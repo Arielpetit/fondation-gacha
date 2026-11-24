@@ -105,13 +105,14 @@
     "statActions": "fields of action",
     "statRoomsShort": "rooms and suites",
     "statAltitudeShort": "above sea level",
-    "heroAlt": "The Foundation’s heritage huts, draped with Ndop cloth",
+    "heroAlt": "Aerial view of the Foundation site and Le Jacaranda restaurant in the Bangoulap hills",
     "fieldsMore": "Discover",
     "partnersIntro": "Institutions, museums, universities and associations working alongside the Foundation.",
     "partnersTitle": "Working alongside us",
     "panoramaAlt": "Ochre buildings among the trees on the hills of Bangoulap",
     "panoramaEyebrow": "Bangoulap · West Cameroon",
-    "panoramaText": "At 1,500 m, in the heart of the Grassfields hills."
+    "panoramaText": "At 1,500 m, in the heart of the Grassfields hills.",
+    "missionAlt": "The Foundation’s heritage huts, draped with Ndop cloth"
   },
   "news": {
     "title": "News & agenda",

@@ -99,15 +99,6 @@
     }
   }
 
-  @keyframes arch-in {
-    from {
-      clip-path: inset(100% 0 0 0 round 999px 999px 24px 24px);
-    }
-    to {
-      clip-path: inset(0 0 0 0 round 999px 999px 24px 24px);
-    }
-  }
-
   @keyframes frame-in {
     from {
       clip-path: inset(100% 0 0 0 round 24px);
@@ -274,8 +265,8 @@ body {
 }
 
 /* Home hero: the arch rises, the photo settles, then the cards pop in and float gently. */
-.hero-arch {
-  animation: arch-in 1.3s 0.1s var(--ease-out-expo) both;
+.hero-frame-wrap {
+  animation: frame-in 1.2s 0.1s var(--ease-out-expo) both;
 }
 .hero-arch-photo img {
   animation: photo-settle 2.2s 0.1s var(--ease-out-expo) both;

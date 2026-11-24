@@ -1,8 +1,6 @@
-import Image from 'next/image'
 import { getTranslations } from 'next-intl/server'
 import type { ReactNode } from 'react'
 
-import { CmsImage } from '@/components/media/CmsImage'
 import { Reveal, SplitText } from '@/components/motion'
 import { NdopPattern, type NdopMotif } from '@/components/ndop/NdopPattern'
 import { Eyebrow } from '@/components/ui/Section'
@@ -14,14 +12,12 @@ export type Crumb = { href: string; label: string }
 
 /**
  * Compact dark header at the top of every inner page (the site header sits over it in its light state).
- * Title on the left; when there is a photo, it sits on the right in a rounded frame that reveals on load.
+ * Text only (breadcrumb, eyebrow, title, intro) on indigo with a faint Ndop motif: photos belong in the page body.
  */
 export async function PageHero({
   eyebrow,
   title,
   intro,
-  image,
-  imageSrc,
   crumbs = [],
   motif = 'spider',
   size = 'md',
@@ -30,8 +26,8 @@ export async function PageHero({
   eyebrow?: ReactNode
   title: string
   intro?: ReactNode
+  /** Kept for callers; page headers no longer show photos. */
   image?: ImageLike
-  /** Static image path when there is no CMS media. */
   imageSrc?: string
   crumbs?: Crumb[]
   motif?: NdopMotif
@@ -39,7 +35,6 @@ export async function PageHero({
   children?: ReactNode
 }) {
   const t = await getTranslations('nav')
-  const hasImage = Boolean(image || imageSrc)
 
   return (
     <section className="grain relative isolate overflow-hidden bg-indigo-deep text-ivory">
@@ -57,7 +52,7 @@ export async function PageHero({
           size === 'lg' && 'lg:min-h-[70svh]',
         )}
       >
-        <div className={hasImage ? 'lg:col-span-7' : 'lg:col-span-9'}>
+        <div className="lg:col-span-9">
           {crumbs.length > 0 && (
             <Reveal immediate delay={0.05}>
               <nav aria-label={t('breadcrumb')} className="mb-6 text-sm text-ivory/60">
@@ -105,17 +100,6 @@ export async function PageHero({
           )}
         </div>
 
-        {hasImage && (
-          <div className="lg:col-span-5">
-            <div className="hero-frame relative aspect-[4/3] overflow-hidden rounded-3xl ring-1 ring-ivory/10">
-              {image ? (
-                <CmsImage media={image} priority sizes="(min-width: 1024px) 40vw, 100vw" className="hero-frame-img" />
-              ) : (
-                <Image src={imageSrc!} alt="" fill priority sizes="(min-width: 1024px) 40vw, 100vw" className="hero-frame-img object-cover" />
-              )}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   )
