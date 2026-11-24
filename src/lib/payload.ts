@@ -50,11 +50,19 @@ export const getSettings = cache(async (locale: Locale) =>
 export const POSTS_PER_PAGE = 12
 
 export const getPosts = cache(
-  async (locale: Locale, opts: { page?: number; theme?: string; year?: number; limit?: number } = {}) => {
+  async (
+    locale: Locale,
+    opts: { page?: number; theme?: string; year?: number; limit?: number } = {},
+  ) => {
     const p = await payload()
     const and: Where[] = []
     if (opts.theme) {
-      const theme = await p.find({ collection: 'themes', where: { slug: { equals: opts.theme } }, limit: 1, depth: 0 })
+      const theme = await p.find({
+        collection: 'themes',
+        where: { slug: { equals: opts.theme } },
+        limit: 1,
+        depth: 0,
+      })
       and.push({ themes: { in: theme.docs.map((t) => t.id) } })
     }
     if (opts.year) {
@@ -69,7 +77,18 @@ export const getPosts = cache(
       page: opts.page ?? 1,
       limit: opts.limit ?? POSTS_PER_PAGE,
       depth: 1,
-      select: { title: true, slug: true, summary: true, cover: true, publishedAt: true, themes: true, eventStart: true, eventEnd: true, eventLabel: true, place: true },
+      select: {
+        title: true,
+        slug: true,
+        summary: true,
+        cover: true,
+        publishedAt: true,
+        themes: true,
+        eventStart: true,
+        eventEnd: true,
+        eventLabel: true,
+        place: true,
+      },
     })
   },
 )
@@ -82,7 +101,12 @@ export const getUpcomingEvents = cache(async (locale: Locale, limit = 4) => {
   return (await payload()).find({
     collection: 'posts',
     ...base(locale),
-    where: { or: [{ eventEnd: { greater_than_equal: now } }, { and: [{ eventEnd: { exists: false } }, { eventStart: { greater_than_equal: now } }] }] },
+    where: {
+      or: [
+        { eventEnd: { greater_than_equal: now } },
+        { and: [{ eventEnd: { exists: false } }, { eventStart: { greater_than_equal: now } }] },
+      ],
+    },
     sort: 'eventStart',
     limit,
     depth: 1,
@@ -102,7 +126,9 @@ export const getRecentEvents = cache(async (locale: Locale, limit = 4) =>
 )
 
 export const getPost = cache(async (locale: Locale, slug: string) => {
-  const res = await (await payload()).find({
+  const res = await (
+    await payload()
+  ).find({
     collection: 'posts',
     ...(await docOptions(locale)),
     where: { slug: { equals: slug } },
@@ -117,7 +143,12 @@ export const getRelatedPosts = cache(async (locale: Locale, post: Post, limit = 
   return (await payload()).find({
     collection: 'posts',
     ...base(locale),
-    where: { and: [{ id: { not_equals: post.id } }, ...(themeIds.length ? [{ themes: { in: themeIds } }] : [])] },
+    where: {
+      and: [
+        { id: { not_equals: post.id } },
+        ...(themeIds.length ? [{ themes: { in: themeIds } }] : []),
+      ],
+    },
     sort: '-publishedAt',
     limit,
     depth: 1,
@@ -125,15 +156,33 @@ export const getRelatedPosts = cache(async (locale: Locale, post: Post, limit = 
 })
 
 export const getThemes = cache(async (locale: Locale) =>
-  (await payload()).find({ collection: 'themes', ...base(locale), limit: 50, sort: 'title', depth: 0 }),
+  (await payload()).find({
+    collection: 'themes',
+    ...base(locale),
+    limit: 50,
+    sort: 'title',
+    depth: 0,
+  }),
 )
 
 /** Distinct publication years, newest first. */
 export const getPostYears = cache(async () => {
   const p = await payload()
   const [newest, oldest] = await Promise.all([
-    p.find({ collection: 'posts', sort: '-publishedAt', limit: 1, depth: 0, select: { publishedAt: true } }),
-    p.find({ collection: 'posts', sort: 'publishedAt', limit: 1, depth: 0, select: { publishedAt: true } }),
+    p.find({
+      collection: 'posts',
+      sort: '-publishedAt',
+      limit: 1,
+      depth: 0,
+      select: { publishedAt: true },
+    }),
+    p.find({
+      collection: 'posts',
+      sort: 'publishedAt',
+      limit: 1,
+      depth: 0,
+      select: { publishedAt: true },
+    }),
   ])
   const to = new Date(newest.docs[0]?.publishedAt ?? Date.now()).getFullYear()
   const from = new Date(oldest.docs[0]?.publishedAt ?? Date.now()).getFullYear()
@@ -141,17 +190,27 @@ export const getPostYears = cache(async () => {
 })
 
 export const getAllPostSlugs = cache(async () => {
-  const res = await (await payload()).find({ collection: 'posts', limit: 1000, depth: 0, select: { slug: true, updatedAt: true } })
+  const res = await (
+    await payload()
+  ).find({ collection: 'posts', limit: 1000, depth: 0, select: { slug: true, updatedAt: true } })
   return res.docs
 })
 
 // ── Activities ──────────────────────────────────────────────────────────────
 export const getActivities = cache(async (locale: Locale) =>
-  (await payload()).find({ collection: 'activities', ...base(locale), sort: 'order', limit: 20, depth: 1 }),
+  (await payload()).find({
+    collection: 'activities',
+    ...base(locale),
+    sort: 'order',
+    limit: 20,
+    depth: 1,
+  }),
 )
 
 export const getActivity = cache(async (locale: Locale, slug: string) => {
-  const res = await (await payload()).find({
+  const res = await (
+    await payload()
+  ).find({
     collection: 'activities',
     ...(await docOptions(locale)),
     where: { slug: { equals: slug } },
@@ -163,7 +222,9 @@ export const getActivity = cache(async (locale: Locale, slug: string) => {
 
 // ── Pages ───────────────────────────────────────────────────────────────────
 export const getPage = cache(async (locale: Locale, path: string) => {
-  const res = await (await payload()).find({
+  const res = await (
+    await payload()
+  ).find({
     collection: 'pages',
     ...(await docOptions(locale)),
     where: { path: { equals: path } },
@@ -174,13 +235,20 @@ export const getPage = cache(async (locale: Locale, path: string) => {
 })
 
 export const getAllPages = cache(async () => {
-  const res = await (await payload()).find({ collection: 'pages', limit: 200, depth: 0, select: { path: true, updatedAt: true } })
+  const res = await (
+    await payload()
+  ).find({ collection: 'pages', limit: 200, depth: 0, select: { path: true, updatedAt: true } })
   return res.docs
 })
 
 // ── Directory ───────────────────────────────────────────────────────────────
-const list = <C extends 'team' | 'residents' | 'partners' | 'rooms' | 'reports' | 'press'>(collection: C, sort: string) =>
-  cache(async (locale: Locale) => (await payload()).find({ collection, ...base(locale), sort, limit: 200, depth: 1 }))
+const list = <C extends 'team' | 'residents' | 'partners' | 'rooms' | 'reports' | 'press'>(
+  collection: C,
+  sort: string,
+) =>
+  cache(async (locale: Locale) =>
+    (await payload()).find({ collection, ...base(locale), sort, limit: 200, depth: 1 }),
+  )
 
 export const getTeam = list('team', 'order')
 export const getResidents = list('residents', '-year')
@@ -191,9 +259,15 @@ export const getPress = list('press', '-date')
 
 /** True when a localized rich-text field has its own English version (not the French fallback). */
 export const hasOwnTranslation = cache(
-  async (collection: 'posts' | 'pages' | 'activities', id: number, locale: Locale): Promise<boolean> => {
+  async (
+    collection: 'posts' | 'pages' | 'activities',
+    id: number,
+    locale: Locale,
+  ): Promise<boolean> => {
     if (locale === 'fr') return true
-    const doc = (await (await payload()).findByID({
+    const doc = (await (
+      await payload()
+    ).findByID({
       collection,
       id,
       locale,
@@ -207,7 +281,9 @@ export const hasOwnTranslation = cache(
 
 // ── Forms ───────────────────────────────────────────────────────────────────
 export const getForm = cache(async (locale: Locale, slug: string) => {
-  const res = await (await payload()).find({
+  const res = await (
+    await payload()
+  ).find({
     collection: 'forms',
     ...base(locale),
     where: { slug: { equals: slug } },
@@ -220,7 +296,9 @@ export const getForm = cache(async (locale: Locale, slug: string) => {
 // ── Redirects (old WordPress URLs) ──────────────────────────────────────────
 export const findRedirect = cache(async (path: string) => {
   const clean = '/' + path.replace(/^\/+|\/+$/g, '')
-  const res = await (await payload()).find({
+  const res = await (
+    await payload()
+  ).find({
     collection: 'redirects',
     where: { or: [{ from: { equals: clean } }, { from: { equals: `${clean}/` } }] },
     limit: 1,
@@ -231,3 +309,36 @@ export const findRedirect = cache(async (path: string) => {
 })
 
 export type { L }
+
+/** Slugs to pre-render at build time (everything else is rendered on first visit, then cached). */
+export async function staticSlugs() {
+  const p = await payload()
+  const [pages, activities, posts] = await Promise.all([
+    p.find({
+      collection: 'pages',
+      limit: 200,
+      depth: 0,
+      select: { path: true },
+      pagination: false,
+    }),
+    p.find({
+      collection: 'activities',
+      limit: 50,
+      depth: 0,
+      select: { slug: true },
+      pagination: false,
+    }),
+    p.find({
+      collection: 'posts',
+      limit: 40,
+      depth: 0,
+      sort: '-publishedAt',
+      select: { slug: true },
+    }),
+  ])
+  return {
+    pages: pages.docs.map((d) => String((d as { path?: string }).path ?? '')).filter(Boolean),
+    activities: activities.docs.map((d) => d.slug),
+    posts: posts.docs.map((d) => d.slug),
+  }
+}

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import { FormRenderer, type FormFieldDef } from '@/components/forms/FormRenderer'
@@ -20,12 +21,15 @@ export async function CmsForm({
   intro,
   tone = 'paper',
   id,
+  aside,
 }: {
   slug: string
   title: string
   intro?: string
   tone?: Tone
   id?: string
+  /** Extra content under the intro (e.g. a map). */
+  aside?: ReactNode
 }) {
   const locale = (await getLocale()) as Locale
   const form = await getForm(locale, slug)
@@ -38,6 +42,7 @@ export async function CmsForm({
       <Container className="grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <SectionHeading dark={dark} title={title} intro={intro} size="sm" />
+          {aside && <div className="mt-8">{aside}</div>}
         </div>
         <Reveal className="lg:col-span-7 lg:col-start-6">
           <FormRenderer

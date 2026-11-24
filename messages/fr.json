@@ -109,10 +109,15 @@
     "fieldsMore": "Découvrir",
     "partnersIntro": "Institutions, musées, universités et associations qui accompagnent la Fondation.",
     "partnersTitle": "Ils nous accompagnent",
-    "panoramaAlt": "Bâtiments ocre au milieu des arbres sur les collines de Bangoulap",
+    "panoramaAlt": "Le Centre des Cultures et la Villa Boutanga au milieu des arbres, sur les collines de Bangoulap",
     "panoramaEyebrow": "Bangoulap · Ouest-Cameroun",
     "panoramaText": "À 1 500 m d’altitude, au cœur des collines des Grassfields.",
-    "missionAlt": "Cases patrimoniales de la Fondation, drapées d’une étoffe Ndop"
+    "missionAlt": "Cases patrimoniales de la Fondation, drapées d’une étoffe Ndop",
+    "collageGroupAlt": "L’équipe de la Fondation réunie devant le Centre des Cultures",
+    "collageHorseAlt": "Une résidente avec un cheval sur les collines de Bangoulap",
+    "collageAwardAlt": "Remise du Prix 2023 de la Fondation Dexeus Mujer à Ly Dumas",
+    "collageBadgeValue": "2002",
+    "collageBadgeLabel": "Fondation créée à Bangoulap"
   },
   "news": {
     "title": "Actualités & agenda",

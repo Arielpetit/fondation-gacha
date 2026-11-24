@@ -380,6 +380,18 @@ Based on the Foundation's feedback and the motion language of the Bangangté sit
 - **Soutenir dropdown** now has a featured photo like the other menus.
 - Gallery tiles use a 4:3 crop so small photos are not enlarged into tall, blurry cells.
 
+### Design pass 5 — collage, logos, contact map, instant pages ✅
+- **Mission section** rebuilt as text + photo collage (team photo, resident with horse, Dexeus Mujer prize ceremony,
+  floating "2002" badge), with the president's quote shortened beside her portrait; less empty space.
+- **Villa section** now uses the hills photo (the building) with the terrace overlapping; the separate panorama band is gone.
+- **Partners**: logos only, no cards (white pill behind them in dark mode); partners without a logo show a monogram + name.
+- **Contact**: the map sits under the intro, next to the form; no header photo.
+- **Production speed**: every content page (all pages, all actions, the 40 latest news per language) is now
+  **pre-rendered at build time** (152 pages) and refreshed through ISR when the admin saves; pages answer in 15–30 ms
+  locally. Older articles are rendered on first visit, then cached. `/actualites` stays dynamic because of its filters.
+- Fixed a bug found by the production build: the old `/ressources` hub depended on the removed menu entry.
+- Admin access: open `/admin`. While no account exists, the first one created there becomes administrator.
+
 ### Phase 6 — QA & launch ⏳
 - Production database (Neon or Supabase) and media storage (Cloudflare R2, S3 or Supabase Storage).
 - Payload migrations for production (`payload migrate:create`), migrate local content to production.

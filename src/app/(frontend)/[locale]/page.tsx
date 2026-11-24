@@ -3,14 +3,14 @@ import { getTranslations } from 'next-intl/server'
 
 import { EventRow, PostCard } from '@/components/content/PostCards'
 import { CmsImage } from '@/components/media/CmsImage'
-import { Counter, ImageReveal, Magnetic, Marquee, Parallax, Reveal, SplitText, Stagger, StaggerItem } from '@/components/motion'
+import { Counter, ImageReveal, Magnetic, Marquee, Reveal, SplitText, Stagger, StaggerItem } from '@/components/motion'
 import { NdopDraw } from '@/components/ndop/NdopDraw'
 import { NdopBand, NdopPattern } from '@/components/ndop/NdopPattern'
 import { ArrowLink, Button } from '@/components/ui/Button'
 import { Quote } from '@/components/ui/cards'
 import { HeroSeal } from '@/components/ui/HeroSeal'
 import { PartnerTile } from '@/components/ui/PartnerTile'
-import { ArrowUpRight, Bed, Calendar } from '@/components/ui/icons'
+import { ArrowUpRight, Bed, Calendar, Users } from '@/components/ui/icons'
 import { Container, Eyebrow, Section, SectionHeading } from '@/components/ui/Section'
 import { pageLocale } from '@/i18n/params'
 import { Link } from '@/i18n/navigation'
@@ -157,44 +157,54 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </Container>
       </section>
 
-      {/* ── Mission & president ─────────────────────────────────────── */}
-      <Section tone="ivory" labelledBy="mission">
-        <Container className="grid gap-14 lg:grid-cols-12 lg:gap-10">
+      {/* ── Mission: text + collage of three photos with floating cards ── */}
+      <Section tone="ivory" spacing="md" labelledBy="mission">
+        <Container className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-6">
-            <SectionHeading id="mission" eyebrow={t('missionEyebrow')} title={t('missionTitle')} size="lg" />
-            <Reveal className="mt-8 max-w-xl text-lead text-muted">{t('missionText')}</Reveal>
-            <Reveal className="mt-8">
+            <SectionHeading id="mission" eyebrow={t('missionEyebrow')} title={t('missionTitle')} />
+            <Reveal className="mt-6 max-w-xl text-lead text-muted">{t('missionText')}</Reveal>
+            <Reveal className="mt-7">
               <ArrowLink href="/fondation">{t('discover')}</ArrowLink>
             </Reveal>
-          </div>
-          <div className="relative lg:col-span-5 lg:col-start-8">
-            <ImageReveal
-              src="/images/sg/cases-ndop.webp"
-              alt={t('missionAlt')}
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              className="aspect-[4/5] rounded-2xl"
-            />
-            <NdopDraw className="absolute -bottom-16 -left-16 hidden size-48 text-accent/60 lg:block" />
-          </div>
-        </Container>
-        <Container className="mt-24 lg:mt-32">
-          <div className="grid gap-12 lg:grid-cols-12">
-            {presentation?.hero?.image && typeof presentation.hero.image === 'object' && (
-              <Reveal className="relative aspect-square w-32 overflow-hidden rounded-full lg:col-span-2 lg:w-full">
-                <CmsImage media={presentation.hero.image} sizes="200px" />
-              </Reveal>
-            )}
-            <Reveal className="lg:col-span-9 lg:col-start-4">
-              <Quote author={t('presidentName')} role={t('presidentRole')}>
-                {t('presidentQuote')}
-              </Quote>
+            <Reveal className="mt-10 border-t border-line pt-8">
+              <div className="flex items-center gap-5">
+                {presentation?.hero?.image && typeof presentation.hero.image === 'object' && (
+                  <span className="relative block size-16 shrink-0 overflow-hidden rounded-full ring-2 ring-accent/30">
+                    <CmsImage media={presentation.hero.image} sizes="64px" />
+                  </span>
+                )}
+                <Quote author={t('presidentName')} role={t('presidentRole')} compact>
+                  {t('presidentQuote')}
+                </Quote>
+              </div>
             </Reveal>
           </div>
+
+          <Reveal className="collage relative mx-auto w-full max-w-[34rem] pb-10 lg:col-span-6 lg:col-start-7 lg:max-w-none">
+            <div className="relative ml-[12%] aspect-[4/4.4] overflow-hidden rounded-3xl shadow-[0_30px_60px_-30px_rgb(0_0_0/0.5)]">
+              <Image src="/images/sg/collab-group.webp" alt={t('collageGroupAlt')} fill sizes="(min-width: 1024px) 28rem, 80vw" className="object-cover" />
+            </div>
+            <div className="collage-float absolute top-[-4%] left-0 w-[36%] overflow-hidden rounded-2xl border-4 border-ivory shadow-xl [--bob:7s] dark:border-canvas">
+              <Image src="/images/sg/collab-horse.webp" alt={t('collageHorseAlt')} width={680} height={850} sizes="12rem" className="aspect-[4/5] object-cover" />
+            </div>
+            <div className="collage-float absolute right-[-2%] bottom-0 w-[44%] overflow-hidden rounded-2xl border-4 border-ivory shadow-xl [--bob:8s] dark:border-canvas">
+              <Image src="/images/sg/collab-award.webp" alt={t('collageAwardAlt')} width={720} height={560} sizes="15rem" className="aspect-[4/3] object-cover" />
+            </div>
+            <div className="absolute bottom-[8%] left-[-2%] flex items-center gap-3 rounded-2xl bg-ivory px-4 py-3 text-indigo-ndop shadow-xl dark:bg-ivory">
+              <span className="grid size-9 place-items-center rounded-xl bg-indigo-ndop text-raffia" aria-hidden>
+                <Users className="size-5" />
+              </span>
+              <span>
+                <span className="block font-display text-lg leading-none">{t('collageBadgeValue')}</span>
+                <span className="block text-xs text-indigo-ndop/80">{t('collageBadgeLabel')}</span>
+              </span>
+            </div>
+          </Reveal>
         </Container>
       </Section>
 
       {/* ── Our work: bento grid (one large card, four small, two wide) ── */}
-      <Section tone="paper" labelledBy="actions">
+      <Section tone="paper" spacing="md" labelledBy="actions">
         <Container>
           <SectionHeading
             id="actions"
@@ -247,27 +257,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </Container>
       </Section>
 
-      {/* ── Panorama: the hills of Bangoulap ── */}
-      <section aria-label={t('panoramaAlt')} className="bg-paper pb-16 sm:pb-24">
-        <Container>
-          <div className="relative">
-            <ImageReveal
-              src="/images/sg/bangoulap-hills.webp"
-              alt={t('panoramaAlt')}
-              sizes="(min-width: 1440px) 1350px, 100vw"
-              className="aspect-[4/3] rounded-3xl sm:aspect-[16/9] lg:aspect-[21/9]"
-              parallax={0.08}
-            />
-            <Reveal className="absolute bottom-4 left-4 max-w-sm rounded-2xl bg-ivory/90 p-5 text-indigo-ndop shadow-[0_24px_48px_-24px_rgb(0_0_0/0.6)] backdrop-blur-md sm:bottom-8 sm:left-8">
-              <p className="eyebrow text-[0.65rem] text-terracotta">{t('panoramaEyebrow')}</p>
-              <p className="mt-2 font-display text-xl leading-snug">{t('panoramaText')}</p>
-            </Reveal>
-          </div>
-        </Container>
-      </section>
-
       {/* ── News & agenda ───────────────────────────────────────────── */}
-      <Section tone="ivory" labelledBy="news">
+      <Section tone="ivory" spacing="md" labelledBy="news">
         <Container>
           <SectionHeading
             id="news"
@@ -304,26 +295,26 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </Section>
 
       {/* ── Villa Boutanga ──────────────────────────────────────────── */}
-      <Section tone="sand" labelledBy="villa" className="overflow-hidden">
-        <Container className="grid items-center gap-14 lg:grid-cols-12">
-          <div className="relative lg:col-span-7">
+      <Section tone="sand" spacing="md" labelledBy="villa" className="overflow-hidden">
+        <Container className="grid items-center gap-12 lg:grid-cols-12">
+          <div className="relative pb-10 lg:col-span-7">
             <ImageReveal
-              src="/images/sg/villa-terrace.webp"
-              alt="La terrasse de la Villa Boutanga"
+              src="/images/sg/bangoulap-hills.webp"
+              alt={t('panoramaAlt')}
               sizes="(min-width: 1024px) 55vw, 100vw"
-              className="aspect-[4/3] rounded-2xl"
+              className="aspect-[4/3] rounded-3xl"
               from="left"
             />
-            <Parallax speed={0.5} className="absolute -right-6 -bottom-12 hidden w-2/5 sm:block lg:-right-16">
+            <div className="absolute right-3 -bottom-2 w-[42%] overflow-hidden rounded-2xl border-4 border-[var(--sand)] shadow-2xl sm:right-6">
               <ImageReveal
-                src="/images/sg/jacaranda-restaurant.webp"
-                alt="Le restaurant Le Jacaranda"
+                src="/images/sg/villa-terrace.webp"
+                alt="La terrasse de la Villa Boutanga"
                 sizes="25vw"
-                className="aspect-[3/4] rounded-2xl shadow-2xl"
+                className="aspect-[4/3]"
                 parallax={0}
                 delay={0.3}
               />
-            </Parallax>
+            </div>
           </div>
           <div className="lg:col-span-4 lg:col-start-9">
             <SectionHeading id="villa" eyebrow={t('villaEyebrow')} title={t('villaTitle')} />
@@ -350,7 +341,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </Section>
 
       {/* ── Heritage ────────────────────────────────────────────────── */}
-      <Section tone="deep" labelledBy="heritage" className="relative overflow-hidden">
+      <Section tone="deep" spacing="md" labelledBy="heritage" className="relative overflow-hidden">
         <Container className="relative grid items-center gap-14 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <SectionHeading dark id="heritage" eyebrow={t('heritageEyebrow')} title={t('heritageTitle')} />
@@ -393,7 +384,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       )}
 
       {/* ── Support CTA ─────────────────────────────────────────────── */}
-      <Section tone="terracotta" labelledBy="support" className="relative overflow-hidden">
+      <Section tone="terracotta" spacing="md" labelledBy="support" className="relative overflow-hidden">
         <NdopDraw className="pointer-events-none absolute top-1/2 -right-24 size-[30rem] -translate-y-1/2 text-ivory/15 sm:size-[40rem]" />
         <Container className="relative">
           <NdopBand className="mb-14 max-w-xs text-ivory/50" motif="zigzag" />

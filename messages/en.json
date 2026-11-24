@@ -112,7 +112,12 @@
     "panoramaAlt": "Ochre buildings among the trees on the hills of Bangoulap",
     "panoramaEyebrow": "Bangoulap · West Cameroon",
     "panoramaText": "At 1,500 m, in the heart of the Grassfields hills.",
-    "missionAlt": "The Foundation’s heritage huts, draped with Ndop cloth"
+    "missionAlt": "The Foundation’s heritage huts, draped with Ndop cloth",
+    "collageGroupAlt": "The Foundation team gathered in front of the Culture Centre",
+    "collageHorseAlt": "A resident with a horse on the Bangoulap hills",
+    "collageAwardAlt": "Ly Dumas receiving the Dexeus Mujer Foundation 2023 Prize",
+    "collageBadgeValue": "2002",
+    "collageBadgeLabel": "Foundation created in Bangoulap"
   },
   "news": {
     "title": "News & agenda",

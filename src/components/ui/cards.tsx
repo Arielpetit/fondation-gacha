@@ -231,24 +231,36 @@ export function Quote({
   author,
   role,
   dark,
+  compact,
   className,
 }: {
   children: ReactNode
   author: string
   role?: string
   dark?: boolean
+  /** Smaller quote for use next to a portrait. */
+  compact?: boolean
   className?: string
 }) {
   return (
     <figure className={cn('relative', className)}>
-      <span
-        aria-hidden
-        className={cn('absolute -top-10 -left-2 font-display text-[8rem] leading-none select-none', dark ? 'text-ivory/15' : 'text-accent/20')}
+      {!compact && (
+        <span
+          aria-hidden
+          className={cn('absolute -top-10 -left-2 font-display text-[8rem] leading-none select-none', dark ? 'text-ivory/15' : 'text-accent/20')}
+        >
+          “
+        </span>
+      )}
+      <blockquote
+        className={cn(
+          'relative font-display font-light text-balance italic',
+          compact ? 'text-lg leading-snug' : 'text-display-sm',
+        )}
       >
-        “
-      </span>
-      <blockquote className="relative font-display text-display-sm font-light text-balance italic">{children}</blockquote>
-      <figcaption className="mt-8 flex items-center gap-4">
+        {children}
+      </blockquote>
+      <figcaption className={cn('flex items-center gap-4', compact ? 'mt-3' : 'mt-8')}>
         <span className={cn('h-px w-10', dark ? 'bg-raffia' : 'bg-terracotta')} aria-hidden />
         <span>
           <span className="block font-medium">{author}</span>

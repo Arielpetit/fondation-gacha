@@ -14,13 +14,15 @@ import { Container, Section, SectionHeading } from '@/components/ui/Section'
 import { pageLocale } from '@/i18n/params'
 import { Link } from '@/i18n/navigation'
 import { buildMetadata } from '@/lib/metadata'
-import { getActivities, getActivity, getPosts, getResidents } from '@/lib/payload'
+import { routing } from '@/i18n/routing'
+import { getActivities, getActivity, getPosts, getResidents, staticSlugs } from '@/lib/payload'
 
 export const revalidate = 600
 
-/** Rendered on first request, then cached (ISR) and refreshed by the CMS revalidation hooks. */
-export function generateStaticParams() {
-  return []
+/** Pre-rendered at build time, then refreshed by the CMS revalidation hooks (ISR). */
+export async function generateStaticParams() {
+  const { activities } = await staticSlugs()
+  return routing.locales.flatMap((locale) => activities.map((slug) => ({ locale, slug })))
 }
 
 /** Which news theme best matches each action, for the "related news" strip. */

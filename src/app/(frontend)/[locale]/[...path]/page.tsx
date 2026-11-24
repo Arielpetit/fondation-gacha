@@ -26,7 +26,7 @@ import { Button } from '@/components/ui/Button'
 import { ArrowUpRight } from '@/components/ui/icons'
 import { Container, Section } from '@/components/ui/Section'
 import { pageLocale } from '@/i18n/params'
-import type { Locale } from '@/i18n/routing'
+import { routing, type Locale } from '@/i18n/routing'
 import { Link } from '@/i18n/navigation'
 import { breadcrumbLd, JsonLd, lodgingLd } from '@/lib/jsonLd'
 import { buildMetadata } from '@/lib/metadata'
@@ -43,15 +43,35 @@ import {
   getRooms,
   getSettings,
   getTeam,
+  staticSlugs,
 } from '@/lib/payload'
 import { navigation, t as l10n } from '@/lib/site'
 import type { Page } from '@/payload-types'
 
 export const revalidate = 600
 
-/** Rendered on first request, then cached (ISR) and refreshed by the CMS revalidation hooks. */
-export function generateStaticParams() {
-  return []
+/** Every page is pre-rendered at build time, then refreshed by the CMS revalidation hooks (ISR). */
+export async function generateStaticParams() {
+  const { pages } = await staticSlugs()
+  const code = [
+    'sejourner',
+    'soutenir',
+    'ressources',
+    'contact',
+    'soutenir/benevolat',
+    'ressources/publications',
+    'mentions-legales',
+    'fondation/equipe',
+    'sejourner/villa-boutanga',
+    'sejourner/visites',
+    'soutenir/don',
+    'soutenir/adhesion',
+    'soutenir/partenaires',
+    'ressources/bilans',
+    'ressources/presse',
+  ]
+  const all = [...new Set([...pages, ...code])]
+  return routing.locales.flatMap((locale) => all.map((path) => ({ locale, path: path.split('/') })))
 }
 
 type Params = Promise<{ locale: string; path: string[] }>
@@ -90,26 +110,44 @@ async function crumbsFor(path: string): Promise<Crumb[]> {
 }
 
 // ── Pages that exist only in code (hubs, contact, legal…) ───────────────────
-type Virtual = { title: string; eyebrow?: string; intro?: string; image?: string; body: () => Promise<ReactNode> }
+type Virtual = {
+  title: string
+  eyebrow?: string
+  intro?: string
+  image?: string
+  body: () => Promise<ReactNode>
+}
 
 async function virtualPage(path: string, locale: Locale): Promise<Virtual | null> {
   const t = await getTranslations('pages')
   const tn = await getTranslations('nav')
 
-  const hub = (key: 'stay' | 'support' | 'resources', title: string, intro: string, image: string): Virtual => ({
+  const hub = (
+    key: 'stay' | 'support' | 'resources',
+    title: string,
+    intro: string,
+    image: string,
+  ): Virtual => ({
     title,
     eyebrow: tn(key),
     intro,
     image,
     body: async () => {
-      const item = navigation.find((n) => n.key === key)!
+      // "Ressources" is no longer a menu entry: its pages now live under La Fondation.
+      const item =
+        key === 'resources'
+          ? { children: navigation.find((n) => n.key === 'foundation')!.children!.filter((c) => c.href.startsWith('/ressources')) }
+          : navigation.find((n) => n.key === key)!
       return (
         <Section tone="ivory" spacing="md">
           <Container>
             <Stagger className="grid gap-4 sm:grid-cols-2">
               {item.children!.map((c, i) => (
                 <StaggerItem key={c.href}>
-                  <Link href={c.href} className="group relative isolate flex aspect-[16/10] flex-col justify-end overflow-hidden rounded-2xl bg-indigo-deep p-6 text-ivory sm:p-8">
+                  <Link
+                    href={c.href}
+                    className="group relative isolate flex aspect-[16/10] flex-col justify-end overflow-hidden rounded-2xl bg-indigo-deep p-6 text-ivory sm:p-8"
+                  >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={HUB_IMAGES[c.href] ?? '/images/sg/site-aerial.webp'}
@@ -118,9 +156,17 @@ async function virtualPage(path: string, locale: Locale): Promise<Virtual | null
                       className="absolute inset-0 -z-10 h-full w-full object-cover opacity-70 transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105"
                     />
                     <span className="absolute inset-0 -z-10 bg-gradient-to-t from-indigo-deep via-indigo-deep/40 to-transparent" />
-                    <span className="absolute top-6 left-6 font-display text-sm text-raffia sm:top-8 sm:left-8">{String(i + 1).padStart(2, '0')}</span>
-                    <span className="font-display text-display-sm font-light">{l10n(c.label, locale)}</span>
-                    {c.description && <span className="mt-2 text-sm text-ivory/75">{l10n(c.description, locale)}</span>}
+                    <span className="absolute top-6 left-6 font-display text-sm text-raffia sm:top-8 sm:left-8">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="font-display text-display-sm font-light">
+                      {l10n(c.label, locale)}
+                    </span>
+                    {c.description && (
+                      <span className="mt-2 text-sm text-ivory/75">
+                        {l10n(c.description, locale)}
+                      </span>
+                    )}
                   </Link>
                 </StaggerItem>
               ))}
@@ -137,30 +183,40 @@ async function virtualPage(path: string, locale: Locale): Promise<Virtual | null
     case 'soutenir':
       return hub('support', t('hubSupport'), t('hubSupportText'), '/images/sg/school-donation.webp')
     case 'ressources':
-      return hub('resources', t('hubResources'), t('hubResourcesText'), '/images/sg/ndop-textile.webp')
+      return hub(
+        'resources',
+        t('hubResources'),
+        t('hubResourcesText'),
+        '/images/sg/ndop-textile.webp',
+      )
     case 'contact':
       return {
         title: t('contactTitle'),
         eyebrow: tn('contact'),
         intro: t('contactText'),
-        image: '/images/sg/site-aerial.webp',
         body: async () => {
           const settings = await getSettings(locale)
           const tf = await getTranslations('forms')
           return (
             <>
-              <CmsForm slug="contact" title={tf('contactTitle')} intro={tf('contactIntro')} tone="ivory" id="ecrire" />
+              <CmsForm
+                slug="contact"
+                title={tf('contactTitle')}
+                intro={tf('contactIntro')}
+                tone="ivory"
+                id="ecrire"
+                aside={
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line">
+                    <iframe
+                      title="Carte — Fondation Jean-Félicien Gacha, Bangoulap"
+                      src="https://www.openstreetmap.org/export/embed.html?bbox=10.49%2C5.09%2C10.57%2C5.15&layer=mapnik&marker=5.12%2C10.53"
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full border-0"
+                    />
+                  </div>
+                }
+              />
               <ContactsSection settings={settings} />
-              <Section tone="ivory" spacing="none">
-                <div className="relative aspect-[16/9] w-full sm:aspect-[21/8]">
-                  <iframe
-                    title="Carte — Fondation Jean-Félicien Gacha, Bangoulap"
-                    src="https://www.openstreetmap.org/export/embed.html?bbox=10.47%2C5.08%2C10.59%2C5.16&layer=mapnik&marker=5.12%2C10.53"
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full border-0 grayscale-[0.3]"
-                  />
-                </div>
-              </Section>
             </>
           )
         },
@@ -175,7 +231,12 @@ async function virtualPage(path: string, locale: Locale): Promise<Virtual | null
           const tf = await getTranslations('forms')
           return (
             <>
-              <CmsForm slug="benevolat" title={tf('volunteerTitle')} intro={tf('volunteerIntro')} tone="ivory" />
+              <CmsForm
+                slug="benevolat"
+                title={tf('volunteerTitle')}
+                intro={tf('volunteerIntro')}
+                tone="ivory"
+              />
               <ContactsSection settings={await getSettings(locale)} />
             </>
           )
@@ -233,13 +294,20 @@ type LexNode = { type?: string; text?: string; value?: unknown; children?: LexNo
 function pageHighlights(page: Page | null, exclude: RegExp) {
   const root = (page?.content as { root?: LexNode } | null)?.root
   const text = (n: LexNode): string => n.text ?? (n.children ?? []).map(text).join('')
-  const firstParagraph = (root?.children ?? []).find((n) => n.type === 'paragraph' && text(n).trim().length > 60)
+  const firstParagraph = (root?.children ?? []).find(
+    (n) => n.type === 'paragraph' && text(n).trim().length > 60,
+  )
   const images: GalleryImage[] = []
   const walk = (n: LexNode) => {
     if (n.type === 'upload') {
       const media = asMedia(n.value as never)
       if (media?.mimeType?.startsWith('image/') && !exclude.test(media.filename ?? '')) {
-        images.push({ src: mediaSrc(media) ?? '', alt: media.alt ?? '', width: media.width ?? 1600, height: media.height ?? 1000 })
+        images.push({
+          src: mediaSrc(media) ?? '',
+          alt: media.alt ?? '',
+          width: media.width ?? 1600,
+          height: media.height ?? 1000,
+        })
       }
     }
     ;(n.children ?? []).forEach(walk)
@@ -248,13 +316,16 @@ function pageHighlights(page: Page | null, exclude: RegExp) {
   return { text: firstParagraph ? text(firstParagraph).trim() : undefined, images }
 }
 
-async function extraSections(path: string, locale: Locale, page: Page | null = null): Promise<ReactNode> {
+async function extraSections(
+  path: string,
+  locale: Locale,
+  page: Page | null = null,
+): Promise<ReactNode> {
   const tf = await getTranslations('forms')
   switch (path) {
     case 'fondation/equipe':
       return <TeamGrid team={(await getTeam(locale)).docs} />
-    case 'sejourner/villa-boutanga':
-    {
+    case 'sejourner/villa-boutanga': {
       // The old page body repeated the room list and an image of the price poster: show its photos as a gallery instead.
       const { text, images } = pageHighlights(page, /tarif|^23\./i)
       const settings = await getSettings(locale)
@@ -263,7 +334,13 @@ async function extraSections(path: string, locale: Locale, page: Page | null = n
           <VillaIntro text={text} images={images} />
           <RoomsSection rooms={(await getRooms(locale)).docs} settings={settings} />
           <RestaurantSection settings={settings} />
-          <CmsForm slug="reservation-villa" title={tf('bookingTitle')} intro={tf('bookingIntro')} tone="paper" id="reserver" />
+          <CmsForm
+            slug="reservation-villa"
+            title={tf('bookingTitle')}
+            intro={tf('bookingIntro')}
+            tone="paper"
+            id="reserver"
+          />
         </>
       )
     }
@@ -280,14 +357,26 @@ async function extraSections(path: string, locale: Locale, page: Page | null = n
       return (
         <>
           <DonationSection settings={await getSettings(locale)} />
-          <CmsForm slug="recu-don" title={tf('receiptTitle')} intro={tf('receiptIntro')} tone="paper" id="recu" />
+          <CmsForm
+            slug="recu-don"
+            title={tf('receiptTitle')}
+            intro={tf('receiptIntro')}
+            tone="paper"
+            id="recu"
+          />
         </>
       )
     case 'soutenir/adhesion':
       return (
         <>
           <MembershipSection settings={await getSettings(locale)} />
-          <CmsForm slug="adhesion" title={tf('membershipTitle')} intro={tf('membershipIntro')} tone="paper" id="adherer" />
+          <CmsForm
+            slug="adhesion"
+            title={tf('membershipTitle')}
+            intro={tf('membershipIntro')}
+            tone="paper"
+            id="adherer"
+          />
         </>
       )
     case 'soutenir/partenaires':
@@ -302,7 +391,13 @@ async function extraSections(path: string, locale: Locale, page: Page | null = n
 }
 
 /** Pages whose CMS body is fully replaced by structured sections (avoid showing the old text twice). */
-const HIDE_BODY = new Set(['fondation/equipe', 'ressources/bilans', 'soutenir/adhesion', 'sejourner/visites', 'sejourner/villa-boutanga'])
+const HIDE_BODY = new Set([
+  'fondation/equipe',
+  'ressources/bilans',
+  'soutenir/adhesion',
+  'sejourner/visites',
+  'sejourner/villa-boutanga',
+])
 
 /** Pages where the structured section is the main content and goes before the CMS text. */
 const EXTRA_FIRST = new Set(['soutenir/don'])
@@ -312,7 +407,14 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const path = joinPath((await params).path)
   const page = await getPage(locale, path)
   if (page) {
-    return buildMetadata({ seo: page.meta, title: page.title, description: page.hero?.intro, image: page.hero?.image, path, locale })
+    return buildMetadata({
+      seo: page.meta,
+      title: page.title,
+      description: page.hero?.intro,
+      image: page.hero?.image,
+      path,
+      locale,
+    })
   }
   const v = await virtualPage(path, locale)
   return v ? buildMetadata({ title: v.title, description: v.intro, path, locale }) : {}
@@ -332,7 +434,13 @@ export default async function CatchAllPage({ params }: { params: Params }) {
     if (v) {
       return (
         <>
-          <PageHero eyebrow={v.eyebrow} title={v.title} intro={v.intro} imageSrc={v.image} crumbs={crumbs} />
+          <PageHero
+            eyebrow={v.eyebrow}
+            title={v.title}
+            intro={v.intro}
+            imageSrc={v.image}
+            crumbs={crumbs}
+          />
           {await v.body()}
         </>
       )
@@ -394,7 +502,12 @@ export default async function CatchAllPage({ params }: { params: Params }) {
         <Section tone="sand" spacing="sm">
           <Container className="flex items-center gap-2 text-sm text-muted">
             <ArrowUpRight className="size-4" />
-            <a href="https://espaceculturelgacha.org/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
+            <a
+              href="https://espaceculturelgacha.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4"
+            >
               espaceculturelgacha.org
             </a>
           </Container>

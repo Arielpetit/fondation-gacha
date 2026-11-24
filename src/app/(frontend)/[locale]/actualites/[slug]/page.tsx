@@ -19,14 +19,16 @@ import { Link } from '@/i18n/navigation'
 import { eventLabel, formatDate } from '@/lib/format'
 import { JsonLd } from '@/lib/jsonLd'
 import { buildMetadata } from '@/lib/metadata'
-import { asMedia, getPost, getRelatedPosts, hasOwnTranslation, mediaSrc } from '@/lib/payload'
+import { routing } from '@/i18n/routing'
+import { asMedia, getPost, getRelatedPosts, hasOwnTranslation, mediaSrc, staticSlugs } from '@/lib/payload'
 import type { Theme } from '@/payload-types'
 
 export const revalidate = 600
 
-/** Rendered on first request, then cached (ISR) and refreshed by the CMS revalidation hooks. */
-export function generateStaticParams() {
-  return []
+/** The 40 latest articles are pre-rendered at build time; older ones on first visit, then cached (ISR). */
+export async function generateStaticParams() {
+  const { posts } = await staticSlugs()
+  return routing.locales.flatMap((locale) => posts.map((slug) => ({ locale, slug })))
 }
 
 type Params = Promise<{ locale: string; slug: string }>

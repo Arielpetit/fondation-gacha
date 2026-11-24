@@ -302,6 +302,11 @@ body {
   animation: photo-settle 1.8s 0.15s var(--ease-out-expo) both;
 }
 
+/* Collage photos float gently, each at its own pace. */
+.collage-float {
+  animation: bob var(--bob, 7s) ease-in-out infinite;
+}
+
 /* Field cards: on devices with a pointer, the short text slides in on hover. */
 @media (hover: hover) and (min-width: 1024px) {
   .field-card .field-card-text {
