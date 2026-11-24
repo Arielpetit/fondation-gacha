@@ -46,6 +46,8 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
+  // Payload's own screens live at /cms (an advanced fallback); the team's admin is the custom app at /admin.
+  routes: { admin: '/cms' },
   admin: {
     user: Users.slug,
     // Side-by-side live preview for news, pages and actions (refreshes on every autosave).
@@ -63,9 +65,6 @@ export default buildConfig({
       titleSuffix: ' — Fondation Gacha',
     },
     components: {
-      beforeLogin: ['@/components/admin/LoginPanel#LoginPanel'],
-      beforeNavLinks: ['@/components/admin/NavBrand#NavBrand'],
-      views: { dashboard: { Component: '@/components/admin/DashboardView#DashboardView' } },
       graphics: {
         Logo: '@/components/admin/Logo#Logo',
         Icon: '@/components/admin/Icon#Icon',

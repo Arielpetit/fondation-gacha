@@ -414,6 +414,22 @@ Based on the Foundation's feedback and the motion language of the Bangangté sit
 - **Partners**: logos drift slowly again (no cards); the Route des Chefferies logo was removed (text tile).
 - The admin database is the same Postgres as the site: once `DATABASE_URL` points to Supabase, the admin works on it.
 
+### Design pass 8 — the team's own admin ✅
+The team now works in a **custom admin app at `/admin`**, written for this project (Next.js, no Payload screens):
+- **Screens**: split-screen login (also creates the very first account), sidebar with icons and counters, dashboard,
+  list pages with search / draft filter / pagination, edit forms, media library with drag-and-drop upload and
+  alt-text editing, read-only message view, light and dark mode, responsive.
+- **Forms are generated** from the Payload collection configs (text, numbers, dates, selects, relations, photos,
+  repeatable rows, groups), with a **French / English switch** for translated fields, Publish / Save draft for
+  news, pages and actions, and delete with confirmation.
+- **Rich-text editor** (Tiptap): headings, bold, italic, links, lists, quotes, photos from the library and embedded
+  videos. It is converted to and from the stored format (`src/admin/richtext.ts`); five real articles with lists,
+  links, quotes, images and embeds were saved unchanged through it.
+- **Payload remains the engine underneath** (database, users and permissions, uploads, versions, revalidation of the
+  public site) and its own screens stay reachable at `/cms` as an advanced fallback (forms builder, redirects, SEO
+  plugin). The previous Payload skin was removed.
+- Footer social links are now editable in *Réglages du site*.
+
 ### Phase 6 — QA & launch ⏳
 - Production database (Neon or Supabase) and media storage (Cloudflare R2, S3 or Supabase Storage).
 - Payload migrations for production (`payload migrate:create`), migrate local content to production.

@@ -2,14 +2,28 @@ import { getLocale, getTranslations } from 'next-intl/server'
 
 import { NdopBand } from '@/components/ndop/NdopPattern'
 import { NdopDraw } from '@/components/ndop/NdopDraw'
-import { ArrowUpRight, Clock, Facebook, Instagram, Mail, MapPin, Phone, Youtube } from '@/components/ui/icons'
+import {
+  ArrowUpRight,
+  Clock,
+  Facebook,
+  Instagram,
+  Mail,
+  MapPin,
+  Phone,
+  Youtube,
+} from '@/components/ui/icons'
 import { FoundationLogo } from '@/components/ui/Logo'
 import { NewsletterForm } from '@/components/ui/NewsletterForm'
 import { Link } from '@/i18n/navigation'
+import type { Locale } from '@/i18n/routing'
+import { getSettings } from '@/lib/payload'
 import type { ResolvedNavItem } from '@/lib/navigation'
 import { contact, t } from '@/lib/site'
 
 export async function SiteFooter({ items }: { items: ResolvedNavItem[] }) {
+  // Social links are editable in the admin (Réglages du site); the built-in values are the fallback.
+  const social = (await getSettings(((await getLocale()) as Locale) ?? 'fr').catch(() => null))
+    ?.social
   const locale = await getLocale()
   const tr = await getTranslations('footer')
   const nav = await getTranslations('nav')
@@ -56,7 +70,10 @@ export async function SiteFooter({ items }: { items: ResolvedNavItem[] }) {
                   </a>
                   <span className="block text-sm text-ivory/55">
                     Villa Boutanga :{' '}
-                    <a href={`tel:${contact.villaPhone.replace(/\s/g, '')}`} className="hover:text-ivory">
+                    <a
+                      href={`tel:${contact.villaPhone.replace(/\s/g, '')}`}
+                      className="hover:text-ivory"
+                    >
                       {contact.villaPhone}
                     </a>
                   </span>
@@ -81,9 +98,13 @@ export async function SiteFooter({ items }: { items: ResolvedNavItem[] }) {
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-ivory/60">{tr('about')}</p>
             <div className="mt-6 flex gap-2">
               {[
-                { href: contact.facebook, label: 'Facebook', Icon: Facebook },
-                { href: contact.instagram, label: 'Instagram', Icon: Instagram },
-                { href: contact.youtube, label: 'YouTube', Icon: Youtube },
+                { href: social?.facebook || contact.facebook, label: 'Facebook', Icon: Facebook },
+                {
+                  href: social?.instagram || contact.instagram,
+                  label: 'Instagram',
+                  Icon: Instagram,
+                },
+                { href: social?.youtube || contact.youtube, label: 'YouTube', Icon: Youtube },
               ].map(({ href, label, Icon }) => (
                 <a
                   key={label}
@@ -125,7 +146,12 @@ export async function SiteFooter({ items }: { items: ResolvedNavItem[] }) {
             <Link href="/contact" className="hover:text-ivory">
               {nav('contact')}
             </Link>
-            <a href={contact.maisonGacha} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-ivory">
+            <a
+              href={contact.maisonGacha}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 hover:text-ivory"
+            >
               Maison Gacha <ArrowUpRight className="size-3" />
             </a>
           </div>

@@ -6,5 +6,5 @@ export default createMiddleware(routing)
 
 export const config = {
   // Skip Payload admin + API, preview routes (/next/*), Next internals and any file with an extension.
-  matcher: ['/((?!admin|api|next/|_next|_vercel|.*\\..*).*)'],
+  matcher: ['/((?!admin|cms|api|next/|_next|_vercel|.*\\..*).*)'],
 }

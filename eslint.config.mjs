@@ -24,12 +24,17 @@ const eslintConfig = [
     },
   },
   {
+    // The admin handles Payload documents of many shapes, typed loosely on purpose.
+    files: ['src/admin/**', 'src/components/manage/**', 'src/app/(manage)/**'],
+    rules: { '@typescript-eslint/no-explicit-any': 'off' },
+  },
+  {
     ignores: [
       '.next/',
       'data/',
       'src/payload-types.ts',
       'src/payload-generated-schema.ts',
-      'src/app/(payload)/admin/importMap.js',
+      'src/app/(payload)/cms/importMap.js',
     ],
   },
 ]
