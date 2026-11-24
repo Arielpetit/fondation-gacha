@@ -3,6 +3,7 @@ import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { en } from '@payloadcms/translations/languages/en'
 import { fr } from '@payloadcms/translations/languages/fr'
 import path from 'path'
@@ -103,7 +104,13 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
+      // Hosted databases (Supabase) need TLS; keep the pool small on serverless functions.
+      ssl: /@(127\.0\.0\.1|localhost)/.test(process.env.DATABASE_URL || '') ? undefined : { rejectUnauthorized: false },
+      max: process.env.VERCEL ? 3 : 10,
     },
+    // Local development pushes schema changes; production uses migrations (`pnpm payload migrate`).
+    push: process.env.NODE_ENV !== 'production',
+    migrationDir: path.resolve(dirname, 'migrations'),
   }),
   sharp,
   // Real emails only when SMTP is configured; otherwise Payload logs them to the console (dev).
@@ -120,6 +127,21 @@ export default buildConfig({
       })
     : undefined,
   plugins: [
+    // Photos live in Supabase Storage (S3-compatible) when configured; otherwise in the local ./media folder.
+    ...(process.env.S3_BUCKET
+      ? [
+          s3Storage({
+            collections: { media: true },
+            bucket: process.env.S3_BUCKET,
+            config: {
+              endpoint: process.env.S3_ENDPOINT,
+              region: process.env.S3_REGION || 'eu-west-1',
+              forcePathStyle: true,
+              credentials: { accessKeyId: process.env.S3_ACCESS_KEY_ID || '', secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '' },
+            },
+          }),
+        ]
+      : []),
     formBuilderPlugin({
       defaultToEmail: process.env.FORMS_TO_EMAIL || 'contact@fondationgacha.org',
       fields: { payment: false, state: false, country: false, upload: false, date: true },
